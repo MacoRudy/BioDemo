@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+{% block Css %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block title %}{{ parent() }} Modification du Producteur{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h1 class="text-center my-4">Modification d'un Producteur</h1>
+
+        {{ form_start(producteurForm) }}
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {{ form_label(producteurForm.nom) }}
+                {{ form_widget(producteurForm.nom, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group col-md-6">
+                {{ form_label(producteurForm.email) }}
+                {{ form_widget(producteurForm.email, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {{ form_label(producteurForm.code) }}
+                {{ form_widget(producteurForm.code, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group col-md-6">
+                {{ form_label(producteurForm.siret) }}
+                {{ form_widget(producteurForm.siret, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(producteurForm.adresse) }}
+            {{ form_widget(producteurForm.adresse, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                {{ form_label(producteurForm.ville) }}
+                {{ form_widget(producteurForm.ville, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+
+            <div class="form-group col-md-4">
+                {{ form_label(producteurForm.codePostal) }}
+                {{ form_widget(producteurForm.codePostal, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+
+            <div class="form-group col-md-3">
+                {{ form_label(producteurForm.telephone) }}
+                {{ form_widget(producteurForm.telephone, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(producteurForm.description) }}
+            {{ form_widget(producteurForm.description, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+
+    <div class="text-center mt-4 px-5">
+        <button type="submit" class="btn btn-success btn-block">Enregistrer</button>
+        <a class="btn btn-primary btn-block" role="button" href="{{ path('detail_producteur', {'id': id}) }}">Annuler</a>
+    </div>
+
+    {{ form_rest(producteurForm) }}
+
+    {{ form_end(producteurForm) }}
+
+
+    </div>
+{% endblock %}

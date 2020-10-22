@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Categorie {% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/categorie.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <a href="{{ path('add_categorie') }}" class="btn btn-success btn-lg btn-block" role="button"
+           aria-pressed="true">Ajouter une Catégorie</a>
+
+        <div class="row justify-content-center">
+            <div class="col-auto">
+
+                <h1 class="text-center my-4">Liste des categories</h1>
+
+                <table class="table text-center table-bordered" style="border-collapse:collapse">
+
+                    <thead>
+                    <tr>
+                        <th class="table-danger" scope="col">Categorie</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody class="table-hover">
+                    {% set catid = "" %}
+                    {% set catnom = "" %}
+                    {% for cat in categorie %}
+                        {% set catid = cat.id %}
+                        {% set catnom = cat.nom|replace({" " : ""}) %}
+                        {% if(cat.catParent == null) %}
+
+                            <tr data-toggle="collapse" data-target="#{{ catnom }}"
+                                class="accordion-toggle">
+                                <td class="table-success">{{ cat.nom }}</td>
+
+                                <td><a href="{{ path('edit_categorie', {'id' : cat.id}) }}">
+                                        <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">
+                                    </a></td>
+
+                                <td>
+                                    <a href="{{ path('delete_categorie', {'id' : cat.id}) }}">
+                                        <img alt="delete" src="{{ asset('images/delete.png') }}" width="20" height="20">
+                                    </a>
+                                </td>
+                            </tr>
+                            {% for catenfant in categorie %}
+                                {% if(catenfant.catParent != null and catenfant.catParent.id == catid) %}
+                                    <tr class="hiddenRow">
+                                        <td class="accordian-body table-warning collapse" id="{{ catnom }}">
+                                            {{ catenfant.nom }}
+                                        </td>
+
+                                        <td class="accordian-body collapse" id="{{ catnom }}">
+                                            <a href="{{ path('edit_categorie', {'id' : catenfant.id}) }}">
+                                                <img alt="edit" src="{{ asset('images/edit.png') }}" width="20"
+                                                     height="20">
+                                            </a>
+                                        </td>
+
+                                        <td class="accordian-body collapse" id="{{ catnom }}">
+                                            <a href="{{ path('delete_categorie', {'id' : catenfant.id}) }}">
+                                                <img alt="delete" src="{{ asset('images/delete.png') }}" width="20"
+                                                     height="20">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

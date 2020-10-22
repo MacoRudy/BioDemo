@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Producteur {% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/liste.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <a href="{{ path('creation_producteur') }}" class="btn btn-success btn-lg btn-block" role="button"
+           aria-pressed="true" >Ajouter un Producteur</a>
+
+        <div class="row justify-content-center">
+            <div class="col-auto">
+
+                <h1 class="text-center my-4">Liste des Producteurs</h1>
+
+                <table class="table text-center table-bordered">
+
+                    <thead>
+                    <tr>
+                        <th class="table-danger" scope="col">Producteur</th>
+                        <th class="table-danger" scope="col">Ville</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody class="table-hover">
+
+                    {% for pro in producteur %}
+                        <tr>
+                            <td><a href="{{ path('detail_producteur', {'id': pro.id}) }}">{{ pro.nom }}</a></td>
+                            <td><a>{{ pro.ville }}</a></td>
+                            <td><a href="{{  path('edit_producteur', {'id' : pro.id}) }}">
+                                    <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">
+                                </a></td>
+                            <td><a href="{{  path('delete_producteur', {'id' : pro.id}) }}">
+                                    <img alt="delete" src="{{ asset('images/delete.png') }}" width="20" height="20">
+                                </a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

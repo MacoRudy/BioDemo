@@ -1,0 +1,23 @@
+td {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.producteur {
+    background-color: #97d2e1;
+}
+
+.catParent {
+    background-color: #888FAA;
+}
+
+.catEnfant {
+    background-color: #EFCEEF;
+}
+
+select {
+    width: 150px;
+}
+ .choix {
+
+ }

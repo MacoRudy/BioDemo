@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block Css %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block title %}{{ parent() }} Modification de dépôt{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h1 class="text-center my-4">Modification d'un dépôt</h1>
+
+        {{ form_start(depotForm) }}
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {{ form_label(depotForm.nom) }}
+                {{ form_widget(depotForm.nom, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group col-md-6">
+                {{ form_label(depotForm.email) }}
+                {{ form_widget(depotForm.email, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(depotForm.adresse) }}
+            {{ form_widget(depotForm.adresse, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                {{ form_label(depotForm.ville) }}
+                {{ form_widget(depotForm.ville, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+
+            <div class="form-group col-md-4">
+                {{ form_label(depotForm.codePostal) }}
+                {{ form_widget(depotForm.codePostal, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+
+            <div class="form-group col-md-3">
+                {{ form_label(depotForm.telephone) }}
+                {{ form_widget(depotForm.telephone, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="text-center mt-4 px-5">
+        <button type="submit" class="btn btn-success btn-block">Enregistrer</button>
+        <a class="btn btn-primary btn-block" role="button" href="{{ path('detail_depot', {'id': id}) }}">Annuler</a>
+    </div>
+
+    {{ form_rest(depotForm) }}
+
+    {{ form_end(depotForm) }}
+
+
+    </div>
+{% endblock %}

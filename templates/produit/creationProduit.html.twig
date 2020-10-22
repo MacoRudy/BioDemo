@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block Css %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block title %}{{ parent() }} Ajout d'un produit{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h1 class="text-center my-4">Ajout d'un Produit</h1>
+
+        {{ form_start(produitForm) }}
+
+        <div class="form-row justify-content-around">
+            <div class="form-group col-md-5">
+                {{ form_label(produitForm.nom) }}
+                {{ form_widget(produitForm.nom, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group col-md-5">
+                {{ form_label(produitForm.producteur) }}
+                {{ form_widget(produitForm.producteur, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+
+        <div class="form-row justify-content-around">
+            <div class="form-group col-md-5">
+                {{ form_label(produitForm.prix) }}
+                {{ form_widget(produitForm.prix, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group col-md-5">
+                {{ form_label(produitForm.categorie) }}
+                {{ form_widget(produitForm.categorie, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(produitForm.description) }}
+            {{ form_widget(produitForm.description, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+
+    <div class="text-center mt-4 px-5">
+        <button type="submit" class="btn btn-success btn-block">Enregistrer</button>
+        <a class="btn btn-primary btn-block" role="button" href="{{ path('produit') }}">Annuler</a>
+    </div>
+
+    {{ form_rest(produitForm) }}
+
+    {{ form_end(produitForm) }}
+
+
+
+{% endblock %}

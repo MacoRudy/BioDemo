@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block Css %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block title %}{{ parent() }} Home{% endblock %}
+
+{% block body %}
+    {% for label, messages in app.flashes(['success', 'warning', 'danger']) %}
+        {% for message in messages %}
+            <p class="alert-{{ label }}">{{ message }}</p>
+        {% endfor %}
+    {% endfor %}
+
+
+
+{% endblock %}

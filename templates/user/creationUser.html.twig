@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+{% block Css %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block title %}{{ parent() }} Création d'un client{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1 class="text-center my-4">Ajout d'un Client</h1>
+
+        <div class="d-flex justify-content-around row">
+
+            <div class="col-sm-8 col-lg-6 card border-0">
+
+                {{ form_start(registrationForm) }}
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.nom) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.nom) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.prenom) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.prenom) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.adresse) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.adresse) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.codePostal) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.codePostal) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.ville) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.ville) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.telephone) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.telephone) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.email) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.email) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.depot) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.depot) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.valide) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.valide) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.plainPassword.first) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.plainPassword.first) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.plainPassword.second) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.plainPassword.second) }}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="text-center mt-2 px-5">
+            <button type="submit" class="btn btn-success btn-block">Enregistrer</button>
+            <a class="btn btn-primary btn-block" role="button" href="{{ path('user') }}">Annuler</a>
+        </div>
+
+        {{ form_rest(registrationForm) }}
+
+        {{ form_end(registrationForm) }}
+
+
+    </div>
+{% endblock %}

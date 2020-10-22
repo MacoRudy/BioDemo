@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Detail du Dépôt {% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/detail.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1 class="text-center my-4">Depot de {{ detail.nom }}</h1>
+
+        <div class="d-flex justify-content-around row">
+
+            <div class="card border-0">
+
+                <div class="form-group row">
+                    <p class="detail">Nom : </p>
+                    <p class="ml-3">  {{ detail.nom }}</p>
+                </div>
+
+                <div class="form-group row">
+                    <p class="detail">Email : </p>
+                    <p class="ml-3">{{ detail.email }}</p>
+
+                </div>
+
+                <div class="form-group row">
+                    <p class="detail">Adresse : </p>
+                    <p class="ml-3">  {{ detail.adresse }}</p>
+                </div>
+
+                <div class="form-group row">
+                    <p class="detail">Code Postal: </p>
+                    <p class="ml-3">  {{ detail.codePostal }}</p>
+                </div>
+
+                <div class="form-group row">
+                    <p class="detail">Ville : </p>
+                    <p class="ml-3">  {{ detail.ville }}</p>
+                </div>
+
+                <div class="form-group row">
+                    <p class="detail">Téléphone : </p>
+                    <p class="ml-3"> {{ detail.telephone }}</p>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="d-flex justify-content-center row mt-4">
+            <a href="{{ path('edit_depot', {'id': detail.id}) }}" class="btn btn-success btn-block" role="button">Modifier le Dépôt</a>
+            <a class="btn btn-primary btn-block" role="button" href="{{ path('depot') }}">Retour</a>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+{% endblock %}

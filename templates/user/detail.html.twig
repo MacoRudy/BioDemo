@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Detail du client{% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/detail.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1 class="text-center my-4">Client : {{ detail.nom }} {{ detail.prenom }}</h1>
+
+        <div class="d-flex justify-content-around row">
+
+            <div class="card border-0">
+
+                <div class="form-group row">
+                    <p class="detail">Nom : </p>
+                    <p class="ml-3">  {{ detail.nom }}</p>
+                </div>
+
+                <div class="form-group row">
+                    <p class="detail">Prénom : </p>
+                    <p class="ml-3">{{ detail.prenom }}</p>
+                </div>
+
+                <div class="form-group row">
+                    <p class="detail">Email : </p>
+                    <p class="ml-3">{{ detail.email }}</p>
+                </div>
+
+                <div class="form-group row">
+                    <p class="detail">Adresse : </p>
+                    <p class="ml-3">  {{ detail.adresse }}</p>
+                </div>
+
+                <div class="form-group row">
+                    <p class="detail">Code Postal: </p>
+                    <p class="ml-3">  {{ detail.codePostal }}</p>
+                </div>
+
+                <div class="form-group row">
+                    <p class="detail">Ville : </p>
+                    <p class="ml-3">  {{ detail.ville }}</p>
+                </div>
+
+                <div class="form-group row">
+                    <p class="detail">Téléphone : </p>
+                    <p class="ml-3"> {{ detail.telephone }}</p>
+                </div>
+
+                <div class="form-group row">
+                    <p class="detail">Dépôt : </p>
+                    {% if detail.depot %}
+                        <a class="ml-3" href="{{ path('detail_depot', {'id': detail.id}) }}"> {{ detail.depot.nom }}</a>
+                    {% else %}
+                        <a class="ml-3"> Non défini </a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex justify-content-center row mt-4">
+            <a href="{{ path('edit_user', {'id': detail.id}) }}" class="btn btn-success btn-block" role="button">Modifier
+                le client</a>
+            <a class="btn btn-primary btn-block" role="button" href="{{ path('user') }}">Retour</a>
+        </div>
+
+
+    </div>
+
+{% endblock %}

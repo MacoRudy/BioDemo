@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Produit {% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/produit.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <a href="{{ path('creation_produit') }}" class="btn btn-success btn-lg btn-block" role="button"
+           aria-pressed="true">Ajouter un Produit</a>
+
+        <div class="row justify-content-center">
+            <div class="col-auto">
+
+                <h1 class="text-center my-4">Liste des Produit</h1>
+
+                {# Declaration des variables #}
+                {% set oldProdId = 0 %}
+                {% set oldCatParentId = 0 %}
+                {% set oldCatId = 0 %}
+
+                <table class="table text-center table-bordered">
+                    <thead>
+                    <tr>
+                        <th>
+                            <form class="form-group" action="{{ path('tri_produit_producteur') }}">
+                                Producteur :
+                                <select name="productor" id="productor">
+                                    <option value="0">Votre Choix</option>
+                                    {% for prod in producteur %}
+                                        <option value="{{ prod.id }}">{{ prod.nom }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button class="choix" type="submit">OK</button>
+                            </form>
+                        </th>
+                        <th>
+                            <form class="form-group" action="{{ path('tri_produit_categorie') }}">
+
+                                Categorie :
+                                <select name="categorie">
+                                    <option selected="0">Votre Choix</option>
+                                    {% for cat in categorie %}
+                                        <option value="{{ cat.id }}">
+                                            {{ cat.nom }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <button class="choix" type="submit">OK</button>
+                            </form>
+                        </th>
+                        <th>
+                            <form class="form-group" action="{{ path('produit_categorie') }}">
+                                <button class="choix" type="submit">Trier par Catégorie</button>
+                            </form>
+                        </th>
+                    </tr>
+
+                    </thead>
+                </table>
+                <table class="table text-center table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="table-danger">Nom</th>
+                        <th class="table-danger">Description</th>
+                        <th class="table-danger">Prix</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody class="table-hover">
+                    {# Boucle sur la liste des produits récupérés #}
+                    {% for pro in produit %}
+
+                        {# Si demande de tri des produits par categorie #}
+                        {% if app.request.get('_route') == 'produit_categorie' %}
+
+                            {% if pro.categorie.catParent.id != oldCatParentId %}
+                                {% set oldCatParentId = pro.categorie.catParent.id %}
+                                {% set oldCatId = 0 %}
+                                {% set oldProdId = 0 %}
+                                <tr>
+                                    <td colspan="3" class="catParent"><a>{{ pro.categorie.catParent.nom }}</a></td>
+                                </tr>
+                            {% endif %}
+
+                            {% if pro.categorie.id != oldCatId %}
+                                {% set oldCatId = pro.categorie.id %}
+                                <tr>
+                                    <td colspan="3" class="catEnfant"><a>{{ pro.categorie.catParent.nom }}
+                                            > {{ pro.categorie.nom }}</a></td>
+                                </tr>
+                            {% endif %}
+
+                            {% if pro.producteur.id != oldProdId %}
+                                {% set oldProdId = pro.producteur.id %}
+                                <tr>
+                                    <td colspan="3" class="producteur"><a>{{ pro.producteur.nom }}</a></td>
+                                </tr>
+                            {% endif %}
+
+                            {# Pour le reste des routes, classment par producteurs #}
+                        {% else %}
+
+                            {# Verification si le produit est du meme producteur que le precedent #}
+                            {% if pro.producteur.id != oldProdId %}
+                                {% set oldProdId = pro.producteur.id %}
+                                {# Reset des variable pour les categories #}
+                                {% set oldCatId = 0 %}
+                                {% set oldCatParentId = 0 %}
+                                <tr>
+                                    <td colspan="3" class="producteur"><a>{{ pro.producteur.nom }}</a></td>
+                                </tr>
+                            {% endif %}
+
+                            {# Verification si le produit a la meme categorie parent que le precedent #}
+                            {% if pro.categorie.catParent.id != oldCatParentId %}
+                                {% set oldCatParentId = pro.categorie.catParent.id %}
+                                <tr>
+                                    <td colspan="3" class="catParent"><a>{{ pro.categorie.catParent.nom }}</a></td>
+                                </tr>
+                            {% endif %}
+
+                            {# Verification si le produit est de la meme categorie que le precedent #}
+                            {% if pro.categorie.id != oldCatId %}
+                                {% set oldCatId = pro.categorie.id %}
+                                <tr>
+                                    <td colspan="3" class="catEnfant"><a>{{ pro.categorie.catParent.nom }}
+                                            > {{ pro.categorie.nom }}</a></td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+
+                        <tr>
+                            <td><a href="{{ path('detail_produit', {'id': pro.id}) }}">{{ pro.nom }}</a></td>
+
+                            <td><a>{{ pro.description }}</a></td>
+                            <td><a>{{ pro.prix }} €</a></td>
+
+                            <td><a href="{{ path('edit_produit', {'id' : pro.id}) }}">
+                                    <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">
+                                </a></td>
+                        </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+{% block Css %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block title %}{{ parent() }} Register{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+
+
+
+    <div class="container">
+
+        <h1 class="text-center content-profil my-5">Enregistrement</h1>
+
+        <div class="d-flex justify-content-around row">
+
+            <div class="col-sm-8 col-lg-6 card border-0">
+
+                {{ form_start(registrationForm) }}
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.nom) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.nom) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.prenom) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.prenom) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.adresse) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.adresse) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.codePostal) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.codePostal) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.ville) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.ville) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.telephone) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.telephone) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.email) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.email) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.depot) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.depot) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.valide) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.valide) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.plainPassword.first) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.plainPassword.first) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ form_label(registrationForm.plainPassword.second) }}
+                    <div class="col-sm-12 col-lg-8">
+                        {{ form_widget(registrationForm.plainPassword.second) }}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+
+        {{ form_rest(registrationForm) }}
+
+        {{ form_end(registrationForm) }}
+
+
+    </div>
+{% endblock %}

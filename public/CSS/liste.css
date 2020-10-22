@@ -1,0 +1,17 @@
+td a {
+    display: block;
+
+    padding: 1em !important;
+    text-decoration: none !important;
+    height: 100%;
+    width: 100%;
+}
+
+tr:hover {
+    background: lightgrey;
+}
+
+td {
+    margin: 0 !important;
+    padding: 0 !important;
+}

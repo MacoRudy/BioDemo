@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Depot {% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/liste.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <a href="{{ path('creation_depot') }}" class="btn btn-success btn-lg btn-block" role="button"
+           aria-pressed="true" >Ajouter un dépôt</a>
+
+        <div class="row justify-content-center">
+            <div class="col-auto">
+
+                <h1 class="text-center my-4">Liste des dépôts</h1>
+
+                <table class="table text-center table-bordered">
+
+                    <thead>
+                    <tr>
+                        <th class="table-danger" scope="col">Nom</th>
+                        <th class="table-danger" scope="col">Ville</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="table-hover">
+
+                    {% for dep in depot %}
+                        <tr>
+                            <td><a href="{{ path('detail_depot', {'id': dep.id}) }}">{{ dep.nom }}</a></td>
+                            <td><a>{{ dep.ville }}</a></td>
+                            <td><a href="{{  path('edit_depot', {'id' : dep.id}) }}">
+                                    <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">
+                                </a></td>
+                            <td><a href="#" data-toggle="modal" data-target="#exampleModal">
+                                    <img alt="delete" src="{{ asset('images/delete.png') }}" width="20" height="20">
+                                </a></td>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Suppression de
+                                                {{ dep.nom }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Confirmer la suppression ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                            <a type="button" class="btn btn-primary" href="{{  path('delete_depot', {'id' : dep.id}) }}">Confirmer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin Modal -->
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
