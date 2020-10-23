@@ -25,9 +25,10 @@ class ProduitRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->select('p')
             ->join('p.categorie', 'c')
-            //->where('c.catParent is not null')
-            ->orderBy('c.catParent', 'ASC')
-            ->orderBy('p.producteur', 'ASC')
+            ->where('c.catParent is not null')
+            ->addOrderBy('p.producteur', 'ASC')
+            ->addOrderBy('p.categorie', 'ASC')
+
             ->getQuery()
             ->getResult();
     }
@@ -38,9 +39,10 @@ class ProduitRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->select('p')
             ->join('p.categorie', 'c')
-            //->where('c.catParent is not null')
-            ->orderBy('p.producteur', 'ASC')
-            ->orderBy('c.catParent', 'ASC')
+            ->where('c.catParent is not null')
+            ->addOrderBy('p.categorie', 'ASC')
+            ->addOrderBy('p.producteur', 'ASC')
+
             ->getQuery()
             ->getResult();
     }

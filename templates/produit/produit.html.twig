@@ -139,10 +139,41 @@
 
                             <td><a>{{ pro.description }}</a></td>
                             <td><a>{{ pro.prix }} €</a></td>
-
+                            {# Bouton d'edition du produit #}
                             <td><a href="{{ path('edit_produit', {'id' : pro.id}) }}">
                                     <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">
                                 </a></td>
+                            {# Bouton suppression + modal de confirmation #}
+                            <td><a href="#" data-toggle="modal" data-target="#modal{{ pro.id }}">
+                                    <img alt="delete" src="{{ asset('images/delete.png') }}" width="20" height="20">
+                                </a></td>
+                            <!-- Modal -->
+                            <div class="modal fade" id="modal{{ pro.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Suppression de
+                                                {{ pro.nom }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Confirmer la suppression ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                Annuler
+                                            </button>
+                                            <a type="button" class="btn btn-primary"
+                                               href="{{ path('delete_produit', {'id' : pro.id}) }}">Confirmer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin Modal -->
+
                         </tr>
 
                     {% endfor %}

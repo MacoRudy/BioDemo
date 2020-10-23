@@ -29,17 +29,18 @@
                     <tbody class="table-hover">
 
                     {% for dep in depot %}
+                        {% set depotNom = dep.nom|replace({" " : ""}) %}
                         <tr>
                             <td><a href="{{ path('detail_depot', {'id': dep.id}) }}">{{ dep.nom }}</a></td>
                             <td><a>{{ dep.ville }}</a></td>
                             <td><a href="{{  path('edit_depot', {'id' : dep.id}) }}">
                                     <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">
                                 </a></td>
-                            <td><a href="#" data-toggle="modal" data-target="#exampleModal">
+                            <td><a href="#" data-toggle="modal" data-target="#modal{{dep.id}}">
                                     <img alt="delete" src="{{ asset('images/delete.png') }}" width="20" height="20">
                                 </a></td>
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="modal{{dep.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">

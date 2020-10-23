@@ -112,6 +112,27 @@ class ProduitController extends AbstractController
     }
 
     /**
+     * @Route ("/produit/delete/{id}", name="delete_produit", requirements={"id":"\d+"})
+     * @param $id
+     * @param EntityManagerInterface $em
+     * @return RedirectResponse|Response
+     */
+    public function delete($id, EntityManagerInterface $em)
+    {
+        $produitRepo = $this->getDoctrine()->getRepository(Produit::class);
+        $produit = $produitRepo->find($id);
+
+        if ($produit != null) {
+            $em->remove($produit);
+            $em->flush();
+        }
+        return $this->redirectToRoute("produit");
+    }
+
+
+
+
+    /**
      * @Route("/produit/tri/producteur", name="tri_produit_producteur")
      * @param Request $request
      * @return RedirectResponse|Response

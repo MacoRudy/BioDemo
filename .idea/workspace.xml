@@ -1,130 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.env.test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/BioDemo.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Symfony_14_10_2020_11_48.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/console" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/phpunit" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/cache.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/dev/debug.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/dev/monolog.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/dev/web_profiler.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/doctrine_migrations.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/mailer.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/notifier.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/prod/deprecations.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/prod/doctrine.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/prod/monolog.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/prod/routing.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/routing.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/sensio_framework_extra.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/test/framework.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/test/monolog.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/test/twig.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/test/validator.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/test/web_profiler.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/translation.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/validator.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/preload.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/routes/annotations.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/routes/dev/framework.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/routes/dev/web_profiler.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/phpunit.xml.dist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/.htaccess" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/CSS/categorie.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/CSS/detail.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/CSS/liste.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/CSS/produit.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/CSS/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/bio.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/delete.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/edit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/script/categorie.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/CategorieController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/CommandeController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/DepotController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/DetailController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/ProducteurController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/ProduitController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataFixtures/LoadUsers.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Categorie.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Commande.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Depot.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Detail.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Producteur.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Produit.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/CategorieFormType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/DepotFormType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/ProducteurFormType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/ProduitFormType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Kernel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/CategorieRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/DepotRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/DetailRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/ProducteurRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/categorie/categorie.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/categorie/creationCategorie.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/categorie/edit.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/commande/commande.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/depot/creationDepot.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/depot/depot.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/depot/detail.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/depot/edit.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/detail/detail.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/home/home.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/producteur/creationProducteur.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/producteur/detail.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/producteur/edit.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/producteur/producteur.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/produit/creationProduit.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/produit/detail.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/produit/edit.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/produit/produit.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/registration/register.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/user/creationUser.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/user/detail.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/user/edit.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/user/user.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/bootstrap.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/translations/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProduitController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProduitController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/categorie/categorie.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/categorie/categorie.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/categorie/creationCategorie.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/categorie/creationCategorie.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/categorie/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/categorie/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/depot/depot.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/depot/depot.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/producteur/producteur.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/producteur/producteur.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/produit/produit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/produit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/user.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/user.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,7 +200,8 @@
       <workItem from="1603092610567" duration="25618000" />
       <workItem from="1603178665330" duration="23167000" />
       <workItem from="1603265805306" duration="23718000" />
-      <workItem from="1603350951567" duration="23913000" />
+      <workItem from="1603350951567" duration="24093000" />
+      <workItem from="1603447417491" duration="7414000" />
     </task>
     <servers />
   </component>
@@ -315,6 +218,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="667" y="163" key="#PHP" timestamp="1602669141884">
