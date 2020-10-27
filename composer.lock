@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0717b4bb24ebb323f3c7b584e07c4373",
+    "content-hash": "b7e1aea5a07fee17d820ff2b6ae7ea02",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -2202,6 +2202,10 @@
                 "annotations",
                 "controllers"
             ],
+            "support": {
+                "issues": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/issues",
+                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v5.6.1"
+            },
             "time": "2020-08-25T19:10:18+00:00"
         },
         {
@@ -2224,6 +2228,10 @@
                 "MIT"
             ],
             "description": "A pack for Apache support in Symfony",
+            "support": {
+                "issues": "https://github.com/symfony/apache-pack/issues",
+                "source": "https://github.com/symfony/apache-pack/tree/master"
+            },
             "time": "2017-12-12T01:46:35+00:00"
         },
         {
@@ -6792,6 +6800,9 @@
                 "debug",
                 "dump"
             ],
+            "support": {
+                "source": "https://github.com/symfony/var-dumper/tree/v5.1.7"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -8129,5 +8140,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

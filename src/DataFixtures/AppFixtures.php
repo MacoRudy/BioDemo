@@ -95,23 +95,58 @@ class AppFixtures extends Fixture
         $this->em->getConnection()->executeUpdate($sqlComplet);
 
 
-        // Producteur
+        // ProducteuR
 
+
+        $user = [];
         $producteur = [];
         for ($i = 0; $i < 20; $i++) {
+
+            $nom = $faker->lastName;
+            $prenom = $faker->firstName;
+            $email = $faker->email;
+            $telephone = $faker->phoneNumber;
+
+            $code = strtoupper($nom);
+            $siret = $faker->isbn10;
+
+            $adresse = $faker->streetAddress;
+            $ville = $faker->city;
+            $codePostal = $faker->randomNumber(5);
+
+            $dateInscription = $faker->dateTime;
+
+            $description = $faker->text(100);
+            $password = $faker->password;
+
+            $user[$i] = new User();
             $producteur[$i] = new Producteur();
-            $nom = $faker->company;
-            $titre = explode(' ', $nom);
+
+
+            $user[$i]->setEmail($email)
+                ->setPassword($password)
+                ->setNom($nom)
+                ->setPrenom($prenom)
+                ->setAdresse($adresse)
+                ->setCodePostal($codePostal)
+                ->setVille($ville)
+                ->setTelephone($telephone)
+                ->setValide(1)
+                ->setRoles(['ROLE_PRODUCTEUR'])
+                ->setDateInscription($dateInscription);
+
             $producteur[$i]->setNom($nom)
-                ->setCode(strtoupper(array_shift($titre)))
-                ->setAdresse($faker->streetAddress)
-                ->setCodePostal($faker->randomNumber(5))
-                ->setVille($faker->city)
-                ->setTelephone($faker->phoneNumber)
-                ->setEmail($faker->email)
-                ->setDescription($faker->text(100))
-                ->setSiret($faker->isbn10);
+                ->setCode($code)
+                ->setAdresse($adresse)
+                ->setCodePostal($codePostal)
+                ->setVille($ville)
+                ->setTelephone($telephone)
+                ->setEmail($email)
+                ->setDescription($description)
+                ->setSiret($siret);
+
             $manager->persist($producteur[$i]);
+            $manager->persist($user[$i]);
         }
         $manager->flush();
 
@@ -129,6 +164,7 @@ class AppFixtures extends Fixture
                 ->setVille($faker->city)
                 ->setTelephone($faker->phoneNumber)
                 ->setValide(1)
+                ->setRoles(['ROLE_USER'])
                 ->setDateInscription($faker->dateTime);
 
 

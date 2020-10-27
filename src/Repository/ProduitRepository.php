@@ -28,7 +28,6 @@ class ProduitRepository extends ServiceEntityRepository
             ->where('c.catParent is not null')
             ->addOrderBy('p.producteur', 'ASC')
             ->addOrderBy('p.categorie', 'ASC')
-
             ->getQuery()
             ->getResult();
     }
@@ -42,7 +41,6 @@ class ProduitRepository extends ServiceEntityRepository
             ->where('c.catParent is not null')
             ->addOrderBy('p.categorie', 'ASC')
             ->addOrderBy('p.producteur', 'ASC')
-
             ->getQuery()
             ->getResult();
     }

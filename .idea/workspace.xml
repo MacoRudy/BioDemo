@@ -16,17 +16,24 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="">
+    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="Modification création Producteur + fixtures + base twig">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProduitController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProduitController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProducteurController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProducteurController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/ProducteurFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ProducteurFormType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/categorie/categorie.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/categorie/categorie.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/categorie/creationCategorie.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/categorie/creationCategorie.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/categorie/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/categorie/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/depot/depot.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/depot/depot.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/producteur/producteur.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/producteur/producteur.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/produit/produit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/produit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/user.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/user.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/producteur/creationProducteur.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/producteur/creationProducteur.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/register.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/creationUser.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/creationUser.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +55,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.2">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/symfony/flex" />
@@ -165,28 +172,32 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/categorie" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../wamp64/www/sortir" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\public\images" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Alpina\PhpstormProjects\BioDemo" />
       <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\templates\categorie" />
       <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\public\images" />
       <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\public\script" />
       <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\templates\produit" />
-      <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\templates\user" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\public\images" />
     </key>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="" />
@@ -202,11 +213,13 @@
       <workItem from="1603265805306" duration="23718000" />
       <workItem from="1603350951567" duration="24093000" />
       <workItem from="1603447417491" duration="7414000" />
+      <workItem from="1603702264168" duration="4328000" />
+      <workItem from="1603803145331" duration="16456000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -220,11 +233,16 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Modification création Producteur + fixtures + base twig" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modification création Producteur + fixtures + base twig" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="667" y="163" key="#PHP" timestamp="1602669141884">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="889" y="219" key="#PHP" timestamp="1603702518737">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="667" y="163" key="#PHP/0.0.1920.1040@0.0.1920.1040" timestamp="1602669141884" />
+    <state x="889" y="219" key="#PHP/2560.350.1920.1040/-1920.350.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1603702518737" />
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602676956476">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -241,14 +259,16 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="445" y="75" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602688950072" />
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603377262917">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="920" y="370" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603812110333">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603377262917" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1602669383779">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="920" y="370" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603812110333" />
+    <state x="987" y="370" key="FileChooserDialogImpl" timestamp="1603723022013">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1602669383779" />
+    <state x="987" y="370" key="FileChooserDialogImpl/2560.0.1920.1040/-1920.350.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1603723022013" />
     <state x="838" y="418" key="Github.ShareDialog" timestamp="1603379488252">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -261,21 +281,32 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="315" y="447" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602688635861" />
-    <state x="461" y="165" key="SettingsEditor" timestamp="1603379425513">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="615" y="222" key="SettingsEditor" timestamp="1603803155430">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603379425513" />
+    <state x="615" y="222" key="SettingsEditor/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603803155430" />
+    <state x="615" y="222" key="SettingsEditor/2560.350.1920.1040/-1920.350.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1603702391421" />
     <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1603379831362">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603379831362" />
+    <state x="2560" y="0" width="1936" height="1127" key="dock-window-1" timestamp="1603810551169">
+      <screen x="2560" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2560" y="0" width="1936" height="1127" key="dock-window-1/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603810551169" />
+    <state x="2560" y="0" width="1936" height="1127" key="dock-window-2" timestamp="1603811765889">
+      <screen x="2560" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2560" y="0" width="1936" height="1127" key="dock-window-2/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603811765889" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1603102822174">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603102822174" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603379410344">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="831" y="303" width="896" height="913" key="search.everywhere.popup" timestamp="1603804013780">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603379410344" />
+    <state x="831" y="303" width="896" height="913" key="search.everywhere.popup/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603804013780" />
   </component>
 </project>

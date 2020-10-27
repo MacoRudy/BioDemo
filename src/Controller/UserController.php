@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Form\UserFormType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -34,15 +34,26 @@ class UserController extends AbstractController
      * @Route("/user/add", name="creation_user")
      * @param Request $request
      * @param EntityManagerInterface $em
+     * @param UserPasswordEncoderInterface $passwordEncoder
      * @return RedirectResponse|Response
      */
-    public function add(Request $request, EntityManagerInterface $em)
+    public function add(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->setRoles(['ROLE_USER']);
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+            $user->setDateInscription(new DateTime('now'));
+            $this->addFlash('success', 'Profil crée avec succès');
 
             $em->persist($user);
             $em->flush();
@@ -75,6 +86,7 @@ class UserController extends AbstractController
      * @param $id
      * @param Request $request
      * @param EntityManagerInterface $em
+     * @param UserPasswordEncoderInterface $passwordEncoder
      * @return RedirectResponse|Response
      */
     public function edit($id, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)

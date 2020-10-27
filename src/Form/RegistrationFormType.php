@@ -102,7 +102,6 @@ class RegistrationFormType extends AbstractType
                     'class' => 'form-control'
                 ],
             ])
-
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 // instead of being set onto the object directly,
@@ -128,6 +127,20 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ]);
+//            ->add('roles', ChoiceType::class, [
+//                'label' => 'Role : ',
+//                'label_attr' => [
+//                    'class' => 'col-sm-12 col-lg-4 col-form-label'
+//                ],
+//                'attr' => [
+//                    'class' => 'form-control'],
+//                'choices' => [
+//                    'ROLE_ADMIN' => 'ROLE_ADMIN',
+//                    'ROLE_USER' => 'ROLE_USER',
+//                    'ROLE_PRODUCTEUR' => 'ROLE_PRODUCTEUR',
+//                ],
+//                'multiple' => true,
+//            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
