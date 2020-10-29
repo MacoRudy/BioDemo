@@ -38,7 +38,7 @@ class Detail
     private $quantite;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
     private $prix;
 
@@ -95,12 +95,14 @@ class Detail
         return $this;
     }
 
-    public function getPrix(): ?float
+    public function getPrix(): ?string
     {
-        return $this->prix;
+        return  $this->prix;
+
+        //  return number_format($this->prix, 2);
     }
 
-    public function setPrix(?float $prix): self
+    public function setPrix(?string $prix): self
     {
         $this->prix = $prix;
 

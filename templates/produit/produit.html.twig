@@ -22,12 +22,12 @@
                 {% set oldCatParentId = 0 %}
                 {% set oldCatId = 0 %}
 
-                <table class="table text-center table-bordered">
+                <table class="table text-center table-borderless">
                     <thead>
                     <tr>
-                        <th>
+                        <th class="formulaire">
                             <form class="form-group" action="{{ path('tri_produit_producteur') }}">
-                                Producteur :
+                                <label for="productor">Producteur :</label>
                                 <select name="productor" id="productor">
                                     <option value="0">Votre Choix</option>
                                     {% for prod in producteur %}
@@ -39,9 +39,8 @@
                         </th>
                         <th>
                             <form class="form-group" action="{{ path('tri_produit_categorie') }}">
-
-                                Categorie :
-                                <select name="categorie">
+                                <label for="categorie">Categorie :</label>
+                                <select name="categorie" id="categorie">
                                     <option selected="0">Votre Choix</option>
                                     {% for cat in categorie %}
                                         <option value="{{ cat.id }}">
@@ -54,7 +53,7 @@
                         </th>
                         <th>
                             <form class="form-group" action="{{ path('produit_categorie') }}">
-                                <button class="choix" type="submit">Trier par Catégorie</button>
+                                <button type="submit">Trier par Catégorie</button>
                             </form>
                         </th>
                     </tr>

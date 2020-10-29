@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block Css %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block title %}{{ parent() }} Ajout d'un detail{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h1 class="text-center my-4">Création d'un detail</h1>
+
+        {{ form_start(detailForm) }}
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {{ form_label(detailForm.commande) }}
+                {{ form_widget(detailForm.commande) }}
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                {{ form_label(detailForm.produit) }}
+                {{ form_widget(detailForm.produit) }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                {{ form_label(detailForm.quantite) }}
+                {{ form_widget(detailForm.quantite, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="text-center mt-4 px-5">
+        <button type="submit" class="btn btn-success btn-block">Enregistrer</button>
+        <a class="btn btn-primary btn-block" role="button" href="{{ path('detail') }}">Annuler</a>
+    </div>
+
+    {{ form_rest(detailForm) }}
+
+    {{ form_end(detailForm) }}
+
+
+
+{% endblock %}

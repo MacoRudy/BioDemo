@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block Css %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block title %}{{ parent() }} Ajout d'une commande{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h1 class="text-center my-4">Création d'une commande</h1>
+
+        {{ form_start(commandeForm) }}
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {{ form_label(commandeForm.user) }}
+                {{ form_widget(commandeForm.user) }}
+            </div>
+            <div class="form-group col-md-6">
+                {{ form_label(commandeForm.depot) }}
+                {{ form_widget(commandeForm.depot) }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                {{ form_label(commandeForm.dateCreation) }}
+                {{ form_widget(commandeForm.dateCreation, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+
+            <div class="form-group col-md-4">
+                {{ form_label(commandeForm.dateLivraison) }}
+                {{ form_widget(commandeForm.dateLivraison, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+
+            <div class="form-group col-md-4">
+                {{ form_label(commandeForm.montant) }}
+                {{ form_widget(commandeForm.montant, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="text-center mt-4 px-5">
+        <button type="submit" class="btn btn-success btn-block">Enregistrer</button>
+        <a class="btn btn-primary btn-block" role="button" href="{{ path('commande') }}">Annuler</a>
+    </div>
+
+    {{ form_rest(commandeForm) }}
+
+    {{ form_end(commandeForm) }}
+
+
+
+{% endblock %}

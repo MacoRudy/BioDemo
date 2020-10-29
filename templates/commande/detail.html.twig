@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Detail de la commande {% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/produit.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+
+        <div class="row justify-content-center">
+            <div class="col-auto">
+
+                <h1 class="text-center my-4">Detail de la commande n°{{ commande.id }}</h1>
+
+                <table class="table text-center table-bordered">
+
+                    <thead>
+                    <tr>
+                        <th class="table-danger" scope="col">Produit</th>
+                        <th class="table-danger" scope="col">Producteur</th>
+                        <th class="table-danger" scope="col">Quantité</th>
+                        <th class="table-danger" scope="col">Prix Unitaire</th>
+                        <th class="table-danger" scope="col">Prix Total</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="table-hover">
+
+                    {% for pro in produit %}
+                        <tr class="catEnfant">
+                            <td>
+                                {{ pro.produit.nom }}
+                            </td>
+                            <td>
+                                {{ pro.producteur.nom }}
+                            </td>
+                            <td>
+                                {{ pro.quantite }}
+                            </td>
+                            <td>
+                                {{ pro.prix }}
+                            </td>
+                            <td>
+                                {{ pro.prix * pro.quantite }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="produit">
+                        <td colspan="4">
+                            <a>Total :</a>
+                        </td>
+                        <td>
+                            {{ commande.montant }}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

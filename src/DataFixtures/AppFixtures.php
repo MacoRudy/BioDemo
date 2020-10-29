@@ -3,7 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\Categorie;
+use App\Entity\Commande;
 use App\Entity\Depot;
+use App\Entity\Detail;
 use App\Entity\Producteur;
 use App\Entity\Produit;
 use App\Entity\User;
@@ -214,7 +216,6 @@ class AppFixtures extends Fixture
         $categorie = $this->mr
             ->getRepository(Categorie::class)
             ->findSousCategorie();
-//        file_put_contents(__DIR__ . '/toto.log', print_r($categorie, true));
 
         $produit = [];
 
@@ -247,5 +248,83 @@ class AppFixtures extends Fixture
             $manager->persist($produit[$i]);
         }
         $manager->flush();
+
+
+        // Commande
+
+        $commande = [];
+
+        for ($i = 0; $i < 10; $i++) {
+            $commande[$i] = new Commande();
+
+            $randomUser = (array)array_rand($user, rand(1, count($user)));
+            foreach ($randomUser as $key => $value) {
+                $commande[$i]->setUser($user[$key]);
+            }
+
+            $randomDepot = (array)array_rand($depot, rand(1, count($depot)));
+            foreach ($randomDepot as $key => $value) {
+                $commande[$i]->setDepot($depot[$key]);
+            }
+
+            $dateCreation = $faker->dateTime('now');
+            $dateLivraison = $faker->dateTimeBetween('now');
+
+            $commande[$i]->setDateCreation($dateCreation)
+                ->setDateLivraison($dateLivraison)
+                ->setSemaine($dateCreation->format("W"))
+                ->setAnnee($dateCreation->format("Y"))
+                ->setMontant(0);
+
+            $manager->persist($commande[$i]);
+        }
+        $manager->flush();
+
+        // details
+
+        $detail = [];
+
+        for ($i = 0; $i < 100; $i++) {
+
+            $detail[$i] = new Detail();
+
+            $randomProduit = (array)array_rand($produit, rand(1, count($produit)));
+            foreach ($randomProduit as $key => $value) {
+                $detail[$i]->setProduit($produit[$key]);
+                $detail[$i]->setPrix($produit[$key]->getPrix());
+                $detail[$i]->setProducteur($produit[$key]->getProducteur());
+            }
+
+            $randomCommande = (array)array_rand($commande, rand(1, count($commande)));
+            foreach ($randomCommande as $key => $value) {
+                $detail[$i]->setCommande($commande[$key]);
+            }
+
+            $detail[$i]->setQuantite($faker->randomDigit);
+            $manager->persist($detail[$i]);
+        }
+        $manager->flush();
+
+        $commandes = $this->em
+            ->getRepository(Commande::class)
+            ->findAll();
+
+
+        // calcul des montant des commandes
+        foreach ($commandes as $item) {
+            $total = 0;
+            $details = $this->em->getRepository(Detail::class)->findBy(['commande'=>$item]);
+            foreach ($details as $detail) {
+                $prix = $detail->getPrix();
+                $quantite = $detail->getQuantite();
+                $total = $total + ($prix * $quantite);
+            }
+            $item->setMontant($total);
+            $manager->persist($item);
+        }
+        $manager->flush();
+
     }
+
+
 }

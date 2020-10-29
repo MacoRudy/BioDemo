@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Detail {% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/liste.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <a href="{{ path('creation_detail') }}" class="btn btn-success btn-lg btn-block" role="button"
+       aria-pressed="true">Ajouter un detail</a>
+</div>
+{% endblock %}

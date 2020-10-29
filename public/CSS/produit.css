@@ -27,3 +27,7 @@ select {
     padding: 2px 10px !important;
 
 }
+
+.formulaire {
+    vertical-align: middle;
+}

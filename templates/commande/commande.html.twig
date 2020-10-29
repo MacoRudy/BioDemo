@@ -1,20 +1,90 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CommandeController!{% endblock %}
+{% block title %}{{ parent() }} Commande {% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/liste.css') }}">
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container-fluid">
+        {% if(app.user.roles == ["ROLE_ADMIN"]) %}
+            <a href="{{ path('creation_commande') }}" class="btn btn-success btn-lg btn-block" role="button"
+               aria-pressed="true">Ajouter une Commande</a>
+        {% endif %}
+        <div class="row justify-content-center">
+            <div class="col-auto">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                <h1 class="text-center my-4">Liste des commandes</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Administrateur/PhpstormProjects/BioDemo/src/Controller/CommandeController.php'|file_link(0) }}">src/Controller/CommandeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Administrateur/PhpstormProjects/BioDemo/templates/commande/categorie.html.twig'|file_link(0) }}">templates/commande/index.html.twig</a></code></li>
-    </ul>
-</div>
+                <table class="table text-center table-bordered">
+
+                    <thead>
+                    <tr>
+                        <th class="table-danger" scope="col">Nom</th>
+                        <th class="table-danger" scope="col">Client</th>
+                        <th class="table-danger" scope="col">Depot</th>
+                        <th class="table-danger" scope="col">Date de création</th>
+                        <th class="table-danger" scope="col">Date de Livraison</th>
+                        <th class="table-danger" scope="col">Montant</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="table-hover">
+
+                    {% for com in commande %}
+                        <tr>
+                            <td><a href="{{ path('detail_commande', {'id': com.id}) }}">{{ com.id }}</a></td>
+                            <td><a>{{ com.user.nom }}</a></td>
+                            <td><a>{{ com.depot.nom }}</a></td>
+                            <td><a>{{ com.dateCreation|date('d-m-Y') }}</a></td>
+                            <td><a>{{ com.dateLivraison|date('d-m-Y') }}</a></td>
+                            <td><a>{{ com.montant }}</a></td>
+
+
+
+
+
+
+{#                            {% if(app.user.roles == ["ROLE_ADMIN"]) %}#}
+{#                                <td><a href="{{ path('edit_commande', {'id' : com.id}) }}">#}
+{#                                        <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">#}
+{#                                    </a></td>#}
+{#                                <td><a href="#" data-toggle="modal" data-target="#modal{{ com.id }}">#}
+{#                                        <img alt="delete" src="{{ asset('images/delete.png') }}" width="20" height="20">#}
+{#                                    </a></td>#}
+{#                                <!-- Modal -->#}
+{#                                <div class="modal fade" id="modal{{ com.id }}" tabindex="-1"#}
+{#                                     aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#                                    <div class="modal-dialog">#}
+{#                                        <div class="modal-content">#}
+{#                                            <div class="modal-header">#}
+{#                                                <h5 class="modal-title" id="exampleModalLabel">Suppression de#}
+{#                                                    {{ com.nom }}</h5>#}
+{#                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                                                    <span aria-hidden="true">&times;</span>#}
+{#                                                </button>#}
+{#                                            </div>#}
+{#                                            <div class="modal-body">#}
+{#                                                Confirmer la suppression ?#}
+{#                                            </div>#}
+{#                                            <div class="modal-footer">#}
+{#                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">#}
+{#                                                    Annuler#}
+{#                                                </button>#}
+{#                                                <a type="button" class="btn btn-primary"#}
+{#                                                   href="{{ path('delete_commande', {'id' : com.id}) }}">Confirmer</a>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <!-- Fin Modal -->#}
+{#                            {%  endif %}#}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
