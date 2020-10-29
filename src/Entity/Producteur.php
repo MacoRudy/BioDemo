@@ -74,6 +74,14 @@ class Producteur
      */
     private $details;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="producteur", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $User;
+
+
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
@@ -258,4 +266,18 @@ class Producteur
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(User $User): self
+    {
+        $this->User = $User;
+
+        return $this;
+    }
+
+
 }

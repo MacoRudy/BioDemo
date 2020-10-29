@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * @Route("/admin")
+ */
 class UserController extends AbstractController
 {
     /**
@@ -45,7 +48,6 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $user->setRoles(['ROLE_USER']);
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
@@ -75,10 +77,16 @@ class UserController extends AbstractController
     {
         $userRepo = $this->getDoctrine()->getRepository(User::class);
         $detail = $userRepo->find($id);
+// si l'utilisateur a modifié est un Producteur
+        if ($detail->getProducteur() != null) {
+            return $this->redirectToRoute('detail_producteur', ['id' => $detail->getId()]);
+        }
 
         return $this->render('user/detail.html.twig', [
             "detail" => $detail
         ]);
+
+
     }
 
     /**
@@ -91,29 +99,46 @@ class UserController extends AbstractController
      */
     public function edit($id, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
     {
+
         $userRepo = $this->getDoctrine()->getRepository(User::class);
         $user = $userRepo->find($id);
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-            $em->persist($user);
-            $em->flush();
+        // si l'utilisateur a modifié est un Producteur
+        if ($user->getProducteur() != null) {
 
-            return $this->redirectToRoute("user");
+            return $this->redirectToRoute('edit_producteur', ['id' => $user->getId()]);
         }
 
-        return $this->render('user/edit.html.twig', [
-                'registrationForm' => $form->createView(),
-                'id' => $id]
-        );
+        // Verification de l'autorisation de modification
+        if ($this->isGranted("ROLE_ADMIN") or ($this->isGranted('ROLE_PRODUCTEUR') and $this->getUser() == $user)) {
+
+            $form = $this->createForm(RegistrationFormType::class, $user);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+                );
+                $em->persist($user);
+                $em->flush();
+                return $this->redirectToRoute("user");
+
+            }
+
+            return $this->render('user/edit.html.twig', [
+                    'registrationForm' => $form->createView(),
+                    'id' => $id]
+            );
+            // si l'utilisateur a modifier a un ROLE_USER
+        } else {
+            $this->addFlash("warning", "Vous n'avez pas le droit de modifier cet utilisateur");
+            return $this->redirectToRoute("home");
+        }
     }
+
 
     /**
      * @Route ("/user/delete/{id}", name="delete_user", requirements={"id":"\d+"})
@@ -121,7 +146,8 @@ class UserController extends AbstractController
      * @param EntityManagerInterface $em
      * @return RedirectResponse|Response
      */
-    public function delete($id, EntityManagerInterface $em)
+    public
+    function delete($id, EntityManagerInterface $em)
     {
         $userRepo = $this->getDoctrine()->getRepository(User::class);
         $user = $userRepo->find($id);

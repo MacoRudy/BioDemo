@@ -3,7 +3,7 @@ td {
     padding: 0 !important;
 }
 
-.producteur {
+.produit {
     background-color: #97d2e1;
 }
 
@@ -15,9 +15,15 @@ td {
     background-color: #EFCEEF;
 }
 
+.producteur {
+   font-weight: bold ;
+}
+
 select {
     width: 150px;
 }
- .choix {
 
- }
+.perso {
+    padding: 2px 10px !important;
+
+}

@@ -17,10 +17,23 @@
                 {{ form_widget(producteurForm.nom, { 'attr': {'class': 'form-control'} }) }}
             </div>
             <div class="form-group col-md-6">
+                {{ form_label(producteurForm.prenom) }}
+                {{ form_widget(producteurForm.prenom, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
                 {{ form_label(producteurForm.email) }}
                 {{ form_widget(producteurForm.email, { 'attr': {'class': 'form-control'} }) }}
             </div>
+
+            <div class="form-group col-md-6">
+                {{ form_label(producteurForm.telephone) }}
+                {{ form_widget(producteurForm.telephone, { 'attr': {'class': 'form-control'} }) }}
+            </div>
         </div>
+
 
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -39,19 +52,14 @@
         </div>
 
         <div class="form-row">
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-6">
                 {{ form_label(producteurForm.ville) }}
                 {{ form_widget(producteurForm.ville, { 'attr': {'class': 'form-control'} }) }}
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
                 {{ form_label(producteurForm.codePostal) }}
                 {{ form_widget(producteurForm.codePostal, { 'attr': {'class': 'form-control'} }) }}
-            </div>
-
-            <div class="form-group col-md-3">
-                {{ form_label(producteurForm.telephone) }}
-                {{ form_widget(producteurForm.telephone, { 'attr': {'class': 'form-control'} }) }}
             </div>
         </div>
 
@@ -59,6 +67,19 @@
             {{ form_label(producteurForm.description) }}
             {{ form_widget(producteurForm.description, { 'attr': {'class': 'form-control'} }) }}
         </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {{ form_label(producteurForm.plainPassword.first) }}
+                {{ form_widget(producteurForm.plainPassword.first, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group col-md-6">
+                {{ form_label(producteurForm.plainPassword.second) }}
+                {{ form_widget(producteurForm.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+
     </div>
 
 
@@ -72,5 +93,4 @@
     {{ form_end(producteurForm) }}
 
 
-    </div>
 {% endblock %}

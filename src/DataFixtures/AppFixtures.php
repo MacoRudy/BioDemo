@@ -135,6 +135,9 @@ class AppFixtures extends Fixture
                 ->setRoles(['ROLE_PRODUCTEUR'])
                 ->setDateInscription($dateInscription);
 
+            $manager->persist($user[$i]);
+
+
             $producteur[$i]->setNom($nom)
                 ->setCode($code)
                 ->setAdresse($adresse)
@@ -143,10 +146,11 @@ class AppFixtures extends Fixture
                 ->setTelephone($telephone)
                 ->setEmail($email)
                 ->setDescription($description)
-                ->setSiret($siret);
+                ->setSiret($siret)
+                ->setUser($user[$i]);
 
             $manager->persist($producteur[$i]);
-            $manager->persist($user[$i]);
+
         }
         $manager->flush();
 

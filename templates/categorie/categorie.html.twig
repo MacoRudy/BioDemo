@@ -8,10 +8,10 @@
 
 {% block body %}
     <div class="container-fluid">
-
-        <a href="{{ path('add_categorie') }}" class="btn btn-success btn-lg btn-block" role="button"
-           aria-pressed="true">Ajouter une Catégorie</a>
-
+        {% if(app.user.roles == ["ROLE_ADMIN"]) %}
+            <a href="{{ path('add_categorie') }}" class="btn btn-success btn-lg btn-block" role="button"
+               aria-pressed="true">Ajouter une Catégorie</a>
+        {% endif %}
         <div class="row justify-content-center">
             <div class="col-auto">
 
@@ -38,37 +38,46 @@
                                 class="accordion-toggle">
                                 <td class="table-success">{{ cat.nom }}</td>
 
-                                <td><a href="{{ path('edit_categorie', {'id' : cat.id}) }}">
-                                        <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">
-                                    </a></td>
+                                {% if(app.user.roles == ["ROLE_ADMIN"]) %}
 
-                                <td>
-                                    <a href="#" data-toggle="modal" data-target="#modal{{cat.id}}">
-                                        <img alt="delete" src="{{ asset('images/delete.png') }}" width="20" height="20">
-                                    </a>
-                                </td>
-                                <!-- Modal -->
-                                <div class="modal fade" id="modal{{cat.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Suppression de
-                                                    {{ cat.nom }}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Confirmer la suppression ?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                                <a type="button" class="btn btn-primary" href="{{  path('delete_categorie', {'id' : cat.id}) }}">Confirmer</a>
+                                    <td><a href="{{ path('edit_categorie', {'id' : cat.id}) }}">
+                                            <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">
+                                        </a></td>
+
+                                    <td>
+                                        <a href="#" data-toggle="modal" data-target="#modal{{ cat.id }}">
+                                            <img alt="delete" src="{{ asset('images/delete.png') }}" width="20"
+                                                 height="20">
+                                        </a>
+                                    </td>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modal{{ cat.id }}" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Suppression de
+                                                        {{ cat.nom }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Confirmer la suppression ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Annuler
+                                                    </button>
+                                                    <a type="button" class="btn btn-primary"
+                                                       href="{{ path('delete_categorie', {'id' : cat.id}) }}">Confirmer</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Fin Modal -->
+                                    <!-- Fin Modal -->
+                                {% endif %}
                             </tr>
                             {% for catenfant in categorie %}
                                 {% if(catenfant.catParent != null and catenfant.catParent.id == catid) %}
@@ -76,20 +85,21 @@
                                         <td class="accordian-body table-warning collapse" id="{{ catnom }}">
                                             {{ catenfant.nom }}
                                         </td>
+                                        {% if(app.user.roles == ["ROLE_ADMIN"]) %}
+                                            <td class="accordian-body collapse" id="{{ catnom }}">
+                                                <a href="{{ path('edit_categorie', {'id' : catenfant.id}) }}">
+                                                    <img alt="edit" src="{{ asset('images/edit.png') }}" width="20"
+                                                         height="20">
+                                                </a>
+                                            </td>
 
-                                        <td class="accordian-body collapse" id="{{ catnom }}">
-                                            <a href="{{ path('edit_categorie', {'id' : catenfant.id}) }}">
-                                                <img alt="edit" src="{{ asset('images/edit.png') }}" width="20"
-                                                     height="20">
-                                            </a>
-                                        </td>
-
-                                        <td class="accordian-body collapse" id="{{ catnom }}">
-                                            <a href="{{ path('delete_categorie', {'id' : catenfant.id}) }}">
-                                                <img alt="delete" src="{{ asset('images/delete.png') }}" width="20"
-                                                     height="20">
-                                            </a>
-                                        </td>
+                                            <td class="accordian-body collapse" id="{{ catnom }}">
+                                                <a href="{{ path('delete_categorie', {'id' : catenfant.id}) }}">
+                                                    <img alt="delete" src="{{ asset('images/delete.png') }}" width="20"
+                                                         height="20">
+                                                </a>
+                                            </td>
+                                        {% endif %}
                                     </tr>
                                 {% endif %}
 

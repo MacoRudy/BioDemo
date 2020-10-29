@@ -8,10 +8,10 @@
 
 {% block body %}
     <div class="container-fluid">
-
-        <a href="{{ path('creation_depot') }}" class="btn btn-success btn-lg btn-block" role="button"
-           aria-pressed="true" >Ajouter un dépôt</a>
-
+        {% if(app.user.roles == ["ROLE_ADMIN"]) %}
+            <a href="{{ path('creation_depot') }}" class="btn btn-success btn-lg btn-block" role="button"
+               aria-pressed="true">Ajouter un dépôt</a>
+        {% endif %}
         <div class="row justify-content-center">
             <div class="col-auto">
 
@@ -33,14 +33,16 @@
                         <tr>
                             <td><a href="{{ path('detail_depot', {'id': dep.id}) }}">{{ dep.nom }}</a></td>
                             <td><a>{{ dep.ville }}</a></td>
-                            <td><a href="{{  path('edit_depot', {'id' : dep.id}) }}">
+                            {% if(app.user.roles == ["ROLE_ADMIN"]) %}
+                            <td><a href="{{ path('edit_depot', {'id' : dep.id}) }}">
                                     <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">
                                 </a></td>
-                            <td><a href="#" data-toggle="modal" data-target="#modal{{dep.id}}">
+                            <td><a href="#" data-toggle="modal" data-target="#modal{{ dep.id }}">
                                     <img alt="delete" src="{{ asset('images/delete.png') }}" width="20" height="20">
                                 </a></td>
                             <!-- Modal -->
-                            <div class="modal fade" id="modal{{dep.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="modal{{ dep.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -54,13 +56,17 @@
                                             Confirmer la suppression ?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                            <a type="button" class="btn btn-primary" href="{{  path('delete_depot', {'id' : dep.id}) }}">Confirmer</a>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                Annuler
+                                            </button>
+                                            <a type="button" class="btn btn-primary"
+                                               href="{{ path('delete_depot', {'id' : dep.id}) }}">Confirmer</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Fin Modal -->
+                            {%  endif %}
                         </tr>
                     {% endfor %}
                     </tbody>

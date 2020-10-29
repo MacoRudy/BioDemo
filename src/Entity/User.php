@@ -89,6 +89,11 @@ class User implements UserInterface
      */
     private $commandes;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Producteur::class, mappedBy="User", cascade={"persist", "remove"})
+     */
+    private $producteur;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -128,7 +133,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+//        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -306,6 +311,23 @@ class User implements UserInterface
             if ($commande->getUser() === $this) {
                 $commande->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getProducteur(): ?Producteur
+    {
+        return $this->producteur;
+    }
+
+    public function setProducteur(Producteur $producteur): self
+    {
+        $this->producteur = $producteur;
+
+        // set the owning side of the relation if necessary
+        if ($producteur->getUser() !== $this) {
+            $producteur->setUser($this);
         }
 
         return $this;

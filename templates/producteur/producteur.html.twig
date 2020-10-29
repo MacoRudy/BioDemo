@@ -7,11 +7,12 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
 
+    <div class="container-fluid">
+        {% if(app.user.roles == ["ROLE_ADMIN"]) %}
         <a href="{{ path('creation_producteur') }}" class="btn btn-success btn-lg btn-block" role="button"
            aria-pressed="true" >Ajouter un Producteur</a>
-
+{%  endif %}
         <div class="row justify-content-center">
             <div class="col-auto">
 
@@ -32,16 +33,19 @@
                     {% for pro in producteur %}
                         {% set producteurNom = pro.nom|replace({" " : ""}) %}
                         <tr>
-                            <td><a href="{{ path('detail_producteur', {'id': pro.id}) }}">{{ pro.nom }}</a></td>
+                            <td><a href="{{ path('detail_producteur', {'id': pro.user.id}) }}">{{ pro.nom }}</a></td>
                             <td><a>{{ pro.ville }}</a></td>
-                            <td><a href="{{  path('edit_producteur', {'id' : pro.id}) }}">
+
+                            {% if(app.user.roles == ["ROLE_ADMIN"]) %}
+
+                            <td><a href="{{  path('edit_producteur', {'id' : pro.user.id}) }}">
                                     <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">
                                 </a></td>
-                            <td><a href="#" data-toggle="modal" data-target="#modal{{pro.id}}">
+                            <td><a href="#" data-toggle="modal" data-target="#modal{{pro.user.id}}">
                                     <img alt="delete" src="{{ asset('images/delete.png') }}" width="20" height="20">
                                 </a></td>
                             <!-- Modal -->
-                            <div class="modal fade" id="modal{{pro.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="modal{{pro.user.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -56,12 +60,13 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                            <a type="button" class="btn btn-primary" href="{{  path('delete_producteur', {'id' : pro.id}) }}">Confirmer</a>
+                                            <a type="button" class="btn btn-primary" href="{{  path('delete_producteur', {'id' : pro.user.id}) }}">Confirmer</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Fin Modal -->
+                            {%  endif %}
                         </tr>
                     {% endfor %}
                     </tbody>

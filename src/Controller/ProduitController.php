@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Categorie;
 use App\Entity\Producteur;
 use App\Entity\Produit;
+use App\Entity\User;
 use App\Form\ProduitFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/admin")
+ */
 class ProduitController extends AbstractController
 {
     /**
@@ -130,8 +134,6 @@ class ProduitController extends AbstractController
     }
 
 
-
-
     /**
      * @Route("/produit/tri/producteur", name="tri_produit_producteur")
      * @param Request $request
@@ -214,21 +216,35 @@ class ProduitController extends AbstractController
     public function trierParCategorie()
     {
 
-            $producteur = $this->getDoctrine()
-                ->getRepository(Producteur::class)
-                ->findAll();
+        $producteur = $this->getDoctrine()
+            ->getRepository(Producteur::class)
+            ->findAll();
 
-            $categorie = $this->getDoctrine()
-                ->getRepository(Categorie::class)
-                ->findSousCategorie();
+        $categorie = $this->getDoctrine()
+            ->getRepository(Categorie::class)
+            ->findSousCategorie();
 
 
-            $produit = $this->getDoctrine()
-                ->getRepository(Produit::class)
-                ->findProduitByCategorie();
+        $produit = $this->getDoctrine()
+            ->getRepository(Produit::class)
+            ->findProduitByCategorie();
 
         return $this->render('produit/produit.html.twig',
             ['produit' => $produit, 'producteur' => $producteur, 'categorie' => $categorie]
+        );
+    }
+
+    /**
+     * @Route("/produit/vosproduits", name="vos_produits")
+     * @return RedirectResponse|Response
+     */
+    public function vosProduits()
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $this->getUser()->getUsername()]);
+        $produit = $this->getDoctrine()->getRepository(Produit::class)->findBy(['producteur' => $user->getProducteur()]);
+
+        return $this->render('produit/vosProduits.html.twig',
+            ['produit' => $produit]
         );
     }
 

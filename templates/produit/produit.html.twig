@@ -67,6 +67,7 @@
                         <th class="table-danger">Nom</th>
                         <th class="table-danger">Description</th>
                         <th class="table-danger">Prix</th>
+                        <th colspan="2" class="table-danger">Actions</th>
 
                     </tr>
                     </thead>
@@ -83,14 +84,14 @@
                                 {% set oldCatId = 0 %}
                                 {% set oldProdId = 0 %}
                                 <tr>
-                                    <td colspan="3" class="catParent"><a>{{ pro.categorie.catParent.nom }}</a></td>
+                                    <td colspan="5" class="catParent"><a>{{ pro.categorie.catParent.nom }}</a></td>
                                 </tr>
                             {% endif %}
 
                             {% if pro.categorie.id != oldCatId %}
                                 {% set oldCatId = pro.categorie.id %}
                                 <tr>
-                                    <td colspan="3" class="catEnfant"><a>{{ pro.categorie.catParent.nom }}
+                                    <td colspan="5" class="catEnfant"><a>{{ pro.categorie.catParent.nom }}
                                             > {{ pro.categorie.nom }}</a></td>
                                 </tr>
                             {% endif %}
@@ -98,7 +99,8 @@
                             {% if pro.producteur.id != oldProdId %}
                                 {% set oldProdId = pro.producteur.id %}
                                 <tr>
-                                    <td colspan="3" class="producteur"><a>{{ pro.producteur.nom }}</a></td>
+                                    <td class="producteur"><a> Producteur </a></td>
+                                    <td colspan="2" class="producteur"><a>{{ pro.producteur.nom }}</a></td>
                                 </tr>
                             {% endif %}
 
@@ -112,68 +114,76 @@
                                 {% set oldCatId = 0 %}
                                 {% set oldCatParentId = 0 %}
                                 <tr>
-                                    <td colspan="3" class="producteur"><a>{{ pro.producteur.nom }}</a></td>
+                                    <td class="producteur"><a> Producteur </a></td>
+                                    <td colspan="2" class="producteur"><a>{{ pro.producteur.nom }}</a></td>
                                 </tr>
                             {% endif %}
 
                             {# Verification si le produit a la meme categorie parent que le precedent #}
                             {% if pro.categorie.catParent.id != oldCatParentId %}
                                 {% set oldCatParentId = pro.categorie.catParent.id %}
-                                <tr>
-                                    <td colspan="3" class="catParent"><a>{{ pro.categorie.catParent.nom }}</a></td>
+                                <tr class="catParent">
+                                    <td colspan="5"><a>{{ pro.categorie.catParent.nom }}</a></td>
                                 </tr>
                             {% endif %}
 
                             {# Verification si le produit est de la meme categorie que le precedent #}
                             {% if pro.categorie.id != oldCatId %}
                                 {% set oldCatId = pro.categorie.id %}
-                                <tr>
-                                    <td colspan="3" class="catEnfant"><a>{{ pro.categorie.catParent.nom }}
+                                <tr class="catEnfant">
+                                    <td colspan="5"><a>{{ pro.categorie.catParent.nom }}
                                             > {{ pro.categorie.nom }}</a></td>
                                 </tr>
                             {% endif %}
                         {% endif %}
 
-                        <tr>
+                        <tr class="produit">
                             <td><a href="{{ path('detail_produit', {'id': pro.id}) }}">{{ pro.nom }}</a></td>
 
                             <td><a>{{ pro.description }}</a></td>
                             <td><a>{{ pro.prix }} €</a></td>
-                            {# Bouton d'edition du produit #}
-                            <td><a href="{{ path('edit_produit', {'id' : pro.id}) }}">
-                                    <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">
-                                </a></td>
-                            {# Bouton suppression + modal de confirmation #}
-                            <td><a href="#" data-toggle="modal" data-target="#modal{{ pro.id }}">
-                                    <img alt="delete" src="{{ asset('images/delete.png') }}" width="20" height="20">
-                                </a></td>
-                            <!-- Modal -->
-                            <div class="modal fade" id="modal{{ pro.id }}" tabindex="-1"
-                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Suppression de
-                                                {{ pro.nom }}</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Confirmer la suppression ?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                Annuler
-                                            </button>
-                                            <a type="button" class="btn btn-primary"
-                                               href="{{ path('delete_produit', {'id' : pro.id}) }}">Confirmer</a>
+
+                            {% if(app.user.roles == ["ROLE_ADMIN"] or app.user.producteur == pro.producteur) %}
+
+                                {# Bouton d'edition du produit #}
+                                <td><a href="{{ path('edit_produit', {'id' : pro.id}) }}">
+                                        <img alt="edit" src="{{ asset('images/edit.png') }}" width="20" height="20">
+                                    </a></td>
+                                {# Bouton suppression + modal de confirmation #}
+                                <td><a href="#" data-toggle="modal" data-target="#modal{{ pro.id }}">
+                                        <img alt="delete" src="{{ asset('images/delete.png') }}" width="20" height="20">
+                                    </a></td>
+                                <!-- Modal -->
+                                <div class="modal fade" id="modal{{ pro.id }}" tabindex="-1"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Suppression de
+                                                    {{ pro.nom }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Confirmer la suppression ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Annuler
+                                                </button>
+                                                <a type="button" class="btn btn-primary"
+                                                   href="{{ path('delete_produit', {'id' : pro.id}) }}">Confirmer</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Fin Modal -->
-
+                                <!-- Fin Modal -->
+                            {% else %}
+                                <td><a></a></td>
+                                <td><a></a></td>
+                            {% endif %}
                         </tr>
 
                     {% endfor %}
