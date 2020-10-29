@@ -49,7 +49,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{ path('categorie') }}">Categorie</a>
                         <a class="dropdown-item" href="{{ path('produit') }}">Produit</a>
-                        {% if(app.user.roles == ["ROLE_PRODUCTEUR"]) %}
+                        {% if(app.user and app.user.roles == ["ROLE_PRODUCTEUR"]) %}
                             <a class="dropdown-item" href="{{ path('vos_produits') }}">Vos Produits</a>
                         {% endif %}
                     </div>

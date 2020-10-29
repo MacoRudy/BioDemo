@@ -25,7 +25,7 @@ class UserController extends AbstractController
     {
         $user = $this->getDoctrine()
             ->getRepository(User::class)
-            ->findAll();
+            ->findBy([],['nom'=> 'ASC']);
 
 
         return $this->render('user/user.html.twig',
@@ -59,7 +59,7 @@ class UserController extends AbstractController
 
             $em->persist($user);
             $em->flush();
-
+            $this->addFlash("success", "Utilisateur ajouté avec succès");
             return $this->redirectToRoute("user");
         }
 
@@ -124,6 +124,8 @@ class UserController extends AbstractController
                 );
                 $em->persist($user);
                 $em->flush();
+                $this->addFlash("success", "Utilisateur modifié avec succès");
+
                 return $this->redirectToRoute("user");
 
             }

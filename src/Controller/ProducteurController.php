@@ -71,6 +71,7 @@ class ProducteurController extends AbstractController
                 $producteur->setUser($user);
                 $em->persist($producteur);
                 $em->flush();
+                $this->addFlash('success', 'Producteur ajouté avec succès');
 
                 return $this->redirectToRoute("producteur");
             }

@@ -10,7 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+/**
+ * @Route("/admin")
+ */
 class RegistrationController extends AbstractController
 {
     /**
@@ -36,11 +38,11 @@ class RegistrationController extends AbstractController
             );
             $user->setDateInscription(new DateTime('now'));
             $user->setRoles(['ROLE_ADMIN']);
-            $this->addFlash('success', 'Profil crée avec succès');
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Profil crée avec succès');
             return $this->redirectToRoute('app_login');
         }
 

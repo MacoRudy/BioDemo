@@ -61,7 +61,7 @@
         </div>
 
         <div class="d-flex justify-content-center row mt-4">
-            {% if(app.user == detail.user) %}
+            {% if(app.user.roles == ["ROLE_ADMIN"] or app.user == detail.user) %}
             <a href="{{ path('edit_producteur', {'id': detail.user.id}) }}" class="btn btn-success btn-block" role="button">Modifier le Producteur</a>
             {% endif %}
             <a class="btn btn-primary btn-block" role="button" href="{{ path('producteur') }}">Retour</a>

@@ -51,6 +51,7 @@ class DepotController extends AbstractController
 
             $em->persist($depot);
             $em->flush();
+            $this->addFlash('success', 'Dépôt ajouté avec succès');
 
             return $this->redirectToRoute("depot");
         }
@@ -93,7 +94,7 @@ class DepotController extends AbstractController
 
             $em->persist($depot);
             $em->flush();
-
+            $this->addFlash('success', 'Dépôt mis à jour avec succès');
             return $this->redirectToRoute("depot");
         }
 
@@ -118,6 +119,8 @@ class DepotController extends AbstractController
             $em->remove($depot);
             $em->flush();
         }
+        $this->addFlash('success', 'Dépôt supprimé avec succès');
+
         return $this->redirectToRoute("depot");
     }
 }

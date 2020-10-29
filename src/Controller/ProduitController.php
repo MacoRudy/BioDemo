@@ -24,8 +24,6 @@ class ProduitController extends AbstractController
      */
     public function produit()
     {
-
-
         $producteur = $this->getDoctrine()
             ->getRepository(Producteur::class)
             ->findAll();
@@ -37,7 +35,6 @@ class ProduitController extends AbstractController
 
         $produit = $this->getDoctrine()
             ->getRepository(Produit::class)
-//            ->findAll();
             ->findProduitByProducteur();
 
 
@@ -60,10 +57,11 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $produit->setReference("A");
+            $produit->setReference(strtoupper(substr($form->get('nom')->getData(), 0, 3)));
             $em->persist($produit);
             $em->flush();
 
+            $this->addFlash('success', 'Produit crée avec succès');
             return $this->redirectToRoute("produit");
         }
 
@@ -106,6 +104,7 @@ class ProduitController extends AbstractController
             $em->persist($produit);
             $em->flush();
 
+            $this->addFlash('success', 'Produit mis à jour avec succès');
             return $this->redirectToRoute("produit");
         }
 
@@ -129,6 +128,8 @@ class ProduitController extends AbstractController
         if ($produit != null) {
             $em->remove($produit);
             $em->flush();
+            $this->addFlash('success', 'Produit supprimer avec succès');
+
         }
         return $this->redirectToRoute("produit");
     }

@@ -55,6 +55,7 @@ class CategorieController extends AbstractController
             }
             $em->persist($categorie);
             $em->flush();
+            $this->addFlash('success', 'Catégorie ajoutée avec succès');
 
             return $this->redirectToRoute("categorie");
         }
@@ -83,6 +84,7 @@ class CategorieController extends AbstractController
             $em->persist($categorie);
             $em->flush();
 
+            $this->addFlash('success', 'Catégorie mise à jour avec succès');
             return $this->redirectToRoute("categorie");
         }
 
@@ -108,6 +110,8 @@ class CategorieController extends AbstractController
             $em->remove($categorie);
             $em->flush();
         }
+
+        $this->addFlash('success', 'Catégorie supprimée avec succès');
         return $this->redirectToRoute("categorie");
     }
 

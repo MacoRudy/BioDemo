@@ -13,6 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
 use FakerRestaurant\Provider\fr_FR\Restaurant;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 class AppFixtures extends Fixture
@@ -20,11 +21,13 @@ class AppFixtures extends Fixture
 
     private $em;
     private $mr;
+    private $passwordEncoder;
 
-    public function __construct(EntityManagerInterface $em, ManagerRegistry $mr)
+    public function __construct(EntityManagerInterface $em, ManagerRegistry $mr, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->em = $em;
         $this->mr = $mr;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
 
@@ -154,10 +157,35 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
+        // Creation Admin
+        $admin = new User();
+        $admin->setEmail('ralpina@hotmail.com')
+            ->setPassword($this->passwordEncoder->encodePassword($admin, 'azerty'))
+            ->setNom('Macorigh')
+            ->setPrenom('Rudy')
+            ->setAdresse($faker->streetAddress)
+            ->setCodePostal($faker->randomNumber(5))
+            ->setVille($faker->city)
+            ->setTelephone($faker->phoneNumber)
+            ->setValide(1)
+            ->setRoles(['ROLE_ADMIN'])
+            ->setDateInscription($faker->dateTime);
+
+
+        $randomDepot = (array)array_rand($depot, rand(1, count($depot)));
+        foreach ($randomDepot as $key => $value) {
+            $admin->setDepot($depot[$key]);
+        }
+        $manager->persist($admin);
+
+        $manager->flush();
+
 
         // User
         $user = [];
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0;
+             $i < 20;
+             $i++) {
             $user[$i] = new User();
             $user[$i]->setEmail($faker->email)
                 ->setPassword($faker->password)
@@ -176,12 +204,13 @@ class AppFixtures extends Fixture
             foreach ($randomDepot as $key => $value) {
                 $user[$i]->setDepot($depot[$key]);
             }
+
             $manager->persist($user[$i]);
         }
         $manager->flush();
 
 
-        // Produit
+// Produit
         $categorie = $this->mr
             ->getRepository(Categorie::class)
             ->findSousCategorie();
@@ -189,7 +218,7 @@ class AppFixtures extends Fixture
 
         $produit = [];
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $produit[$i] = new Produit();
 
             if ($i % 3 == 0) {
