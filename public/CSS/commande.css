@@ -1,0 +1,11 @@
+td a {
+    display: block;
+
+    padding: 1em !important;
+    text-decoration: none !important;
+}
+
+td {
+    margin: 0 !important;
+    padding: 0 !important;
+}

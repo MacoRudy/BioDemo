@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commande;
 use App\Entity\Detail;
+use App\Entity\User;
 use App\Form\CommandeFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,14 +24,14 @@ class CommandeController extends AbstractController
     {
         $commande = $this->getDoctrine()->getRepository(Commande::class)->findAll();
 
-//        if (!$commande) {
-//            throw $this->createNotFoundException(
-//                'Aucune commande trouvée'
-//            );
-//        }
+        $clients = $this->getDoctrine()->getRepository(User::class)->findClientsAvecCommande();
+
+        $semaines = $this->getDoctrine()->getRepository(Commande::class)->findSemainesAvecCommande();
+
+        $annees = $this->getDoctrine()->getRepository(Commande::class)->findAnneesAvecCommande();
 
         return $this->render('commande/commande.html.twig',
-            ['commande' => $commande]
+            ['commande' => $commande, 'clients' => $clients, 'semaines' => $semaines, 'annees' => $annees]
         );
     }
 
@@ -73,13 +74,96 @@ class CommandeController extends AbstractController
         $commandeRepo = $this->getDoctrine()->getRepository(Commande::class);
         $commande = $commandeRepo->find($id);
 
-        $produit = $this->getDoctrine()->getRepository(Detail::class)->findBy(['commande'=>$commande]);
+        $produit = $this->getDoctrine()->getRepository(Detail::class)->findBy(['commande' => $commande], ['producteur'=>'ASC']);
 
         return $this->render('commande/detail.html.twig', [
             "commande" => $commande,
             "produit" => $produit
         ]);
     }
+
+    /**
+     * @Route("/commande/edit/{id}", name="edit_commande", requirements={"id":"\d+"}))
+     */
+    public function edit()
+    {
+        $commande = $this->getDoctrine()->getRepository(Commande::class)->findAll();
+
+//        if (!$commande) {
+//            throw $this->createNotFoundException(
+//                'Aucune commande trouvée'
+//            );
+//        }
+
+        return $this->render('commande/commande.html.twig',
+            ['commande' => $commande]
+        );
+    }
+
+    /**
+     * @Route("/commande/delete/{id}", name="delete_commande", requirements={"id":"\d+"}))
+     */
+    public function delete()
+    {
+        $commande = $this->getDoctrine()->getRepository(Commande::class)->findAll();
+
+//        if (!$commande) {
+//            throw $this->createNotFoundException(
+//                'Aucune commande trouvée'
+//            );
+//        }
+
+        return $this->render('commande/commande.html.twig',
+            ['commande' => $commande]
+        );
+    }
+
+    /**
+     * @Route("/commande/trier/client", name="trier_client_commande")
+     * @param Request $request
+     * @return Response
+     */
+    public function trierParClient(Request $request)
+    {
+        $id = $request->query->get('client');
+        $userRepo = $this->getDoctrine()->getRepository(User::class);
+        $user = $userRepo->find($id);
+
+
+        $commande = $this->getDoctrine()->getRepository(Commande::class)->findBy(['user' => $user], ['dateCreation'=>'ASC']);
+
+        $clients = $this->getDoctrine()->getRepository(User::class)->findClientsAvecCommande();
+
+        $semaines = $this->getDoctrine()->getRepository(Commande::class)->findSemainesAvecCommande();
+
+        $annees = $this->getDoctrine()->getRepository(Commande::class)->findAnneesAvecCommande();
+
+
+
+        return $this->render('commande/commande.html.twig',
+            ['commande' => $commande, 'clients' => $clients, 'semaines' => $semaines, 'annees' => $annees]
+        );
+    }
+
+    /**
+     * @Route("/commande/trier/semaine", name="trier_semaine_commande")
+     */
+    public function trierParSemaine()
+    {
+
+
+    }
+
+
+
+    /**
+     * @Route("/commande/trier/annee", name="trier_annee_commande")
+     */
+    public function trierParAnnee()
+    {
+
+    }
+
 
 
 }

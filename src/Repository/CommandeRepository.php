@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Commande;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,6 +19,38 @@ class CommandeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Commande::class);
     }
+
+    public function findSemainesAvecCommande()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.semaine')
+            ->distinct()
+            ->orderBy('c.semaine', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findAnneesAvecCommande()
+    {
+
+        return $this->createQueryBuilder('c')
+            ->select('c.annee')
+            ->distinct()
+            ->orderBy('c.annee', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+
+
+
+
+
+
+
+
 
     // /**
     //  * @return Commande[] Returns an array of Commande objects

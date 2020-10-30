@@ -267,7 +267,7 @@ class AppFixtures extends Fixture
                 $commande[$i]->setDepot($depot[$key]);
             }
 
-            $dateCreation = $faker->dateTime('now');
+            $dateCreation = $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now');
             $dateLivraison = $faker->dateTimeBetween('now');
 
             $commande[$i]->setDateCreation($dateCreation)
@@ -300,7 +300,7 @@ class AppFixtures extends Fixture
                 $detail[$i]->setCommande($commande[$key]);
             }
 
-            $detail[$i]->setQuantite($faker->randomDigit);
+            $detail[$i]->setQuantite($faker->randomDigitNot(0));
             $manager->persist($detail[$i]);
         }
         $manager->flush();

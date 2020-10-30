@@ -22,10 +22,11 @@
                 {% set oldCatParentId = 0 %}
                 {% set oldCatId = 0 %}
 
+{#                Filtres                                                               #}
                 <table class="table text-center table-borderless">
                     <thead>
                     <tr>
-                        <th class="formulaire">
+                        <th>
                             <form class="form-group" action="{{ path('tri_produit_producteur') }}">
                                 <label for="productor">Producteur :</label>
                                 <select name="productor" id="productor">
@@ -57,9 +58,11 @@
                             </form>
                         </th>
                     </tr>
-
                     </thead>
                 </table>
+
+
+{#                 Liste des Produits                                                       #}
                 <table class="table text-center table-bordered">
                     <thead>
                     <tr>
