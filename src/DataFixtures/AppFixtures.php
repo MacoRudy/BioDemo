@@ -254,7 +254,7 @@ class AppFixtures extends Fixture
 
         $commande = [];
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $commande[$i] = new Commande();
 
             $randomUser = (array)array_rand($user, rand(1, count($user)));
@@ -268,7 +268,7 @@ class AppFixtures extends Fixture
             }
 
             $dateCreation = $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now');
-            $dateLivraison = $faker->dateTimeBetween('now');
+            $dateLivraison = $faker->dateTimeBetween('now', '+1year');
 
             $commande[$i]->setDateCreation($dateCreation)
                 ->setDateLivraison($dateLivraison)
@@ -284,7 +284,7 @@ class AppFixtures extends Fixture
 
         $detail = [];
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 200; $i++) {
 
             $detail[$i] = new Detail();
 
