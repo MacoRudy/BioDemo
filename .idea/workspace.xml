@@ -16,22 +16,8 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="Création des commandes et details, fixture completes">
-      <change afterPath="$PROJECT_DIR$/public/CSS/commande.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/BioDemo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BioDemo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="Ajout des select et requetes pour le tri des commandes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/CSS/produit.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/CSS/produit.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CommandeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CommandeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/commande/commande.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/commande/commande.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/commande/detail.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/commande/detail.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/produit/produit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/produit/produit.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +205,7 @@
       <workItem from="1603803145331" duration="17239000" />
       <workItem from="1603873635747" duration="25311000" />
       <workItem from="1603960120812" duration="41076000" />
-      <workItem from="1604048755890" duration="16560000" />
+      <workItem from="1604048755890" duration="17742000" />
     </task>
     <task id="LOCAL-00001" summary="Modification création Producteur + fixtures + base twig">
       <created>1603821345000</created>
@@ -249,7 +235,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604008856040</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Ajout des select et requetes pour le tri des commandes">
+      <created>1604066181173</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1604066181173</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,7 +277,8 @@
     <MESSAGE value="Ajout User dans Producteur, modification des producteurs, mise en place des autorisations en fonction des roles, etc.." />
     <MESSAGE value="Ajout admin dans fixture, messages flash dans controller" />
     <MESSAGE value="Création des commandes et details, fixture completes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Création des commandes et details, fixture completes" />
+    <MESSAGE value="Ajout des select et requetes pour le tri des commandes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout des select et requetes pour le tri des commandes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="906" y="378" key="#Inspections" timestamp="1603981892518">
@@ -341,11 +335,11 @@
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603379425513" />
     <state x="615" y="222" key="SettingsEditor/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603803155430" />
     <state x="615" y="222" key="SettingsEditor/2560.350.1920.1040/-1920.350.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1603702391421" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1604008864863">
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1604066183988">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603379831362" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604008864863" />
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604066183988" />
     <state x="1089" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603892788742">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
