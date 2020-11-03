@@ -27,6 +27,7 @@
                         <th class="table-danger" scope="col">Nom</th>
                         <th class="table-danger" scope="col">Prénom</th>
                         <th class="table-danger" scope="col">Ville</th>
+                        <th class="table-danger" scope="col">Rôle</th>
                         <th class="table-danger" scope="col">Commande</th>
 
                     </tr>
@@ -40,6 +41,14 @@
                             <td><a href="{{ path('detail_user', {'id': item.id}) }}">{{ item.nom }}</a></td>
                             <td><a>{{ item.prenom }}</a></td>
                             <td><a>{{ item.ville }}</a></td>
+                            <td><a>{% if item.roles == ["ROLE_ADMIN"]%}
+                                        Admin
+                                    {% elseif item.roles == ["ROLE_PRODUCTEUR"]%}
+                                        Producteur
+                                    {% elseif item.roles == ["ROLE_USER"]%}
+                                        Client
+                                    {% endif %}
+                                </a></td>
                             <td><a>{{ item.commandes.count }}</a></td>
 
                             {% if(app.user.roles == ["ROLE_ADMIN"]) %}

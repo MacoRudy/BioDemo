@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Commande;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -27,8 +26,7 @@ class CommandeRepository extends ServiceEntityRepository
             ->distinct()
             ->orderBy('c.semaine', 'ASC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     public function findAnneesAvecCommande()
@@ -39,45 +37,50 @@ class CommandeRepository extends ServiceEntityRepository
             ->distinct()
             ->orderBy('c.annee', 'ASC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
+    }
+
+    public function findCommandesAvecDepot()
+    {
+
+        $qb = $this->createQueryBuilder('c')
+            ->join('c.depot', 'd')
+            ->addSelect('d')
+            ->Join('c.user', 'u')
+            ->addSelect('u')
+            ->orderBy('u.nom', 'ASC');
+        return $qb->getQuery()->getResult();
+
     }
 
 
+    public function findAnneesDesCommandesSelonClient($user)
+    {
 
+        return $this->createQueryBuilder('c')
+            ->select('c.annee')
+            ->distinct()
+            ->where('c.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('c.annee', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
-
-
-
-
-
-
-    // /**
-    //  * @return Commande[] Returns an array of Commande objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findSemaineDesCommandesSelonClientEtAnnee($user, $annee)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('c.semaine')
+            ->distinct()
+            ->andWhere('c.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere('c.annee = :annee')
+            ->setParameter('annee', $annee)
+            ->orderBy('c.semaine', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+            ->getResult();
 
-    /*
-    public function findOneBySomeField($value): ?Commande
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
     }
-    */
+
+
 }

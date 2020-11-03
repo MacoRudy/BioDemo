@@ -26,7 +26,7 @@ class ProducteurController extends AbstractController
     {
         $producteur = $this->getDoctrine()
             ->getRepository(Producteur::class)
-            ->findAll();
+            ->findBy([],['nom'=>'ASC']);
 
         return $this->render('producteur/producteur.html.twig',
             ['producteur' => $producteur]

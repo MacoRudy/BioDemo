@@ -16,11 +16,26 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="ajout /vendor">
-      <change afterPath="$PROJECT_DIR$/templates/commande/edit.html.twig" afterDir="false" />
+    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="Tri commande fonctionnel">
+      <change afterPath="$PROJECT_DIR$/public/CSS/bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/CSS/bootstrap.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/JS/bootstrap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/JS/commande.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/JS/jquery-3.5.1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/CSS/commande.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/CSS/commande.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/CommandeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CommandeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DepotController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DepotController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProducteurController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProducteurController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/commande/commande.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/commande/commande.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/user.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/user.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +49,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -174,15 +189,17 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Alpina\PhpstormProjects\BioDemo\public\CSS" />
+      <recent name="C:\Users\Alpina\PhpstormProjects\BioDemo\public\JS" />
+      <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\public\images" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Alpina\PhpstormProjects\BioDemo" />
       <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\templates\categorie" />
       <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\public\images" />
       <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\public\script" />
       <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\templates\produit" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Administrateur\PhpstormProjects\BioDemo\public\images" />
     </key>
   </component>
   <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
@@ -208,7 +225,9 @@
       <workItem from="1603803145331" duration="17239000" />
       <workItem from="1603873635747" duration="25311000" />
       <workItem from="1603960120812" duration="41076000" />
-      <workItem from="1604048755890" duration="20180000" />
+      <workItem from="1604048755890" duration="21400000" />
+      <workItem from="1604303800818" duration="25229000" />
+      <workItem from="1604390918651" duration="21755000" />
     </task>
     <task id="LOCAL-00001" summary="Modification création Producteur + fixtures + base twig">
       <created>1603821345000</created>
@@ -259,7 +278,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604068337015</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Tri commande fonctionnel">
+      <created>1604069998951</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1604069998951</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,7 +323,8 @@
     <MESSAGE value="Ajout des select et requetes pour le tri des commandes" />
     <MESSAGE value="Modif gitignore" />
     <MESSAGE value="ajout /vendor" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajout /vendor" />
+    <MESSAGE value="Tri commande fonctionnel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tri commande fonctionnel" />
   </component>
   <component name="WindowStateProjectService">
     <state x="906" y="378" key="#Inspections" timestamp="1603981892518">
@@ -309,6 +336,10 @@
     </state>
     <state x="667" y="163" key="#PHP/0.0.1920.1040@0.0.1920.1040" timestamp="1602669141884" />
     <state x="889" y="219" key="#PHP/2560.350.1920.1040/-1920.350.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1603702518737" />
+    <state x="656" y="541" key="#SQL_Dialects" timestamp="1604308371032">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="656" y="541" key="#SQL_Dialects/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604308371032" />
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602676956476">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -354,20 +385,20 @@
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603379425513" />
     <state x="615" y="222" key="SettingsEditor/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603803155430" />
     <state x="615" y="222" key="SettingsEditor/2560.350.1920.1040/-1920.350.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1603702391421" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1604068358261">
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1604070031026">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603379831362" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604068358261" />
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604070031026" />
     <state x="1089" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603892788742">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1089" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1603892788742" />
-    <state x="2560" y="342" width="1936" height="958" key="dock-window-1" timestamp="1604061850534">
-      <screen x="2560" y="342" width="1920" height="1040" />
+    <state x="1273" y="0" width="1294" height="1407" key="dock-window-1" timestamp="1604394290143">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="2560" y="0" width="1936" height="1127" key="dock-window-1/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603810551169" />
-    <state x="2560" y="342" width="1936" height="958" key="dock-window-1/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604061850534" />
+    <state x="1273" y="0" width="1294" height="1407" key="dock-window-1/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604394290143" />
     <state x="2560" y="342" width="1936" height="958" key="dock-window-2" timestamp="1604063449991">
       <screen x="2560" y="342" width="1920" height="1040" />
     </state>

@@ -22,7 +22,7 @@ class DepotController extends AbstractController
     {
         $depot = $this->getDoctrine()
             ->getRepository(Depot::class)
-            ->findAll();
+            ->findBy([],['nom'=>'ASC']);
 
         if (!$depot) {
             throw $this->createNotFoundException(

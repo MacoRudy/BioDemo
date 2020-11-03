@@ -184,12 +184,12 @@ class AppFixtures extends Fixture
 
 
         // User
-        $user = [];
+        $userX = [];
         for ($i = 0;
              $i < 20;
              $i++) {
-            $user[$i] = new User();
-            $user[$i]->setEmail($faker->email)
+            $userX[$i] = new User();
+            $userX[$i]->setEmail($faker->email)
                 ->setPassword($faker->password)
                 ->setNom($faker->lastName)
                 ->setPrenom($faker->firstName)
@@ -204,10 +204,10 @@ class AppFixtures extends Fixture
 
             $randomDepot = (array)array_rand($depot, rand(1, count($depot)));
             foreach ($randomDepot as $key => $value) {
-                $user[$i]->setDepot($depot[$key]);
+                $userX[$i]->setDepot($depot[$key]);
             }
 
-            $manager->persist($user[$i]);
+            $manager->persist($userX[$i]);
         }
         $manager->flush();
 
@@ -254,12 +254,12 @@ class AppFixtures extends Fixture
 
         $commande = [];
 
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $commande[$i] = new Commande();
 
-            $randomUser = (array)array_rand($user, rand(1, count($user)));
+            $randomUser = (array)array_rand($userX, rand(1, count($userX)));
             foreach ($randomUser as $key => $value) {
-                $commande[$i]->setUser($user[$key]);
+                $commande[$i]->setUser($userX[$key]);
             }
 
             $randomDepot = (array)array_rand($depot, rand(1, count($depot)));
@@ -284,7 +284,7 @@ class AppFixtures extends Fixture
 
         $detail = [];
 
-        for ($i = 0; $i < 200; $i++) {
+        for ($i = 0; $i < 500; $i++) {
 
             $detail[$i] = new Detail();
 

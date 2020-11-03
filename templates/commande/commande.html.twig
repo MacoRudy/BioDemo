@@ -7,6 +7,8 @@
 {% endblock %}
 
 {% block body %}
+
+
     <div class="container-fluid">
         {% if(app.user.roles == ["ROLE_ADMIN"]) %}
             <a href="{{ path('creation_commande') }}" class="btn btn-success btn-lg btn-block" role="button"
@@ -18,11 +20,58 @@
 
                 <h1 class="text-center my-4">Liste des commandes</h1>
                 {#                Filtres                           #}
-                <table class="table text-center table-borderless">
-                    <thead>
-                    <tr>
-                        <th>
-                            <form class="form-group" action="{{ path('trier_client_commande') }}">
+                {#                <table class="table text-center table-borderless">#}
+                {#                    <thead>#}
+                {#                    <tr>#}
+                {#                        <th>#}
+                {#                            <form class="form-group" action="{{ path('trier_client_commande') }}">#}
+                {#                                <label for="client">Client :</label>#}
+                {#                                <select name="client" id="client">#}
+                {#                                    <option value="0">Votre Choix</option>#}
+                {#                                    {% for client in clients %}#}
+                {#                                        <option value="{{ client.id }}">{{ client.nom }}</option>#}
+                {#                                    {% endfor %}#}
+                {#                                </select>#}
+                {#                                <button class="choix" type="submit">OK</button>#}
+                {#                            </form>#}
+                {#                        </th>#}
+                {#                        <th>#}
+                {#                            <form class="form-group" action="{{ path('trier_annee_commande') }}">#}
+                {#                                <label for="annee">Année :</label>#}
+                {#                                <select name="annee" id="annee">#}
+                {#                                    <option value="0">Votre Choix</option>#}
+                {#                                    {% for annee in annees %}#}
+                {#                                        <option value="{{ annee.annee }}">#}
+                {#                                            {{ annee.annee }}#}
+                {#                                        </option>#}
+                {#                                    {% endfor %}#}
+                {#                                </select>#}
+                {#                                <button class="choix" type="submit">OK</button>#}
+                {#                            </form>#}
+                {#                        </th>#}
+                {#                        <th>#}
+                {#                            <form class="form-group" action="{{ path('trier_semaine_commande') }}">#}
+                {#                                <label for="semaine">Semaine :</label>#}
+                {#                                <select name="semaine" id="semaine">#}
+                {#                                    <option value="0">Votre Choix</option>#}
+                {#                                    {% for semaine in semaines %}#}
+                {#                                        <option value="{{ semaine.semaine }}">#}
+                {#                                            {{  semaine.semaine }}#}
+                {#                                        </option>#}
+                {#                                    {% endfor %}#}
+                {#                                </select>#}
+                {#                                <button class="choix" type="submit">OK</button>#}
+                {#                            </form>#}
+                {#                        </th>#}
+                {#                    </tr>#}
+                {#                    </thead>#}
+                {#                </table>#}
+                <form class="form-group" action="">
+
+                    <table class="table text-center table-borderless">
+                        <thead>
+                        <tr>
+                            <th>
                                 <label for="client">Client :</label>
                                 <select name="client" id="client">
                                     <option value="0">Votre Choix</option>
@@ -30,47 +79,39 @@
                                         <option value="{{ client.id }}">{{ client.nom }}</option>
                                     {% endfor %}
                                 </select>
-                                <button class="choix" type="submit">OK</button>
-                            </form>
-                        </th>
-                        <th>
-                            <form class="form-group" action="{{ path('trier_annee_commande') }}">
+                            </th>
+                            <th>
                                 <label for="annee">Année :</label>
                                 <select name="annee" id="annee">
-                                    <option selected="0">Votre Choix</option>
+                                    <option value="0">Votre Choix</option>
                                     {% for annee in annees %}
                                         <option value="{{ annee.annee }}">
                                             {{ annee.annee }}
                                         </option>
                                     {% endfor %}
                                 </select>
-                                <button class="choix" type="submit">OK</button>
-                            </form>
-                        </th>
-                        <th>
-                            <form class="form-group" action="{{ path('trier_semaine_commande') }}">
+                            </th>
+                            <th class="select_semaine">
                                 <label for="semaine">Semaine :</label>
                                 <select name="semaine" id="semaine">
-                                    <option selected="0">Votre Choix</option>
+                                    <option value="0">Votre Choix</option>
                                     {% for semaine in semaines %}
                                         <option value="{{ semaine.semaine }}">
-                                            {{  semaine.semaine }}
+                                            {{ semaine.semaine }}
                                         </option>
                                     {% endfor %}
                                 </select>
-                                <button class="choix" type="submit">OK</button>
-                            </form>
-                        </th>
-                    </tr>
-                    </thead>
-                </table>
+                            </th>
 
-
-{#                Liste des commandes                                               #}
+                        </tr>
+                        </thead>
+                    </table>
+                </form>
+                {#                Liste des commandes                                               #}
                 <table class="table text-center table-bordered">
                     <thead>
                     <tr>
-                        <th class="table-danger" scope="col">Nom</th>
+                        <th class="table-danger" scope="col">#</th>
                         <th class="table-danger" scope="col">Client</th>
                         <th class="table-danger" scope="col">Depot</th>
                         <th class="table-danger" scope="col">Date de création</th>
@@ -79,10 +120,10 @@
                     </tr>
                     </thead>
 
-                    <tbody class="table-hover">
+                    <tbody class="table-hover tbody">
 
                     {% for com in commande %}
-                        <tr>
+                        <tr class="commande{{ com.user.id }} annee{{ com.annee }} semaine{{ com.semaine }}">
                             <td><a href="{{ path('detail_commande', {'id': com.id}) }}">{{ com.id }}</a></td>
                             <td><a>{{ com.user.nom }}</a></td>
                             <td><a>{{ com.depot.nom }}</a></td>
@@ -132,4 +173,162 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {#    <script src="{{ asset('JS/commande.js') }}"></script>#}
+    <script>
+
+        ajaxIdClientAnnees();
+        ajaxAnneeIdClients();
+        ajaxAnneeSemaines();
+        ajaxSemaines();
+
+        function ajaxIdClientAnnees() {
+
+// Attente du chargemetn complet de la page
+            $(document).ready(function () {
+
+
+                $(".select_semaine").css("visibility", "hidden");
+
+// Verifie le changement du select de clients
+                $('#client').on('change', function () {
+                    // les 2 méthodes sont valables
+                    // let client = $('#client option:selected')
+
+// recupere la valeur de l'id du client selectionné
+                    let client = $(this).find('option:selected');
+                    let idClient = client.val();
+
+
+// envoi au controleur la valeur de l'id pour recuperer la liste des années
+                    $.ajax({
+                        url: '{{ path('tri_global_commande') }}',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: 'idClient=' + idClient,
+                        async: true,
+                        error: function (xhr, textStatus, errorThrown) {
+                            alert('Ajax request failed.');
+                        }
+                    })
+
+                        // Une fois que le controleur a renvoyé la requete en BDD pour avoir la liste des années ou le client a fait une commande
+                        .done(function (response) {
+                            console.log('idclient = ' + idClient);
+
+                            // si Votre Choix selectionné, on remet les valeurs par defaut
+                            if (idClient == 0) {
+                                $('.tbody').children().show();
+                            } else {
+
+// j'affiche les commandes au cas ou elle soit deja cahchées et je cache celles qui ne sont pas de l'utilisateur
+                                $('.commande' + idClient).show();
+                                $('tbody > tr:not(.commande' + idClient + ')').hide();
+                            }
+
+// On supprime les option du select des années et on remet celle de base valant 0
+                            let selAnnee = $('#annee');
+                            selAnnee.find('option').remove();
+                            selAnnee.append('<option value="0">Votre Choix</option>');
+
+// on remplit le select avec les années fournies dans la response du controleur
+                            for (let i = 0; i < response.length; i++) {
+                                let opt = document.createElement('option');
+                                opt.value = response[i]['annee'];
+                                let name = document.createTextNode(response[i]['annee']);
+                                opt.appendChild(name);
+                                selAnnee.append(opt);
+                            }
+                        });
+                })
+            })
+        }
+
+        function ajaxAnneeIdClients() {
+
+        }
+
+        function ajaxAnneeSemaines() {
+
+            $('#annee').on('change', function () {
+                let annee = $(this).find('option:selected').val();
+                let idClient = $('#client option:selected').val();
+
+                console.log(annee, idClient);
+
+                $.ajax({
+                    url: '{{ path('tri_global_annee_commande') }}',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {annee: annee, idClient: idClient},
+                    async: true,
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert('Ajax request failed.');
+                    }
+                })
+
+                    // Une fois que le controleur a renvoyé la requete en BDD pour avoir la liste des années ou le client a fait une commande
+                    .done(function (response) {
+
+                        // si Votre Choix selectionné, on remet les valeurs par defaut
+                        if (annee == 0) {
+                            $('.select_semaine').css("visibility", "hidden");
+                            $('.commande' + idClient).show();
+                            $('tbody > tr:not(.commande' + idClient + ')').hide();
+                        } else {
+                            $('.annee' + annee).show();
+                            $('tbody > tr:not(.commande' + idClient + ')').hide();
+                            $('tbody > tr:not(.annee' + annee + ')').hide();
+                            $(".select_semaine").css("visibility", "visible");
+                        }
+
+// On supprime les option du select des années et on remet celle de base valant 0
+                        let selSemaine = $('#semaine');
+                        selSemaine.find('option').remove();
+                        selSemaine.append('<option value="0">Votre Choix</option>');
+
+// on remplit le select avec les années fournies dans la response du controleur
+                        for (let i = 0; i < response.length; i++) {
+                            let opt = document.createElement('option');
+                            opt.value = response[i]['semaine'];
+                            let name = document.createTextNode(response[i]['semaine']);
+                            opt.appendChild(name);
+                            selSemaine.append(opt);
+
+                        }
+                    })
+            })
+        }
+
+        function ajaxSemaines() {
+
+            $('#semaine').on('change', function () {
+                let semaine = $(this).find('option:selected').val();
+                let annee = $('#annee option:selected').val();
+                let idClient = $('#client option:selected').val();
+
+                console.log(annee, idClient);
+
+                // si Votre Choix selectionné, on remet les valeurs par defaut
+                if (semaine == 0) {
+                    $('.commande' + idClient).show();
+                    $('tbody > tr:not(.commande' + idClient + ')').hide();
+
+                    $('.annee' + annee).show();
+                    $('tbody > tr:not(.annee' + annee + ')').hide();
+                } else {
+                    $('.annee' + annee).show();
+                    $('.semaine' + semaine).show();
+
+                    $('tbody > tr:not(.commande' + idClient + ')').hide();
+                    $('tbody > tr:not(.annee' + annee + ')').hide();
+                    $('tbody > tr:not(.semaine' + semaine + ')').hide();
+                }
+
+            })
+        }
+
+
+    </script>
 {% endblock %}

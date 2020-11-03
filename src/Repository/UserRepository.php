@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\Commande;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,18 +39,26 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findClientsAvecCommande()
     {
 
-        return $this->createQueryBuilder('u')
-            ->select('u')
-            ->join(Commande::class, 'c')
-            ->where('c.user = u')
+        $qb = $this->createQueryBuilder('u')
+            ->join('u.commandes', 'c')
+            ->addSelect('c')
             ->distinct()
-            ->orderBy('c.user', 'ASC')
-            ->getQuery()
-            ->getResult()
-            ;
+            ->orderBy('u.nom', 'ASC');
+        return $qb->getQuery()->getResult();
 
     }
-     // /**
+
+    public function findClientsEtCommandes()
+    {
+
+        $qb = $this->createQueryBuilder('u')
+            ->leftJoin('u.commandes', 'c')
+            ->addSelect('c')
+            ->orderBy('u.nom', 'ASC');
+        return $qb->getQuery()->getResult();
+
+    }
+    // /**
     //  * @return User[] Returns an array of User objects
     //  */
     /*
