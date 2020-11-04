@@ -16,26 +16,12 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="Tri commande fonctionnel">
-      <change afterPath="$PROJECT_DIR$/public/CSS/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/CSS/bootstrap.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/JS/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/JS/commande.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/JS/jquery-3.5.1.js" afterDir="false" />
+    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="Mise en place du tri des commandes en JQuery / AJAX">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/CSS/commande.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/CSS/commande.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/JS/commande.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/CommandeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CommandeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DepotController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DepotController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProducteurController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProducteurController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/commande/commande.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/commande/commande.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/user.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/user.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +213,8 @@
       <workItem from="1603960120812" duration="41076000" />
       <workItem from="1604048755890" duration="21400000" />
       <workItem from="1604303800818" duration="25229000" />
-      <workItem from="1604390918651" duration="21755000" />
+      <workItem from="1604390918651" duration="33709000" />
+      <workItem from="1604476452713" duration="10214000" />
     </task>
     <task id="LOCAL-00001" summary="Modification création Producteur + fixtures + base twig">
       <created>1603821345000</created>
@@ -285,7 +272,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604069998951</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Mise en place du tri des commandes en JQuery / AJAX">
+      <created>1604414562194</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1604414562194</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,7 +318,8 @@
     <MESSAGE value="Modif gitignore" />
     <MESSAGE value="ajout /vendor" />
     <MESSAGE value="Tri commande fonctionnel" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tri commande fonctionnel" />
+    <MESSAGE value="Mise en place du tri des commandes en JQuery / AJAX" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mise en place du tri des commandes en JQuery / AJAX" />
   </component>
   <component name="WindowStateProjectService">
     <state x="906" y="378" key="#Inspections" timestamp="1603981892518">
@@ -385,11 +380,11 @@
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603379425513" />
     <state x="615" y="222" key="SettingsEditor/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603803155430" />
     <state x="615" y="222" key="SettingsEditor/2560.350.1920.1040/-1920.350.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1603702391421" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1604070031026">
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1604414570559">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603379831362" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604070031026" />
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604414570559" />
     <state x="1089" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603892788742">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -408,11 +403,32 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603102822174" />
-    <state x="831" y="303" width="896" height="913" key="search.everywhere.popup" timestamp="1604050446611">
+    <state x="831" y="303" width="896" height="913" key="search.everywhere.popup" timestamp="1604484978014">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603379410344" />
     <state x="831" y="303" width="896" height="913" key="search.everywhere.popup/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603804013780" />
-    <state x="831" y="303" width="896" height="913" key="search.everywhere.popup/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604050446611" />
+    <state x="831" y="303" width="896" height="913" key="search.everywhere.popup/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604484978014" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/templates/commande/commande.html.twig</url>
+          <line>201</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/templates/commande/commande.html.twig</url>
+          <line>250</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/templates/commande/commande.html.twig</url>
+          <line>284</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

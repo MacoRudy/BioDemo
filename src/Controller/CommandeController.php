@@ -28,12 +28,10 @@ class CommandeController extends AbstractController
 
         $clients = $this->getDoctrine()->getRepository(User::class)->findClientsAvecCommande();
 
-        $semaines = $this->getDoctrine()->getRepository(Commande::class)->findSemainesAvecCommande();
-
         $annees = $this->getDoctrine()->getRepository(Commande::class)->findAnneesAvecCommande();
 
         return $this->render('commande/commande.html.twig',
-            ['commande' => $commande, 'clients' => $clients, 'semaines' => $semaines, 'annees' => $annees]
+            ['commande' => $commande, 'clients' => $clients,  'annees' => $annees]
         );
     }
 
@@ -110,95 +108,13 @@ class CommandeController extends AbstractController
         return $this->redirectToRoute("commande");
     }
 
-    /**
-     * @Route("/commande/trier/client", name="trier_client_commande")
-     * @param Request $request
-     * @return Response
-     */
-    public function trierParClient(Request $request)
-    {
-        $id = $request->query->get('client');
-        if ($id == 0) {
-            return $this->redirectToRoute("commande");
-        }
-        $userRepo = $this->getDoctrine()->getRepository(User::class);
-        $user = $userRepo->find($id);
-
-
-        $commande = $this->getDoctrine()->getRepository(Commande::class)->findBy(['user' => $user], ['dateCreation' => 'ASC']);
-
-        $clients = $this->getDoctrine()->getRepository(User::class)->findClientsAvecCommande();
-
-        $semaines = $this->getDoctrine()->getRepository(Commande::class)->findSemainesAvecCommande();
-
-        $annees = $this->getDoctrine()->getRepository(Commande::class)->findAnneesAvecCommande();
-
-
-        return $this->render('commande/commande.html.twig',
-            ['commande' => $commande, 'clients' => $clients, 'semaines' => $semaines, 'annees' => $annees]
-        );
-    }
 
     /**
-     * @Route("/commande/trier/semaine", name="trier_semaine_commande")
-     * @param Request $request
-     * @return Response
-     */
-    public function trierParSemaine(Request $request)
-    {
-
-        $semaine = $request->query->get('semaine');
-        if ($semaine == 0) {
-            return $this->redirectToRoute("commande");
-        }
-        $commande = $this->getDoctrine()->getRepository(Commande::class)->findBy(['semaine' => $semaine], ['dateCreation' => 'ASC']);
-
-        $clients = $this->getDoctrine()->getRepository(User::class)->findClientsAvecCommande();
-
-        $semaines = $this->getDoctrine()->getRepository(Commande::class)->findSemainesAvecCommande();
-
-        $annees = $this->getDoctrine()->getRepository(Commande::class)->findAnneesAvecCommande();
-
-        return $this->render('commande/commande.html.twig',
-            ['commande' => $commande, 'clients' => $clients, 'semaines' => $semaines, 'annees' => $annees]
-        );
-
-    }
-
-
-    /**
-     * @Route("/commande/trier/annee", name="trier_annee_commande")
-     * @param Request $request
-     * @return Response
-     */
-    public function trierParAnnee(Request $request)
-    {
-
-        $annee = $request->query->get('annee');
-        if ($annee == 0) {
-            return $this->redirectToRoute("commande");
-        }
-
-        $commande = $this->getDoctrine()->getRepository(Commande::class)->findBy(['annee' => $annee], ['dateCreation' => 'ASC']);
-
-        $clients = $this->getDoctrine()->getRepository(User::class)->findClientsAvecCommande();
-
-        $semaines = $this->getDoctrine()->getRepository(Commande::class)->findSemainesAvecCommande();
-
-        $annees = $this->getDoctrine()->getRepository(Commande::class)->findAnneesAvecCommande();
-
-        return $this->render('commande/commande.html.twig',
-            ['commande' => $commande, 'clients' => $clients, 'semaines' => $semaines, 'annees' => $annees]
-        );
-    }
-
-
-    /**
-     * @Route("/commande/trier/global", name="tri_global_commande", methods={"POST"})
+     * @Route("/commande/trier/client", name="tri_annee_par_client", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      */
-    public function trierCommandes(Request $request) {
+    public function trierAnneesParClient(Request $request) {
 
 
         $id = $request->get('idClient');
@@ -211,11 +127,11 @@ class CommandeController extends AbstractController
     }
 
     /**
-     * @Route("/commande/trier/global/annee", name="tri_global_annee_commande", methods={"POST"})
+     * @Route("/commande/trier/annee/semaine", name="tri_semaine_par_annee", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      */
-    public function trierCommandesAnnee(Request $request) {
+    public function trierSemainesParAnnee(Request $request) {
 
 
         $id = $request->request->get("idClient");
@@ -226,9 +142,46 @@ class CommandeController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
 
         $semaines = $this->getDoctrine()->getRepository(Commande::class)->findSemaineDesCommandesSelonClientEtAnnee($user, $annee);
+        $annee = $this->getDoctrine()->getRepository(Commande::class)->findAnneesDesCommandesSelonClient($user);
 
-        return new JsonResponse($semaines);
+        $anneeEtSemaines = array_merge($semaines,$annee);
+        return new JsonResponse($anneeEtSemaines);
     }
 
 
+    /**
+     * @Route("/commande/trier/client/semaine", name="tri_semaine_par_client", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function trierSemainesParClient(Request $request) {
+
+
+        $id = $request->request->get("idClient");
+        $annee = $request->request->get('annee');
+
+
+
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+
+        $semaines = $this->getDoctrine()->getRepository(Commande::class)->findSemaineDesCommandesSelonClientEtAnnee($user, $annee);
+        $client =  $this->getDoctrine()->getRepository(User::class)->findClientsAvecCommandeSelonAnnee($annee);
+
+        $clientEtSemaines = array_merge($semaines,$client);
+        return new JsonResponse($clientEtSemaines);
+    }
+
+
+    /**
+     * @Route("/commande/trier/annee", name="tri_client_par_annee", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function trierClientParAnnee(Request $request) {
+        $annee = $request->get('annee');
+
+        $client =  $this->getDoctrine()->getRepository(User::class)->findClientsAvecCommandeSelonAnnee($annee);
+
+        return new JsonResponse($client);
+    }
 }

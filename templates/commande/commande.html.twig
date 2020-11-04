@@ -20,93 +20,40 @@
 
                 <h1 class="text-center my-4">Liste des commandes</h1>
                 {#                Filtres                           #}
-                {#                <table class="table text-center table-borderless">#}
-                {#                    <thead>#}
-                {#                    <tr>#}
-                {#                        <th>#}
-                {#                            <form class="form-group" action="{{ path('trier_client_commande') }}">#}
-                {#                                <label for="client">Client :</label>#}
-                {#                                <select name="client" id="client">#}
-                {#                                    <option value="0">Votre Choix</option>#}
-                {#                                    {% for client in clients %}#}
-                {#                                        <option value="{{ client.id }}">{{ client.nom }}</option>#}
-                {#                                    {% endfor %}#}
-                {#                                </select>#}
-                {#                                <button class="choix" type="submit">OK</button>#}
-                {#                            </form>#}
-                {#                        </th>#}
-                {#                        <th>#}
-                {#                            <form class="form-group" action="{{ path('trier_annee_commande') }}">#}
-                {#                                <label for="annee">Année :</label>#}
-                {#                                <select name="annee" id="annee">#}
-                {#                                    <option value="0">Votre Choix</option>#}
-                {#                                    {% for annee in annees %}#}
-                {#                                        <option value="{{ annee.annee }}">#}
-                {#                                            {{ annee.annee }}#}
-                {#                                        </option>#}
-                {#                                    {% endfor %}#}
-                {#                                </select>#}
-                {#                                <button class="choix" type="submit">OK</button>#}
-                {#                            </form>#}
-                {#                        </th>#}
-                {#                        <th>#}
-                {#                            <form class="form-group" action="{{ path('trier_semaine_commande') }}">#}
-                {#                                <label for="semaine">Semaine :</label>#}
-                {#                                <select name="semaine" id="semaine">#}
-                {#                                    <option value="0">Votre Choix</option>#}
-                {#                                    {% for semaine in semaines %}#}
-                {#                                        <option value="{{ semaine.semaine }}">#}
-                {#                                            {{  semaine.semaine }}#}
-                {#                                        </option>#}
-                {#                                    {% endfor %}#}
-                {#                                </select>#}
-                {#                                <button class="choix" type="submit">OK</button>#}
-                {#                            </form>#}
-                {#                        </th>#}
-                {#                    </tr>#}
-                {#                    </thead>#}
-                {#                </table>#}
-                <form class="form-group" action="">
 
-                    <table class="table text-center table-borderless">
-                        <thead>
-                        <tr>
-                            <th>
-                                <label for="client">Client :</label>
-                                <select name="client" id="client">
-                                    <option value="0">Votre Choix</option>
-                                    {% for client in clients %}
-                                        <option value="{{ client.id }}">{{ client.nom }}</option>
-                                    {% endfor %}
-                                </select>
-                            </th>
-                            <th>
-                                <label for="annee">Année :</label>
-                                <select name="annee" id="annee">
-                                    <option value="0">Votre Choix</option>
-                                    {% for annee in annees %}
-                                        <option value="{{ annee.annee }}">
-                                            {{ annee.annee }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </th>
-                            <th class="select_semaine">
-                                <label for="semaine">Semaine :</label>
-                                <select name="semaine" id="semaine">
-                                    <option value="0">Votre Choix</option>
-                                    {% for semaine in semaines %}
-                                        <option value="{{ semaine.semaine }}">
-                                            {{ semaine.semaine }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </th>
+                <table class="table text-center table-borderless">
+                    <thead>
+                    <tr>
+                        <th>
+                            <label for="client">Client :</label>
+                            <select name="client" id="client">
+                                <option value="0">Votre Choix</option>
+                                {% for client in clients %}
+                                    <option value="{{ client.id }}">{{ client.nom }}</option>
+                                {% endfor %}
+                            </select>
+                        </th>
+                        <th>
+                            <label for="annee">Année :</label>
+                            <select name="annee" id="annee">
+                                <option value="0">Votre Choix</option>
+                                {% for annee in annees %}
+                                    <option value="{{ annee.annee }}">
+                                        {{ annee.annee }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </th>
+                        <th class="select_semaine">
+                            <label for="semaine">Semaine :</label>
+                            <select name="semaine" id="semaine">
+                                <option value="0">Votre Choix</option>
+                            </select>
+                        </th>
 
-                        </tr>
-                        </thead>
-                    </table>
-                </form>
+                    </tr>
+                    </thead>
+                </table>
                 {#                Liste des commandes                                               #}
                 <table class="table text-center table-bordered">
                     <thead>
@@ -175,35 +122,56 @@
     </div>
 {% endblock %}
 {% block javascripts %}
-    {#    <script src="{{ asset('JS/commande.js') }}"></script>#}
     <script>
 
-        ajaxIdClientAnnees();
-        ajaxAnneeIdClients();
-        ajaxAnneeSemaines();
+        //TODO
+        // Check les select suppressione etc
+
+
+        // Attente du chargemetn complet de la page
+        $(document).ready(function () {
+
+            $(".select_semaine").css("visibility", "hidden");
+        })
+
+        ajaxClient();
+        ajaxAnnee();
         ajaxSemaines();
 
-        function ajaxIdClientAnnees() {
+        // Creation des arrays pour les valeurs initiales des années et clients
+        let anneeArray = [];
+        {% for annee in annees %}
+        anneeArray.push({
+            annee: '{{ annee.annee }}'
+        });
+        {% endfor %}
 
-// Attente du chargemetn complet de la page
-            $(document).ready(function () {
+
+        let clientArray = [];
+        {% for client in clients %}
+        clientArray.push({
+            id: '{{ client.id }}',
+            nom: '{{ client.nom }}'
+        });
+        {% endfor %}
 
 
-                $(".select_semaine").css("visibility", "hidden");
+
+        function ajaxClient() {
 
 // Verifie le changement du select de clients
-                $('#client').on('change', function () {
-                    // les 2 méthodes sont valables
-                    // let client = $('#client option:selected')
+            $('#client').on('change', function () {
 
-// recupere la valeur de l'id du client selectionné
-                    let client = $(this).find('option:selected');
-                    let idClient = client.val();
+// recupere la valeur de l'id du client et de l'année selectionnés
+                let idClient = $(this).find('option:selected').val();
+                let annee = $('#annee option:selected').val();
 
+// si le client a été choisi avant l'année
+                if (annee == 0) {
 
 // envoi au controleur la valeur de l'id pour recuperer la liste des années
                     $.ajax({
-                        url: '{{ path('tri_global_commande') }}',
+                        url: '{{ path('tri_annee_par_client') }}',
                         type: 'POST',
                         dataType: 'JSON',
                         data: 'idClient=' + idClient,
@@ -212,93 +180,152 @@
                             alert('Ajax request failed.');
                         }
                     })
-
                         // Une fois que le controleur a renvoyé la requete en BDD pour avoir la liste des années ou le client a fait une commande
                         .done(function (response) {
-                            console.log('idclient = ' + idClient);
 
                             // si Votre Choix selectionné, on remet les valeurs par defaut
                             if (idClient == 0) {
+                                // si client a 0 et annee a 0 , on reaffiche tout
                                 $('.tbody').children().show();
+                                resetSelectClient()
+                                resetSelectAnnee();
                             } else {
-
 // j'affiche les commandes au cas ou elle soit deja cahchées et je cache celles qui ne sont pas de l'utilisateur
                                 $('.commande' + idClient).show();
                                 $('tbody > tr:not(.commande' + idClient + ')').hide();
-                            }
-
-// On supprime les option du select des années et on remet celle de base valant 0
-                            let selAnnee = $('#annee');
-                            selAnnee.find('option').remove();
-                            selAnnee.append('<option value="0">Votre Choix</option>');
-
-// on remplit le select avec les années fournies dans la response du controleur
-                            for (let i = 0; i < response.length; i++) {
-                                let opt = document.createElement('option');
-                                opt.value = response[i]['annee'];
-                                let name = document.createTextNode(response[i]['annee']);
-                                opt.appendChild(name);
-                                selAnnee.append(opt);
+// on n'affiche que les valeurs des années ou le client choisi a des commandes
+                                remplirSelectAnnee(response, annee)
                             }
                         });
-                })
+
+// si une année a été choisie et on change le client
+                } else {
+                    $.ajax({
+                        url: '{{ path('tri_semaine_par_annee') }}',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {annee: annee, idClient: idClient},
+                        async: true,
+                        error: function (xhr, textStatus, errorThrown) {
+                            alert('Ajax request failed.');
+                        }
+
+                    })
+
+                        // Une fois que le controleur a renvoyé la requete en BDD pour avoir la liste des semaines de l'annee ou le client a fait une commande
+                        // merged avec la liste des client de l'année selectionné pour recharger la liste en cas de remise a 0 des clients
+                        .done(function (response) {
+                            // recuperation des liste issues de la reponse
+                            let listeSemaine = [];
+                            let listeAnnee = [];
+                            for (let i = 0; i < response.length; i++) {
+                                if (response[i]['semaine'] != undefined) {
+                                    listeSemaine.push(response[i])
+                                } else {
+                                    listeAnnee.push(response[i])
+                                }
+                            }
+
+                            // si Votre Choix selectionné, on remet les valeurs par defaut
+                            if (idClient == 0) {
+                                $('.select_semaine').css("visibility", "hidden");
+                                $('.tbody').children().show();
+                                $('tbody > tr:not(.annee' + annee + ')').hide();
+                                // si on remet a 0 le client mais qu'une année est selectionné, on rempli les clients en fonction de l'année
+
+                            } else {
+                                $('.tbody').children().show();
+                                $('tbody > tr:not(.annee' + annee + ')').hide();
+                                $('tbody > tr:not(.commande' + idClient + ')').hide();
+                                $(".select_semaine").css("visibility", "visible");
+                                // si on selectionne un client on affiche les années ou il a une commande
+                                remplirSelectAnnee(listeAnnee, annee);
+
+                                remplirSelectSemaine(listeSemaine);
+                            }
+                        })
+                }
             })
         }
 
-        function ajaxAnneeIdClients() {
-
-        }
-
-        function ajaxAnneeSemaines() {
+        function ajaxAnnee() {
 
             $('#annee').on('change', function () {
-                let annee = $(this).find('option:selected').val();
-                let idClient = $('#client option:selected').val();
+                    let annee = $(this).find('option:selected').val();
+                    let idClient = $('#client option:selected').val();
 
-                console.log(annee, idClient);
+// Si on choisi d'abord l'année avant le client
+                    if (idClient == 0) {
+                        $.ajax({
+                            url: '{{ path('tri_client_par_annee') }}',
+                            type: 'POST',
+                            dataType: 'JSON',
+                            data: 'annee=' + annee,
+                            async: true,
+                            error: function (xhr, textStatus, errorThrown) {
+                                alert('Ajax request failed.');
+                            }
 
-                $.ajax({
-                    url: '{{ path('tri_global_annee_commande') }}',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: {annee: annee, idClient: idClient},
-                    async: true,
-                    error: function (xhr, textStatus, errorThrown) {
-                        alert('Ajax request failed.');
+                        })
+                            // Une fois que le controleur a renvoyé la requete en BDD pour avoir la liste des client ayant une commande cette année
+                            .done(function (response) {
+
+                                // si Votre Choix selectionné, on remet les valeurs par defaut
+                                if (annee == 0) {
+                                    $('.tbody').children().show();
+                                    resetSelectClient();
+                                    resetSelectAnnee();
+                                } else {
+                                    $('.annee' + annee).show();
+                                    $('tbody > tr:not(.annee' + annee + ')').hide();
+                                    remplirSelectClient(response, idClient);
+                                }
+
+                            })
+                    } else {
+                        $.ajax({
+                            url: '{{ path('tri_semaine_par_client') }}',
+                            type: 'POST',
+                            dataType: 'JSON',
+                            data: {annee: annee, idClient: idClient},
+                            async: true,
+                            error: function (xhr, textStatus, errorThrown) {
+                                alert('Ajax request failed.');
+                            }
+
+                        })
+
+                            // Une fois que le controleur a renvoyé la requete en BDD pour avoir la liste des semaines de l'annee ou le client a fait une commande
+                            .done(function (response) {
+
+                                let listeSemaine = [];
+                                let listeClient = [];
+                                for (let i = 0; i < response.length; i++) {
+                                    if (response[i]['semaine'] != undefined) {
+                                        listeSemaine.push(response[i])
+                                    } else {
+                                        listeClient.push(response[i])
+                                    }
+                                }
+
+
+                                // si Votre Choix selectionné, on remet les valeurs par defaut
+                                if (annee == 0) {
+                                    $('.select_semaine').css("visibility", "hidden");
+                                    $('.commande' + idClient).show();
+                                    $('tbody > tr:not(.commande' + idClient + ')').hide();
+                                } else {
+                                    $('.annee' + annee).show();
+                                    $('tbody > tr:not(.commande' + idClient + ')').hide();
+                                    $('tbody > tr:not(.annee' + annee + ')').hide();
+                                    $(".select_semaine").css("visibility", "visible");
+                                    remplirSelectSemaine(listeSemaine);
+                                    remplirSelectClient(listeClient, idClient)
+                                }
+                            })
                     }
-                })
-
-                    // Une fois que le controleur a renvoyé la requete en BDD pour avoir la liste des années ou le client a fait une commande
-                    .done(function (response) {
-
-                        // si Votre Choix selectionné, on remet les valeurs par defaut
-                        if (annee == 0) {
-                            $('.select_semaine').css("visibility", "hidden");
-                            $('.commande' + idClient).show();
-                            $('tbody > tr:not(.commande' + idClient + ')').hide();
-                        } else {
-                            $('.annee' + annee).show();
-                            $('tbody > tr:not(.commande' + idClient + ')').hide();
-                            $('tbody > tr:not(.annee' + annee + ')').hide();
-                            $(".select_semaine").css("visibility", "visible");
-                        }
-
-// On supprime les option du select des années et on remet celle de base valant 0
-                        let selSemaine = $('#semaine');
-                        selSemaine.find('option').remove();
-                        selSemaine.append('<option value="0">Votre Choix</option>');
-
-// on remplit le select avec les années fournies dans la response du controleur
-                        for (let i = 0; i < response.length; i++) {
-                            let opt = document.createElement('option');
-                            opt.value = response[i]['semaine'];
-                            let name = document.createTextNode(response[i]['semaine']);
-                            opt.appendChild(name);
-                            selSemaine.append(opt);
-
-                        }
-                    })
-            })
+                }
+            )
         }
 
         function ajaxSemaines() {
@@ -308,25 +335,97 @@
                 let annee = $('#annee option:selected').val();
                 let idClient = $('#client option:selected').val();
 
-                console.log(annee, idClient);
-
                 // si Votre Choix selectionné, on remet les valeurs par defaut
                 if (semaine == 0) {
                     $('.commande' + idClient).show();
-                    $('tbody > tr:not(.commande' + idClient + ')').hide();
-
                     $('.annee' + annee).show();
+                    $('tbody > tr:not(.commande' + idClient + ')').hide();
                     $('tbody > tr:not(.annee' + annee + ')').hide();
                 } else {
                     $('.annee' + annee).show();
                     $('.semaine' + semaine).show();
-
                     $('tbody > tr:not(.commande' + idClient + ')').hide();
                     $('tbody > tr:not(.annee' + annee + ')').hide();
                     $('tbody > tr:not(.semaine' + semaine + ')').hide();
                 }
-
             })
+        }
+
+
+        function remplirSelectSemaine(response) {
+
+            let selSemaine = $('#semaine');
+            selSemaine.find('option').remove();
+            selSemaine.append('<option value="0">Votre Choix</option>');
+            for (let i = 0; i < response.length; i++) {
+                let opt = document.createElement('option');
+                opt.value = response[i]['semaine'];
+                let name = document.createTextNode(response[i]['semaine']);
+                opt.appendChild(name);
+                selSemaine.append(opt);
+            }
+        }
+
+        function remplirSelectAnnee(response, annee) {
+            let selAnnee = $('#annee');
+            selAnnee.find('option').remove();
+            selAnnee.append('<option value="0">Votre Choix</option>');
+            for (let i = 0; i < response.length; i++) {
+                let opt = document.createElement('option');
+                opt.value = response[i]['annee'];
+                if (response[i]['annee'] == annee) {
+                    opt.selected = true;
+                }
+                let name = document.createTextNode(response[i]['annee']);
+                opt.appendChild(name);
+                selAnnee.append(opt);
+
+            }
+        }
+
+        function remplirSelectClient(response, id) {
+            let selClient = $('#client');
+            selClient.find('option').remove();
+            selClient.append('<option value="0">Votre Choix</option>');
+            for (let i = 0; i < response.length; i++) {
+                let opt = document.createElement('option');
+                opt.value = response[i]['id'];
+                if (response[i]['id'] == id) {
+                    opt.selected = true;
+                }
+                let name = document.createTextNode(response[i]['nom']);
+                opt.appendChild(name);
+                selClient.append(opt);
+            }
+        }
+
+
+        function resetSelectAnnee() {
+            let selAnnee = $('#annee');
+            selAnnee.find('option').remove();
+            selAnnee.append('<option value="0">Votre Choix</option>');
+            for (let i = 0; i < anneeArray.length; i++) {
+                let opt = document.createElement('option');
+                opt.value = anneeArray[i].annee;
+                let name = document.createTextNode(anneeArray[i].annee);
+                opt.appendChild(name);
+                selAnnee.append(opt);
+
+            }
+
+        }
+
+        function resetSelectClient() {
+            let selClient = $('#client');
+            selClient.find('option').remove();
+            selClient.append('<option value="0">Votre Choix</option>');
+            for (let i = 0; i < clientArray.length; i++) {
+                let opt = document.createElement('option');
+                opt.value = clientArray[i].id;
+                let name = document.createTextNode(clientArray[i].nom);
+                opt.appendChild(name);
+                selClient.append(opt);
+            }
         }
 
 
