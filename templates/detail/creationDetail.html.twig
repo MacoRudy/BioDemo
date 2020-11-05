@@ -7,29 +7,34 @@
 {% block body %}
     <div class="container">
 
-        <h1 class="text-center my-4">Création d'un detail</h1>
+        <h1 class="text-center my-4">Ajout d'un produit a la commande {{ commande.id }}</h1>
 
         {{ form_start(detailForm) }}
 
         <div class="form-row">
-            <div class="form-group col-md-6">
-                {{ form_label(detailForm.commande) }}
-                {{ form_widget(detailForm.commande) }}
-            </div>
-
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-4">
                 {{ form_label(detailForm.produit) }}
-                {{ form_widget(detailForm.produit) }}
+                {{ form_widget(detailForm.produit, { 'attr': {'class': 'form-control'} }) }}
             </div>
+
+            <div class="form-group col-md-4 offset-md-4">
+                <label for="prix">Prix :</label>
+                <a class="form-control" id="prix"> 0</a>
+            </div>
+
+
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-4">
                 {{ form_label(detailForm.quantite) }}
                 {{ form_widget(detailForm.quantite, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+
+
+            <div class="form-group col-md-4 offset-md-4">
+                <label for="total">Total :</label>
+                <a class="form-control" id="total"> 0</a>
             </div>
         </div>
 
@@ -48,4 +53,63 @@
 
 
 
+{% endblock %}
+{% block javascripts %}
+    <script>
+
+
+        $(document).ready(function () {
+
+            let prix;
+
+            $('#detail_form_produit').on('change', function () {
+
+                let idProduit = $(this).find('option:selected').val();
+                let prixDiv = $('#prix')
+
+
+                $.ajax({
+                    url: '{{ path('detail_prix') }}',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: 'idProduit=' + idProduit,
+                    async: true,
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert('Ajax request failed.');
+                    }
+                })
+                    .done(function (response) {
+                        console.log(idProduit)
+                        if (idProduit) {
+                            prix = response['prix'];
+                            prixDiv.html(prix + ' €');
+                            updateTotal(prix);
+                        } else {
+                            $('#prix').empty();
+                            $('#total').empty();
+                            $('#detail_form_quantite').val(0);
+                        }
+                    })
+            })
+
+            //changement de quantité
+
+            $('#detail_form_quantite').on('change', function () {
+                updateTotal(prix)
+            })
+
+
+        })
+
+        function updateTotal(prix) {
+            let quantite = $('#detail_form_quantite').val();
+            let totalDiv = $('#total')
+            console.log(quantite)
+            if (quantite) {
+                let total = Math.round(quantite * prix * 100) / 100;
+                totalDiv.html(total + ' €')
+            }
+        }
+
+    </script>
 {% endblock %}

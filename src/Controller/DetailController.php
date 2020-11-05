@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
 use App\Entity\Detail;
+use App\Entity\Produit;
 use App\Form\DetailFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,27 +31,38 @@ class DetailController extends AbstractController
 
 
     /**
-     * @Route("/detail/add", name="creation_detail")
+     * @Route("/detail/add/{id}", name="creation_detail", requirements={"id":"\d+"})))
      * @param Request $request
      * @param EntityManagerInterface $em
+     * @param $id
      * @return RedirectResponse|Response
      */
-    public function add(Request $request, EntityManagerInterface $em)
+    public function add(Request $request, EntityManagerInterface $em, $id)
     {
         $detail = new Detail();
+
+        $commande = $this->getDoctrine()->getRepository(Commande::class)->find($id);
         $form = $this->createForm(DetailFormType::class, $detail);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Pour l'ajout au montant de la commande
+            // recuperation du prix et de la quantité a ajouter
             $prix = $form->get('produit')->getData()->getPrix();
             $quantite = $form->get('quantite')->getData();
-            $commande = $detail->getCommande();
+
+            // mise a jour du montant total de la commande
             $commande->setMontant($commande->getMontant() + ($prix * $quantite));
 
             // Ajout des données en recuperant les valeurs du produit ajouté
-            $detail->setPrix($form->get('produit')->getData()->getPrix());
+            $detail->setPrix($prix);
+            $detail->setQuantite($quantite);
+
+            // ajout de la commande
+            $detail->setCommande($commande);
+
+            // Ajout du producteur du produit
             $detail->setProducteur($form->get('produit')->getData()->getProducteur());
 
             // Ajout du detail et mise a jour de la commande correspondante
@@ -58,11 +72,13 @@ class DetailController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Produit ajouté a la commande avec succès');
-            return $this->redirectToRoute("detail");
+            return $this->redirectToRoute("detail_commande", [
+                "id" => $id
+            ]);
         }
 
         return $this->render('detail/creationDetail.html.twig', [
-                'detailForm' => $form->createView()]
+                'detailForm' => $form->createView(), 'commande' => $commande]
         );
     }
 
@@ -75,5 +91,21 @@ class DetailController extends AbstractController
             'controller_name' => 'DetailController',
         ]);
     }
+
+    /**
+     * @Route("/detail/prix", name="detail_prix", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function prix(Request $request)
+    {
+        $idProduit = $request->get('idProduit');
+
+        $prix = $this->getDoctrine()->getRepository(Produit::class)->findPrixDuProduit($idProduit);
+
+        return new JsonResponse($prix);
+
+    }
+
 
 }

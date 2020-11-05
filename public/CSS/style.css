@@ -1,4 +1,16 @@
+/*@media (min-width: 1200px) {*/
+/*    .bg {*/
+/*        background-image: url("../images/bg-site.jpg");*/
+/*        background-attachment: fixed;*/
+/*    }*/
+/*}*/
 
+/*.bg-container {*/
+/*    width: 50%;*/
+/*    height: max-content;*/
+/*    background-color: white;*/
+
+/*}*/
 
 tr:hover {
     background: lightgrey;

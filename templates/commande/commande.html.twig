@@ -124,19 +124,16 @@
 {% block javascripts %}
     <script>
 
-        //TODO
-        // Check les select suppressione etc
-
-
         // Attente du chargemetn complet de la page
         $(document).ready(function () {
 
             $(".select_semaine").css("visibility", "hidden");
+            ajaxClient();
+            ajaxAnnee();
+            ajaxSemaines();
         })
 
-        ajaxClient();
-        ajaxAnnee();
-        ajaxSemaines();
+
 
         // Creation des arrays pour les valeurs initiales des années et clients
         let anneeArray = [];

@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Statistiques {% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/stats.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row justify-content-center mt-5">
+            {#            // premiere table#}
+            <div class="col-3">
+                <table class="table text-center table-borderless">
+                    <thead>
+                    <tr>
+                        <th class="table-danger t" scope="col">Paramètres disponibles</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bodyGauche">
+                    {% for p in param %}
+                    <tr>
+                        <td class={{ p }}>
+                            <button class="buttonParam" onclick="changeTable(this)">{{ p }}</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div class="col-2 selectAnnee">
+                <label for="selAnnee">Année :
+                    <select name="selAnnee" id="selAnnee">
+                        <option value="0">Votre Choix</option>
+                        {% for annee in anneeCommande %}
+                            <option value="{{ annee.annee }}">
+                                {{ annee.annee }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+
+
+            {#            // deuxieme table#}
+            <div class="col-3">
+                <table class="table text-center table-borderless">
+                    <thead>
+                    <tr>
+                        <th class="table-danger" scope="col">Paramètres ajouté</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bodyDroite">
+
+                    </tbody>
+
+                </table>
+            </div>
+
+
+        </div>
+        {#        <button id="test">Test</button>#}
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('.selectAnnee').css("visibility", "hidden");
+        })
+
+        function changeTable(obj) {
+            // en cas de clic sur une case
+            // on supprime la case a gauche
+            let balise = $(obj).parent().parent();
+            let baliseClone = balise.clone();
+
+
+
+            // if ($(obj).parent().hasClass("annees")) {
+            //     cacherSelectAnnee()
+            // }
+
+            if (balise.hasClass('droite')) {
+                if($(obj).parent().hasClass('annees')) {
+                    $('.selectAnnee').css("visibility", "hidden");
+                }
+                balise.remove();
+                $('.bodyGauche').append(baliseClone);
+                baliseClone.removeClass().addClass('gauche')
+            } else {
+                if($(obj).parent().hasClass('annees')) {
+                    $('.selectAnnee').css("visibility", "visible");
+                }
+                balise.remove();
+                baliseClone.removeClass().addClass('droite')
+                $('.bodyDroite').append(baliseClone)
+            }
+        }
+
+        function recupChoix() {
+
+            let liste;
+            $('.bodyDroite').find('button').each(function () {
+                liste.push($(this).text());
+            })
+        }
+
+        $('#test').on('click', function () {
+
+            let liste = [];
+            $('.bodyDroite').find('button').each(function () {
+                liste.push($(this).text());
+            })
+
+            let listeJson = JSON.stringify(liste);
+
+            $.ajax({
+                url: "{{ path('filtre_statistique') }}",
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'JSON',
+                data: listeJson,
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('Ajax request failed.');
+                },
+            })
+                .done(function (response) {
+                    console.log(response)
+                })
+        })
+
+
+        function afficherSelectAnnee() {
+
+            let $selectAnnee = $('.selectAnnee');
+            $selectAnnee.css("visibility", "visible");
+
+
+        }
+
+        function cacherSelectAnnee() {
+
+        }
+    </script>
+{% endblock %}

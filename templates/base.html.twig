@@ -5,6 +5,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('CSS/bootstrap.css') }}">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
     <!-- Css -->
 
     {% block Css %}{% endblock %}
@@ -12,7 +13,7 @@
     <title>{% block title %}Biodemo | {% endblock %}</title>
 
 </head>
-<body>
+<body class="bg">
 
 <div id="page-content-wrapper">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,19 +27,16 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav justify-content-around w-100">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('producteur') }}">Producteur</a>
+                    <a class="nav-link" href="{{ path('producteur') }}">Producteurs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('detail') }}">Details</a>
+                    <a class="nav-link" href="{{ path('depot') }}">Dépôts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('depot') }}">Depot</a>
+                    <a class="nav-link" href="{{ path('commande') }}">Commandes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('commande') }}">Commande</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('user') }}">User</a>
+                    <a class="nav-link" href="{{ path('user') }}">Clients</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -51,6 +49,16 @@
                         {% if(app.user and app.user.roles == ["ROLE_PRODUCTEUR"]) %}
                             <a class="dropdown-item" href="{{ path('vos_produits') }}">Vos Produits</a>
                         {% endif %}
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Statistiques
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ path('statistique') }}">Stats</a>
+                        <a class="dropdown-item" href="{{ path('etat') }}">Etat</a>
                     </div>
                 </li>
                 {% if app.user %}
@@ -75,8 +83,9 @@
             <p class="alert-{{ label }} text-center">{{ message }}</p>
         {% endfor %}
     {% endfor %}
+    <div class="container-fluid bg-container">
     {% block body %}{% endblock %}
-
+    </div>
 </div>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="{{ asset('JS/jquery-3.5.1.js') }}"></script>

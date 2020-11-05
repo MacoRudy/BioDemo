@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Etats {% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/etats.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div>
+            Gestion des états
+        </div>
+
+        <div>
+            <div>
+                Portefeuille des commandes clients
+            </div>
+            <div>
+                <label for="annee1">Année : </label>
+                <select name="annee1" id="annee1">
+                    <option value="0">Votre Choix</option>
+                </select>
+            </div>
+            <div>
+                <label for="semaine1">Année : </label>
+                <select name="semaine1" id="semaine1">
+                    <option value="0">Votre Choix</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
