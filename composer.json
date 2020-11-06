@@ -5,14 +5,18 @@
     "php": ">=7.2.5",
     "ext-ctype": "*",
     "ext-iconv": "*",
+    "ext-json": "*",
     "composer/package-versions-deprecated": "^1.11",
     "doctrine/annotations": "^1.0",
     "doctrine/doctrine-bundle": "^2.1",
     "doctrine/doctrine-migrations-bundle": "^3.0",
     "doctrine/orm": "^2.7",
+    "dompdf/dompdf": "^0.8.6",
+    "friendsofsymfony/jsrouting-bundle": "^2.6",
     "fzaninotto/faker": "^1.9",
     "jzonta/faker-restaurant": "^1.1",
     "phpdocumentor/reflection-docblock": "^5.2",
+    "phpoffice/phpspreadsheet": "^1.15",
     "sensio/framework-extra-bundle": "^5.6",
     "symfony/apache-pack": "^1.0",
     "symfony/asset": "5.1.*",
@@ -43,8 +47,7 @@
     "symfony/yaml": "5.1.*",
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/intl-extra": "^3.1",
-    "twig/twig": "^2.12|^3.0",
-    "ext-json": "*"
+    "twig/twig": "^2.12|^3.0"
   },
   "require-dev": {
     "doctrine/doctrine-fixtures-bundle": "^3.3",

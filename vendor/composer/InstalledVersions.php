@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'ddc04fdeb866a2f450efdceab9cd1b0a18b89117',
+    'reference' => 'a1eb3766686db44ebd9a408616012738d8eda04b',
     'name' => '__root__',
   ),
   'versions' => 
@@ -31,7 +31,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'ddc04fdeb866a2f450efdceab9cd1b0a18b89117',
+      'reference' => 'a1eb3766686db44ebd9a408616012738d8eda04b',
     ),
     'composer/package-versions-deprecated' => 
     array (
@@ -204,6 +204,15 @@ private static $installed = array (
       ),
       'reference' => '56070bebac6e77230ed7d306ad13528e60732871',
     ),
+    'dompdf/dompdf' => 
+    array (
+      'pretty_version' => 'v0.8.6',
+      'version' => '0.8.6.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'db91d81866c69a42dad1d2926f61515a1e3f42c5',
+    ),
     'egulias/email-validator' => 
     array (
       'pretty_version' => '2.1.22',
@@ -212,6 +221,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '68e418ec08fbfc6f58f6fd2eea70ca8efc8cc7d5',
+    ),
+    'friendsofsymfony/jsrouting-bundle' => 
+    array (
+      'pretty_version' => '2.6.0',
+      'version' => '2.6.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9deaf916760ce1d64cf46460473260b02751cee5',
     ),
     'fzaninotto/faker' => 
     array (
@@ -231,6 +249,33 @@ private static $installed = array (
       ),
       'reference' => '50be3ad20a270cb47322514ca8a0eae842495a39',
     ),
+    'maennchen/zipstream-php' => 
+    array (
+      'pretty_version' => '2.1.0',
+      'version' => '2.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'c4c5803cc1f93df3d2448478ef79394a5981cc58',
+    ),
+    'markbaker/complex' => 
+    array (
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9999f1432fae467bc93c53f357105b4c31bb994c',
+    ),
+    'markbaker/matrix' => 
+    array (
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9567d9c4c519fbe40de01dbd1e4469dbbb66f46a',
+    ),
     'monolog/monolog' => 
     array (
       'pretty_version' => '2.1.1',
@@ -239,6 +284,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'f9eee5cec93dfb313a38b6b288741e84e53f02d5',
+    ),
+    'myclabs/php-enum' => 
+    array (
+      'pretty_version' => '1.7.6',
+      'version' => '1.7.6.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5f36467c7a87e20fbdc51e524fd8f9d1de80187c',
     ),
     'nikic/php-parser' => 
     array (
@@ -271,6 +325,24 @@ private static $installed = array (
       array (
         0 => '2.*',
       ),
+    ),
+    'phenx/php-font-lib' => 
+    array (
+      'pretty_version' => '0.5.2',
+      'version' => '0.5.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ca6ad461f032145fff5971b5985e5af9e7fa88d8',
+    ),
+    'phenx/php-svg-lib' => 
+    array (
+      'pretty_version' => 'v0.3.3',
+      'version' => '0.3.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5fa61b65e612ce1ae15f69b3d223cb14ecc60e32',
     ),
     'php-http/async-client-implementation' => 
     array (
@@ -312,6 +384,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0',
+    ),
+    'phpoffice/phpspreadsheet' => 
+    array (
+      'pretty_version' => '1.15.0',
+      'version' => '1.15.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a8e8068b31b8119e1daa5b1eb5715a3a8ea8305f',
     ),
     'psr/cache' => 
     array (
@@ -361,12 +442,39 @@ private static $installed = array (
         0 => '1.0',
       ),
     ),
+    'psr/http-client' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2dfb5f6c5eff0e91e20e913f8c5452ed95b86621',
+    ),
     'psr/http-client-implementation' => 
     array (
       'provided' => 
       array (
         0 => '1.0',
       ),
+    ),
+    'psr/http-factory' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '12ac7fcd07e5b077433f5f2bee95b3a771bf61be',
+    ),
+    'psr/http-message' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f6561bf28d520154e4b0ec72be95418abe6d9363',
     ),
     'psr/link' => 
     array (
@@ -401,12 +509,30 @@ private static $installed = array (
         1 => '1.0',
       ),
     ),
+    'psr/simple-cache' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '408d5eafb83c57f6365a3ca330ff23aa4a5fa39b',
+    ),
     'psr/simple-cache-implementation' => 
     array (
       'provided' => 
       array (
         0 => '1.0',
       ),
+    ),
+    'sabberworm/php-css-parser' => 
+    array (
+      'pretty_version' => '8.3.1',
+      'version' => '8.3.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd217848e1396ef962fb1997cf3e2421acba7f796',
     ),
     'sensio/framework-extra-bundle' => 
     array (
@@ -1123,6 +1249,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'bafc69caeb4d49c39fd0779086c03a3738cbb389',
+    ),
+    'willdurand/jsonp-callback-validator' => 
+    array (
+      'pretty_version' => 'v1.1.0',
+      'version' => '1.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1a7d388bb521959e612ef50c5c7b1691b097e909',
     ),
     'zendframework/zend-code' => 
     array (

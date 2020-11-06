@@ -3,43 +3,136 @@
 {% block title %}{{ parent() }} Etats {% endblock %}
 
 {% block Css %}
-    <link rel="stylesheet" href="{{ asset('CSS/etats.css') }}">
+    <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
 {% endblock %}
 
 {% block body %}
-    <div class="row justify-content-center">
-        <div>
-            Gestion des états
-        </div>
+    <div class="container-fluid">
 
-        <div>
-            <div>
-                Portefeuille des commandes clients
-            </div>
-            <div>
-                <label for="annee1">Année : </label>
-                <select name="annee1" id="annee1">
-                    <option value="0">Votre Choix</option>
-                </select>
-            </div>
-            <div>
-                <label for="semaine1">Année : </label>
-                <select name="semaine1" id="semaine1">
-                    <option value="0">Votre Choix</option>
-                </select>
-            </div>
-        </div>
+        <div class="row text-center">
+            <div class="col">
+                <h1>Titre</h1>
+                {# Commandes par semaine #}
+                <div class="border border-success my-3">
+                    <h5 class="bg-success text-white py-1">Commandes clients</h5>
 
+                    <form method="post" action="{{ path('commande_par_semaine_statistique') }}">
+
+                        <div class="row my-3">
+                            <div class="col">
+                                <label for="annee1">Année : </label>
+                                <select name="annee1" id="annee1">
+                                    <option value="0">Votre Choix</option>
+                                    {% for annee in annees %}
+                                        <option value="{{ annee.annee }}">
+                                            {{ annee.annee }}
+                                        </option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+                            <div class="col select-semaine1">
+                                <label for="semaine1">Semaine : </label>
+                                <select name="semaine1" id="semaine1">
+                                </select>
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn-outline-danger"  name="pdf" value="pdf" id="pdf1">
+                                    PDF
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn-outline-success" name="excel" value="excel" id="excel1">
+                                    Excel
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                {# Resumé #}
+                <div class="border border-success my-3">
+                    <h5>Résumé</h5>
+                    <div class="row">
+                        <div class="col">
+                            selectAnnee
+                        </div>
+                        <div class="col">
+                            selectSemaine
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
 
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+
+
+            $(".select-semaine1").css("visibility", "hidden");
+            $("#pdf1").css("visibility", "hidden");
+            $("#excel1").css("visibility", "hidden");
+
+            $('#annee1').on('change', function () {
+
+                let annee = $(this).find('option:selected').val();
+
+                $.ajax({
+                    url: '{{ path('semaines_statistique') }}',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: 'annee=' + annee,
+                    async: true,
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert('Ajax request failed.');
+                    }
+                })
+                    .done(function (response) {
+                        $(".select-semaine1").css("visibility", "visible");
+                        $("#pdf1").css("visibility", "visible");
+                        $("#excel1").css("visibility", "visible");
+                        remplirSelectSemaine(response)
+                    })
+            })
+        })
+
+        function remplirSelectSemaine(response) {
+
+            let selSemaine = $('#semaine1');
+            selSemaine.find('option').remove();
+            selSemaine.append('<option value="0">Votre Choix</option>');
+            for (let i = 0; i < response.length; i++) {
+                let opt = document.createElement('option');
+                opt.value = response[i]['semaine'];
+                let name = document.createTextNode(response[i]['semaine']);
+                opt.appendChild(name);
+                selSemaine.append(opt);
+            }
+        }
 
 
 
 
+        {#$.ajax({#}
+        {#    url: '{{ path('commande_par_semaine_statistique') }}',#}
+        {#    type: 'POST',#}
+        {#    dataType: 'JSON',#}
+        {#    data: {annee: annee, semaine: semaine, typeFichier: typeFichier},#}
+        {#    async: true,#}
+        {#    error: function (xhr, textStatus, errorThrown) {#}
+        {#        alert('Ajax request failed.');#}
+        {#    }#}
+        {#})#}
+        {#    .done(function (response) {#}
 
+        {#        console.log(response)#}
+        {#    })}#}
 
-
+    </script>
 
 
 {% endblock %}

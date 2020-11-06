@@ -4,8 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Produit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -49,16 +47,13 @@ class ProduitRepository extends ServiceEntityRepository
 
     public function findPrixDuProduit($id)
     {
-        try {
-            return $this->createQueryBuilder('p')
-                ->select('p.prix')
-                ->andWhere('p.id = :id')
-                ->setParameter('id', $id)
-                ->getQuery()
-                ->getSingleResult();
-        } catch (NoResultException $e) {
-        } catch (NonUniqueResultException $e) {
-        }
-    }
+        return $this->createQueryBuilder('p')
+            ->select('p.prix')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
 
+
+    }
 }
