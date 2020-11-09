@@ -21,7 +21,7 @@
                         <div class="row my-3">
                             <div class="col">
                                 <label for="annee1">Année : </label>
-                                <select name="annee1" id="annee1">
+                                <select name="annee1" id="annee1" class="annee">
                                     <option value="0">Votre Choix</option>
                                     {% for annee in annees %}
                                         <option value="{{ annee.annee }}">
@@ -31,35 +31,73 @@
 
                                 </select>
                             </div>
-                            <div class="col select-semaine1">
+                            <div class="col select-semaine">
                                 <label for="semaine1">Semaine : </label>
-                                <select name="semaine1" id="semaine1">
+                                <select name="semaine1" id="semaine1" class="semaine">
                                 </select>
                             </div>
-                            <div class="col">
-                                <button type="submit" class="btn-outline-danger"  name="pdf" value="pdf" id="pdf1">
+                            <div class="col pdf">
+                                <button type="submit" class="btn-outline-danger" name="pdf" value="pdf" id="pdf1">
                                     PDF
                                 </button>
                             </div>
-                            <div class="col">
-                                <button type="submit" class="btn-outline-success" name="excel" value="excel" id="excel1">
+                            <div class="col excel">
+                                <button type="submit" class="btn-outline-success" name="excel" value="excel"
+                                        id="excel1">
                                     Excel
                                 </button>
                             </div>
                         </div>
                     </form>
                 </div>
-                {# Resumé #}
+
+                {# Commandes par dépôt #}
                 <div class="border border-success my-3">
-                    <h5>Résumé</h5>
-                    <div class="row">
-                        <div class="col">
-                            selectAnnee
+                    <h5 class="bg-success text-white py-1">Commandes par dépôt</h5>
+
+                    <form method="post" action="{{ path('commande_par_depot_statistique') }}">
+
+                        <div class="row my-3">
+                            {# Select Semaine #}
+                            <div class="col">
+                                <label for="annee2">Année : </label>
+                                <select name="annee2" id="annee2" class="annee">
+                                    <option value="0">Votre Choix</option>
+                                    {% for annee in annees %}
+                                        <option value="{{ annee.annee }}">
+                                            {{ annee.annee }}
+                                        </option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+                            {# Select Semaine #}
+                            <div class="col select-semaine">
+                                <label for="semaine2">Semaine : </label>
+                                <select name="semaine2" id="semaine2" class="semaine">
+                                </select>
+                            </div>
+                            {# Select Depot #}
+                            <div class="col select-depot">
+                                <label for="depot2">Depot : </label>
+                                <select name="depot2" id="depot2" class="depot">
+                                </select>
+                            </div>
+                            {# Bouton PDF #}
+                            <div class="col pdf">
+                                <button type="submit" class="btn-outline-danger" name="pdf" value="pdf" id="pdf2">
+                                    PDF
+                                </button>
+                            </div>
+                            {# Bouton Excel #}
+                            <div class="col excel">
+                                <button type="submit" class="btn-outline-success" name="excel" value="excel"
+                                        id="excel2">
+                                    Excel
+                                </button>
+                            </div>
                         </div>
-                        <div class="col">
-                            selectSemaine
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
 
@@ -73,12 +111,14 @@
         $(document).ready(function () {
 
 
-            $(".select-semaine1").css("visibility", "hidden");
-            $("#pdf1").css("visibility", "hidden");
-            $("#excel1").css("visibility", "hidden");
+            $(".select-semaine").css("visibility", "hidden");
+            $(".select-depot").css("visibility", "hidden");
+            $(".pdf").css("visibility", "hidden");
+            $(".excel").css("visibility", "hidden");
 
-            $('#annee1').on('change', function () {
+            $('.annee').on('change', function () {
 
+                let baliseAnneeChoisie = $(this);
                 let annee = $(this).find('option:selected').val();
 
                 $.ajax({
@@ -92,17 +132,48 @@
                     }
                 })
                     .done(function (response) {
-                        $(".select-semaine1").css("visibility", "visible");
-                        $("#pdf1").css("visibility", "visible");
-                        $("#excel1").css("visibility", "visible");
-                        remplirSelectSemaine(response)
+                        let baliseSemaine = baliseAnneeChoisie.parent().parent().find('.select-semaine')
+                        baliseSemaine.css("visibility", "visible");
+                        remplirSelectSemaine(response, baliseSemaine);
+                        if (baliseAnneeChoisie.parent().parent().find('.select-depot').length == 0) {
+                            baliseAnneeChoisie.parent().parent().find('.pdf').css("visibility", "visible");
+                            baliseAnneeChoisie.parent().parent().find('.excel').css("visibility", "visible");
+                        } else {
+                            getSemainePourDepot(baliseSemaine, annee);
+                        }
                     })
             })
         })
 
-        function remplirSelectSemaine(response) {
+        function getSemainePourDepot(baliseSemaine, annee) {
 
-            let selSemaine = $('#semaine1');
+            $(baliseSemaine).on('change', function () {
+
+                let semaine = $(this).find('option:selected').val();
+                $.ajax({
+                    url: '{{ path('depots_statistique') }}',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {annee: annee, semaine: semaine},
+                    async: true,
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert('Ajax request failed.');
+                    }
+                })
+                    .done(function (response) {
+
+                        let baliseDepot = baliseSemaine.parent().parent().find('.select-depot');
+                        baliseSemaine.parent().parent().find('.pdf').css("visibility", "visible");
+                        baliseSemaine.parent().parent().find('.excel').css("visibility", "visible");
+                        baliseDepot.css("visibility", "visible");
+                        remplirSelectDepot(response, baliseDepot)
+                    })
+            })
+        }
+
+        function remplirSelectSemaine(response, baliseSemaine) {
+
+            let selSemaine = baliseSemaine.children().next();
             selSemaine.find('option').remove();
             selSemaine.append('<option value="0">Votre Choix</option>');
             for (let i = 0; i < response.length; i++) {
@@ -114,23 +185,20 @@
             }
         }
 
+        function remplirSelectDepot(response, baliseDepot) {
+            console.log(response)
+            let selDepot = baliseDepot.children().next();
+            selDepot.find('option').remove();
+            selDepot.append('<option value="0">Votre Choix</option>');
+            for (let i = 0; i < response.length; i++) {
+                let opt = document.createElement('option');
+                opt.value = response[i]['id'];
+                let name = document.createTextNode(response[i]['nom']);
+                opt.appendChild(name);
+                selDepot.append(opt);
+            }
+        }
 
-
-
-        {#$.ajax({#}
-        {#    url: '{{ path('commande_par_semaine_statistique') }}',#}
-        {#    type: 'POST',#}
-        {#    dataType: 'JSON',#}
-        {#    data: {annee: annee, semaine: semaine, typeFichier: typeFichier},#}
-        {#    async: true,#}
-        {#    error: function (xhr, textStatus, errorThrown) {#}
-        {#        alert('Ajax request failed.');#}
-        {#    }#}
-        {#})#}
-        {#    .done(function (response) {#}
-
-        {#        console.log(response)#}
-        {#    })}#}
 
     </script>
 

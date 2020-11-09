@@ -42,7 +42,7 @@ class AppFixtures extends Fixture
         // Depot
 
         $depot = [];
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 7; $i++) {
             $depot[$i] = new Depot();
             $depot[$i]->setNom($faker->company)
                 ->setAdresse($faker->streetAddress)
@@ -254,7 +254,7 @@ class AppFixtures extends Fixture
 
         $commande = [];
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 300; $i++) {
             $commande[$i] = new Commande();
 
             $randomUser = (array)array_rand($userX, rand(1, count($userX)));
@@ -267,7 +267,7 @@ class AppFixtures extends Fixture
                 $commande[$i]->setDepot($depot[$key]);
             }
 
-            $dateCreation = $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now');
+            $dateCreation = $faker->dateTimeBetween($startDate = '-2 years', $endDate = 'now');
             $dateLivraison = $faker->dateTimeBetween('now', '+1year');
 
             $commande[$i]->setDateCreation($dateCreation)
@@ -284,7 +284,7 @@ class AppFixtures extends Fixture
 
         $detail = [];
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 2000; $i++) {
 
             $detail[$i] = new Detail();
 
