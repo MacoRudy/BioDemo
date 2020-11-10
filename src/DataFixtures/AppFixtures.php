@@ -100,16 +100,16 @@ class AppFixtures extends Fixture
         $this->em->getConnection()->executeUpdate($sqlComplet);
 
 
-        // ProducteuR
+        // Producteur
 
 
         $user = [];
         $producteur = [];
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 8; $i++) {
 
-            $nom = $faker->lastName;
+            $nom = $faker->unique()->lastName;
             $prenom = $faker->firstName;
-            $email = $faker->email;
+            $email = $faker->unique()->email;
             $telephone = $faker->phoneNumber;
 
             $code = strtoupper($nom);
@@ -189,9 +189,9 @@ class AppFixtures extends Fixture
              $i < 20;
              $i++) {
             $userX[$i] = new User();
-            $userX[$i]->setEmail($faker->email)
+            $userX[$i]->setEmail($faker->unique()->email)
                 ->setPassword($faker->password)
-                ->setNom($faker->lastName)
+                ->setNom($faker->unique()->lastName)
                 ->setPrenom($faker->firstName)
                 ->setAdresse($faker->streetAddress)
                 ->setCodePostal($faker->randomNumber(5))
@@ -254,7 +254,7 @@ class AppFixtures extends Fixture
 
         $commande = [];
 
-        for ($i = 0; $i < 300; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             $commande[$i] = new Commande();
 
             $randomUser = (array)array_rand($userX, rand(1, count($userX)));
@@ -267,7 +267,7 @@ class AppFixtures extends Fixture
                 $commande[$i]->setDepot($depot[$key]);
             }
 
-            $dateCreation = $faker->dateTimeBetween($startDate = '-2 years', $endDate = 'now');
+            $dateCreation = $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now');
             $dateLivraison = $faker->dateTimeBetween('now', '+1year');
 
             $commande[$i]->setDateCreation($dateCreation)
@@ -284,7 +284,7 @@ class AppFixtures extends Fixture
 
         $detail = [];
 
-        for ($i = 0; $i < 2000; $i++) {
+        for ($i = 0; $i < 10000; $i++) {
 
             $detail[$i] = new Detail();
 

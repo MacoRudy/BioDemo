@@ -54,7 +54,7 @@
                 <div class="form-group row">
                     <p class="detail">Dépôt : </p>
                     {% if detail.depot %}
-                        <a class="ml-3" href="{{ path('detail_depot', {'id': detail.id}) }}"> {{ detail.depot.nom }}</a>
+                        <a class="ml-3" href="{{ path('detail_depot', {'id': detail.depot.id}) }}"> {{ detail.depot.nom }}</a>
                     {% else %}
                         <a class="ml-3"> Non défini </a>
                     {% endif %}

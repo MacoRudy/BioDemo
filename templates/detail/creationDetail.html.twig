@@ -79,9 +79,9 @@
                     }
                 })
                     .done(function (response) {
-                        console.log(idProduit)
+                        console.log(response)
                         if (idProduit) {
-                            prix = response['prix'];
+                            prix = response[0]['prix'];
                             prixDiv.html(prix + ' €');
                             updateTotal(prix);
                         } else {
@@ -94,7 +94,7 @@
 
             //changement de quantité
 
-            $('#detail_form_quantite').on('change', function () {
+            $('#detail_form_quantite').on('change keydown paste input', function () {
                 updateTotal(prix)
             })
 
@@ -107,7 +107,10 @@
             console.log(quantite)
             if (quantite) {
                 let total = Math.round(quantite * prix * 100) / 100;
+                total = total.toFixed(2)
                 totalDiv.html(total + ' €')
+            } else {
+                totalDiv.html('');
             }
         }
 

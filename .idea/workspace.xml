@@ -16,12 +16,19 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="Page Etat, possibilite de recuperer un pdf et excel pour une choix de commande">
+    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="PDF et Excel pour les commandes selon les depots">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/CSS/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/CSS/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProduitController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProduitController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/StatistiqueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/StatistiqueController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/DetailRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/DetailRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/detail/creationDetail.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detail/creationDetail.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/statistique/etats.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/statistique/etats.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/detail.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/detail.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +239,9 @@
       <workItem from="1604476452713" duration="45617000" />
       <workItem from="1604567266677" duration="19408000" />
       <workItem from="1604651070007" duration="33648000" />
-      <workItem from="1604908773255" duration="23051000" />
+      <workItem from="1604908773255" duration="26385000" />
+      <workItem from="1604941509991" duration="7000" />
+      <workItem from="1604995700533" duration="30801000" />
     </task>
     <task id="LOCAL-00001" summary="Modification création Producteur + fixtures + base twig">
       <created>1603821345000</created>
@@ -318,7 +327,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604692741524</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="PDF et Excel pour les commandes selon les depots">
+      <created>1604937311182</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1604937311182</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,7 +377,8 @@
     <MESSAGE value="Finition du JS/AJAX pour les commandes" />
     <MESSAGE value="Commencement de la page statistiques" />
     <MESSAGE value="Page Etat, possibilite de recuperer un pdf et excel pour une choix de commande" />
-    <option name="LAST_COMMIT_MESSAGE" value="Page Etat, possibilite de recuperer un pdf et excel pour une choix de commande" />
+    <MESSAGE value="PDF et Excel pour les commandes selon les depots" />
+    <option name="LAST_COMMIT_MESSAGE" value="PDF et Excel pour les commandes selon les depots" />
   </component>
   <component name="WindowStateProjectService">
     <state x="906" y="378" key="#Inspections" timestamp="1603981892518">
@@ -422,15 +439,15 @@
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603379425513" />
     <state x="615" y="222" key="SettingsEditor/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603803155430" />
     <state x="615" y="222" key="SettingsEditor/2560.350.1920.1040/-1920.350.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1603702391421" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1604692753184">
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1604937317572">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603379831362" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604692753184" />
-    <state x="1089" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603892788742">
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604937317572" />
+    <state x="1089" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604939062177">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1089" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1603892788742" />
+    <state x="1089" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604939062177" />
     <state x="-1927" y="350" width="974" height="1047" key="dock-window-1" timestamp="1604652221494">
       <screen x="-1920" y="350" width="1920" height="1040" />
     </state>

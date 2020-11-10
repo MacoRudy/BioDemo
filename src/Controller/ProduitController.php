@@ -37,7 +37,7 @@ class ProduitController extends AbstractController
             ->getRepository(Produit::class)
             ->findProduitByProducteur();
 
-
+//dd($produit);
         return $this->render('produit/produit.html.twig',
             ['produit' => $produit, 'producteur' => $producteur, 'categorie' => $categorie]
         );

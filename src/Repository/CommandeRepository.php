@@ -31,7 +31,6 @@ class CommandeRepository extends ServiceEntityRepository
 
     public function findAnneesAvecCommande()
     {
-
         return $this->createQueryBuilder('c')
             ->select('c.annee')
             ->distinct()
@@ -40,16 +39,16 @@ class CommandeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+
     public function findCommandesAvecDepot()
     {
-
-        $qb = $this->createQueryBuilder('c')
+        return $this->createQueryBuilder('c')
             ->join('c.depot', 'd')
             ->addSelect('d')
-            ->Join('c.user', 'u')
+            ->join('c.user', 'u')
             ->addSelect('u')
-            ->orderBy('u.nom', 'ASC');
-        return $qb->getQuery()->getResult();
+            ->orderBy('u.nom', 'ASC')
+            ->getQuery()->getResult();
 
     }
 
@@ -110,7 +109,8 @@ class CommandeRepository extends ServiceEntityRepository
             $qb->andWhere('c.semaine = :semaine')
                 ->setParameter('semaine', $semaine);
         }
-        $qb->orderBy('c.id', 'ASC');
+        $qb->orderBy('depot.nom', 'ASC')
+            ->addOrderBy('producteur.nom');
 
 
         return $qb->getQuery()->getResult();
@@ -134,7 +134,7 @@ class CommandeRepository extends ServiceEntityRepository
             $qb->andWhere('c.semaine = :semaine')
                 ->setParameter('semaine', $semaine);
         }
-        $qb->orderBy('c.id', 'ASC');
+        $qb->orderBy('producteur.nom', 'ASC');
 
 
         return $qb->getQuery()->getResult();
@@ -143,7 +143,7 @@ class CommandeRepository extends ServiceEntityRepository
     public function findDepotSelonSemaineEtAnnee($annee, $semaine)
     {
         return $this->createQueryBuilder('c')
-            ->join('c.depot','d')
+            ->join('c.depot', 'd')
             ->select('d.nom, d.id')
             ->distinct()
             ->andWhere('c.annee = :annee')
@@ -155,6 +155,26 @@ class CommandeRepository extends ServiceEntityRepository
             ->getResult();
 
     }
+
+
+    public function findProducteurSelonSemaineEtAnnee($annee, $semaine)
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.details', 'd')
+            ->join('d.producteur', 'p')
+            ->select('p.nom, p.id')
+            ->distinct()
+            ->andWhere('c.annee = :annee')
+            ->setParameter('annee', $annee)
+            ->andWhere('c.semaine = :semaine')
+            ->setParameter('semaine', $semaine)
+            ->orderBy('p.nom', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+    }
+
+
 
 
 }
