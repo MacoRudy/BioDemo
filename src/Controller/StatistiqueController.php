@@ -6,6 +6,8 @@ use App\Entity\Commande;
 use App\Entity\Depot;
 use App\Entity\Detail;
 use App\Entity\Producteur;
+use App\Entity\User;
+use App\Repository\UserRepository;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -120,7 +122,6 @@ class StatistiqueController extends AbstractController
         return new JsonResponse($producteur);
     }
 
-
     /**
      * @Route("/statistique/commande/semaine", name="commande_par_semaine_statistique", methods={"POST"})
      * @param Request $request
@@ -131,6 +132,11 @@ class StatistiqueController extends AbstractController
     {
         $annee = $request->request->get('annee1');
         $semaine = $request->request->get('semaine1');
+        if ($request->request->has('pdf')) {
+            $typeFichier = 'pdf';
+        } else {
+            $typeFichier = 'excel';
+        }
 
         $commandes = $this->getDoctrine()->getRepository(Commande::class)->findCommandesSelonSemaineEtAnnee($annee, $semaine);
 
@@ -168,7 +174,7 @@ class StatistiqueController extends AbstractController
             ->getStartColor()->setARGB('ff6347');
 
 // remplissage de la feuille
-        $this->remplirFeuilleCommandeParDate($commandes, $sheet);
+        $this->remplirFeuilleCommandeParDate($commandes, $sheet, $typeFichier);
 
 // Création d'une page pour les details de chaque commande si excel
         if ($request->request->has('excel')) {
@@ -193,66 +199,49 @@ class StatistiqueController extends AbstractController
         return $this->sendFile($request, $spreadsheet, $title, $this);
     }
 
-    public function remplirDetailsCommande(Worksheet $sheet, $commande, $sheetTitle)
+    /**
+     * @Route("/statistique/clients", name="clients_statistique", methods={"POST"})
+     * @param Request $request
+     * @return BinaryFileResponse
+     * @throws Exception
+     */
+    public function listeClients(Request $request)
     {
-        $sheet->setShowGridlines(false);
+        if ($request->request->has('pdf')) {
+            $typeFichier = 'pdf';
+        } else {
+            $typeFichier = 'excel';
+        }
+        $clients = $this->getDoctrine()->getRepository(User::class)->findClientsStatistiques();
 
-        $sheet->getStyle('A:E')->getAlignment()->setHorizontal('center');
+        $spreadsheet = new Spreadsheet();
 
-        $sheet->mergeCells('A1:E1');
-        $sheet->setCellValue('A1', 'Retour à la liste');
-        $sheet->getCell('A1')->getHyperlink()->setUrl("sheet://" . $sheetTitle . "!A1");
-        $sheet->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('033379');
-        $sheet->getStyle('A1:E1')->getFont()->setColor(new Color(Color::COLOR_WHITE))->setBold(true);
+        $sheet = $spreadsheet->getActiveSheet()->setShowGridlines(false);
+        $title = 'Liste des Clients';
+        $sheet->setTitle($title);
+        $sheet->getStyle('A:F')->getAlignment()->setHorizontal('center');
 
-        $texte = 'Commandes du client ' . $commande->getUser()->getNom();
-        $sheet->mergeCells('A2:E2');
-        $richText = new RichText();
-        $richText->createTextRun($texte)->getFont()->setBold(true);
-        $sheet->setCellValue('A2', $richText);
-        $sheet->getStyle('A2:E2')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('90ee90');
+        // nom des colonnes
+        $sheet->getStyle('A1:F2')->getAlignment()->setWrapText(true);
 
-        $sheet->setCellValue('A3', 'Produit');
-        $sheet->setCellValue('B3', 'Producteur');
-        $sheet->setCellValue('C3', 'Quantite');
-        $sheet->setCellValue('D3', 'Prix');
-        $sheet->setCellValue('E3', 'Total');
+        $sheet->setCellValue('A2', 'Nom');
+        $sheet->setCellValue('B2', 'Prénom');
+        $sheet->setCellValue('C2', 'Email');
 
-        $sheet->getStyle('A3:' . $sheet->getHighestColumn() . '3')->getFill()
+        $sheet->setCellValue('D2', 'Première commande');
+        $sheet->setCellValue('E2', 'Dernière commande');
+        $sheet->setCellValue('F2', 'Commandes');
+
+        $sheet->getStyle('A2:' . $sheet->getHighestColumn() . '2')->getFill()
             ->setFillType(Fill::FILL_SOLID)
             ->getStartColor()->setARGB('ff6347');
 
-        $details = $commande->getDetails();
+        $sheet->getStyle('A1:F2')->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THICK);
 
-        $j = $sheet->getHighestDataRow() + 1;
-        foreach ($details as $detail) {
-            $sheet->setCellValue('A' . $j, $detail->getProduit()->getNom());
-            $sheet->setCellValue('B' . $j, $detail->getProduit()->getProducteur()->getNom());
-            $sheet->setCellValue('C' . $j, $detail->getQuantite());
-            $sheet->setCellValue('D' . $j, $detail->getPrix());
-            $sheet->setCellValue('E' . $j, ($detail->getQuantite() * $detail->getPrix()));
-            if ($j % 2 == 1) {
-                $sheet->getStyle('A' . $j . ':' . $sheet->getHighestDataColumn() . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('e5e5e5');
-            }
-            $j++;
-        }
-        $sheet->mergeCells('A' . $j . ':D' . $j);
-        $sheet->setCellValue('A' . $j, 'Montant ');
-        $sheet->setCellValue('E' . $j, $commande->getMontant());
-        $sheet->getStyle('A' . $j . ':E' . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('add8e6');
-        $sheet->getStyle('A' . $j . ':E' . $j)->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN);
+        $this->remplirFeuilleListeClients($clients, $sheet, $typeFichier);
 
-        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getVertical()->setBorderStyle(Border::BORDER_THICK);
-        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getOutline()->setBorderStyle(Border::BORDER_THICK);
-        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN);
-
-        foreach (range('A', $sheet->getHighestDataColumn()) as $column) {
-            $sheet->getColumnDimension($column)->setAutoSize(true);
-        }
-
-
+        return $this->sendFile($request, $spreadsheet, $title, $this);
     }
-
 
     /**
      * @Route("/statistique/commande/depot", name="commande_par_depot_statistique", methods={"POST"})
@@ -320,7 +309,6 @@ class StatistiqueController extends AbstractController
 // Envoi de la feuille a l'utilisateur
         return $this->sendFile($request, $spreadsheet, $title, $this);
     }
-
 
     /**
      * @Route("/statistique/commande/producteur", name="commande_par_producteur_statistique", methods={"POST"})
@@ -440,8 +428,7 @@ class StatistiqueController extends AbstractController
         return $this->sendFile($request, $spreadsheet, $title, $this);
     }
 
-
-    private function remplirFeuilleCommandeParDate($commandes, $sheet)
+    private function remplirFeuilleCommandeParDate($commandes, $sheet, $typeFichier)
     {
 
         $j = $sheet->getHighestDataRow() + 1;
@@ -449,8 +436,13 @@ class StatistiqueController extends AbstractController
             $sheet->setCellValue('A' . $j, $com->getId());
             $sheet->setCellValue('B' . $j, $com->getUser()->getNom());
             $sheet->setCellValue('C' . $j, $com->getDepot()->getNom());
-            $sheet->setCellValue('D' . $j, ($com->getDateCreation())->format('d-m-Y'));
-            $sheet->setCellValue('E' . $j, ($com->getDateLivraison())->format('d-m-Y'));
+            if ($typeFichier == 'pdf') {
+                $sheet->setCellValue('D' . $j, ($com->getDateCreation())->format('d-m-Y'));
+                $sheet->setCellValue('E' . $j, ($com->getDateLivraison())->format('d-m-Y'));
+            } else {
+                $sheet->setCellValue('D' . $j, (strftime('%A %d %B %Y', $com->getDateCreation()->getTimeStamp())));
+                $sheet->setCellValue('E' . $j, (strftime('%A %d %B %Y', $com->getDateLivraison()->getTimeStamp())));
+            }
             $sheet->setCellValue('F' . $j, $com->getMontant());
             if ($j % 2 == 1) {
                 $sheet->getStyle('A' . $j . ':' . $sheet->getHighestDataColumn() . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('e5e5e5');
@@ -468,7 +460,6 @@ class StatistiqueController extends AbstractController
         }
         return $sheet;
     }
-
 
     private function remplirFeuilleCommandeParDepot($commandes, $sheet)
     {
@@ -513,7 +504,6 @@ class StatistiqueController extends AbstractController
 
     }
 
-
     private function remplirFeuilleCommandeParProducteur($detail, $sheet)
     {
 
@@ -541,7 +531,6 @@ class StatistiqueController extends AbstractController
         }
         return $sheet;
     }
-
 
     private function remplirFeuilleVenteParProducteur($detail, $sheet)
     {
@@ -596,6 +585,99 @@ class StatistiqueController extends AbstractController
         return $sheet;
     }
 
+    public function remplirDetailsCommande(Worksheet $sheet, $commande, $sheetTitle)
+    {
+        $sheet->setShowGridlines(false);
+
+        $sheet->getStyle('A:E')->getAlignment()->setHorizontal('center');
+
+        $sheet->mergeCells('A1:E1');
+        $sheet->setCellValue('A1', 'Retour à la liste');
+        $sheet->getCell('A1')->getHyperlink()->setUrl("sheet://" . $sheetTitle . "!A1");
+        $sheet->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('033379');
+        $sheet->getStyle('A1:E1')->getFont()->setColor(new Color(Color::COLOR_WHITE))->setBold(true);
+
+        $texte = 'Commandes du client ' . $commande->getUser()->getNom();
+        $sheet->mergeCells('A2:E2');
+        $richText = new RichText();
+        $richText->createTextRun($texte)->getFont()->setBold(true);
+        $sheet->setCellValue('A2', $richText);
+        $sheet->getStyle('A2:E2')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('90ee90');
+
+        $sheet->setCellValue('A3', 'Produit');
+        $sheet->setCellValue('B3', 'Producteur');
+        $sheet->setCellValue('C3', 'Quantite');
+        $sheet->setCellValue('D3', 'Prix');
+        $sheet->setCellValue('E3', 'Total');
+
+        $sheet->getStyle('A3:' . $sheet->getHighestColumn() . '3')->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('ff6347');
+
+        $details = $commande->getDetails();
+
+        $j = $sheet->getHighestDataRow() + 1;
+        foreach ($details as $detail) {
+            $sheet->setCellValue('A' . $j, $detail->getProduit()->getNom());
+            $sheet->setCellValue('B' . $j, $detail->getProduit()->getProducteur()->getNom());
+            $sheet->setCellValue('C' . $j, $detail->getQuantite());
+            $sheet->setCellValue('D' . $j, $detail->getPrix());
+            $sheet->setCellValue('E' . $j, ($detail->getQuantite() * $detail->getPrix()));
+            if ($j % 2 == 1) {
+                $sheet->getStyle('A' . $j . ':' . $sheet->getHighestDataColumn() . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('e5e5e5');
+            }
+            $j++;
+        }
+        $sheet->mergeCells('A' . $j . ':D' . $j);
+        $sheet->setCellValue('A' . $j, 'Montant ');
+        $sheet->setCellValue('E' . $j, $commande->getMontant());
+        $sheet->getStyle('A' . $j . ':E' . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('add8e6');
+        $sheet->getStyle('A' . $j . ':E' . $j)->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN);
+
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getVertical()->setBorderStyle(Border::BORDER_THICK);
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getOutline()->setBorderStyle(Border::BORDER_THICK);
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN);
+
+        foreach (range('A', $sheet->getHighestDataColumn()) as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
+        }
+
+
+    }
+
+    private function remplirFeuilleListeClients($clients, $sheet, $typeFichier)
+    {
+
+        setlocale(LC_ALL, 'fr_FR');
+        $j = $sheet->getHighestDataRow() + 1;
+        foreach ($clients as $client) {
+            $sheet->setCellValue('A' . $j, $client->getNom());
+            $sheet->setCellValue('B' . $j, $client->getPrenom());
+            $sheet->setCellValue('C' . $j, $client->getEmail());
+            if ($typeFichier == 'pdf') {
+                $sheet->setCellValue('D' . $j, $client->getCommandes()->first()->getDateCreation()->format('d-m-Y'));
+                $sheet->setCellValue('E' . $j, $client->getCommandes()->last()->getDateCreation()->format('d-m-Y'));
+            } else {
+                $sheet->setCellValue('D' . $j, strftime('%A %d %B %Y', $client->getCommandes()->first()->getDateCreation()->getTimeStamp()));
+                $sheet->setCellValue('E' . $j, strftime('%A %d %B %Y', $client->getCommandes()->last()->getDateCreation()->getTimeStamp()));
+            }
+            $sheet->setCellValue('F' . $j, count($client->getCommandes()));
+            if ($j % 2 == 1) {
+                $sheet->getStyle('A' . $j . ':' . $sheet->getHighestDataColumn() . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('e5e5e5');
+            }
+            $j++;
+        }
+
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getVertical()->setBorderStyle(Border::BORDER_THICK);
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getOutline()->setBorderStyle(Border::BORDER_THICK);
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN);
+
+        // met toutes les colonnes en auto width pour s'adapter au texte
+        foreach (range('A', $sheet->getHighestDataColumn()) as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
+        }
+        return $sheet;
+    }
 
     private function sendFile(Request $request, Spreadsheet $spreadsheet, string $title, StatistiqueController $param)
     {

@@ -80,4 +80,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $qb->getQuery()->getResult();
 
     }
+
+    public function findClientsStatistiques()
+    {
+
+        $qb = $this->createQueryBuilder('u')
+            ->leftJoin('u.commandes', 'c')
+            ->leftJoin('u.producteur', 'p')
+            ->addSelect('c,u,p')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('role', '%"ROLE_USER"%')
+            ->orderBy('u.nom', 'ASC')
+            ->addOrderBy('c.dateCreation', 'ASC');
+        return $qb->getQuery()->getResult();
+
+    }
+
 }

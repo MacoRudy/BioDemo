@@ -119,6 +119,7 @@ class Commande
 
     public function getDateCreation(): ?\DateTimeInterface
     {
+        setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
         return $this->dateCreation;
     }
 
@@ -131,6 +132,7 @@ class Commande
 
     public function getDateLivraison(): ?\DateTimeInterface
     {
+        setlocale(LC_TIME, 'fr_FR.UTF8', 'fr.UTF8', 'fr_FR.UTF-8', 'fr.UTF-8');
         return $this->dateLivraison;
     }
 

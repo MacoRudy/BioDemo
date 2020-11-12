@@ -10,7 +10,7 @@
     <div class="container-fluid">
 
         <div class="row text-center">
-            <div class="col">
+            <div class="col custom-container">
                 <h1>Titre</h1>
                 {# Commandes par semaine #}
                 <div class="border border-success my-3">
@@ -199,6 +199,30 @@
                         </div>
                     </form>
                 </div>
+
+                {# Liste des Clients #}
+                <div class="border border-success my-3">
+                    <h5 class="bg-success text-white py-1">Liste des Clients</h5>
+                    <form method="post" action="{{ path('clients_statistique') }}">
+                        <div class="row my-3">
+                            <div class="col clients">
+                                <button type="submit" class="btn-outline-danger" name="pdf" value="pdf"
+                                        id="pdf-clients">
+                                    PDF
+                                </button>
+                            </div>
+                            <div class="col clients">
+                                <button type="submit" class="btn-outline-success" name="excel" value="excel"
+                                        id="excel-clients">
+                                    Excel
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+
             </div>
 
         </div>
@@ -301,7 +325,6 @@
                     })
             })
         }
-
 
 
         function remplirSelectSemaine(response, baliseSemaine) {
