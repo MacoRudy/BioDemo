@@ -7,7 +7,6 @@ use App\Entity\Depot;
 use App\Entity\Detail;
 use App\Entity\Producteur;
 use App\Entity\User;
-use App\Repository\UserRepository;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -29,6 +28,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class StatistiqueController extends AbstractController
 {
+    const mois = [1 => 'Janvier', 2 => 'Fevrier', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novembre', 12 => 'Décembre'];
+
     /**
      * @Route("/statistique", name="statistique")
      */
@@ -75,7 +76,7 @@ class StatistiqueController extends AbstractController
     {
         $annees = $this->getDoctrine()->getRepository(Commande::class)->findAnneesAvecCommande();
 
-        return $this->render('statistique/etats.html.twig', ['annees' => $annees]);
+        return $this->render('statistique/etats.html.twig', ['annees' => $annees, 'mois' => self::mois]);
     }
 
     /**
@@ -85,12 +86,26 @@ class StatistiqueController extends AbstractController
      */
     public function semainesSelonAnnee(Request $request)
     {
+        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
         $annee = $request->get('annee');
 
         $semaines = $this->getDoctrine()->getRepository(Commande::class)->findSemaineDesCommandesSelonAnnee($annee);
-        return new JsonResponse($semaines);
-    }
+        $mois = $this->getDoctrine()->getRepository(Commande::class)->findMoisDesCommandesSelonAnnee($annee);
 
+        $listeMois = [];
+        foreach ($mois as $m) {
+            foreach ($m as $key => $value) {
+                $nom = utf8_encode(strftime('%B', mktime(0, 0, 0, $value, 1)));
+                $listeMois[$value] = $nom;
+            }
+
+
+        }
+
+        $reponse = ['semaines' => $semaines, 'mois' => $listeMois];
+        json_encode($reponse);
+        return new JsonResponse($reponse);
+    }
 
     /**
      * @Route("/statistique/depots", name="depots_statistique", methods={"POST"})
@@ -101,8 +116,9 @@ class StatistiqueController extends AbstractController
     {
         $annee = $request->get('annee');
         $semaine = $request->get('semaine');
+        $mois = $request->get('mois');
 
-        $depot = $this->getDoctrine()->getRepository(Commande::class)->findDepotSelonSemaineEtAnnee($annee, $semaine);
+        $depot = $this->getDoctrine()->getRepository(Commande::class)->findDepotSelonAnneeEtMoisOuSemaine($annee, $mois, $semaine);
 
         return new JsonResponse($depot);
     }
@@ -122,6 +138,8 @@ class StatistiqueController extends AbstractController
         return new JsonResponse($producteur);
     }
 
+    //    Creation des fichiers
+
     /**
      * @Route("/statistique/commande/semaine", name="commande_par_semaine_statistique", methods={"POST"})
      * @param Request $request
@@ -132,29 +150,36 @@ class StatistiqueController extends AbstractController
     {
         $annee = $request->request->get('annee1');
         $semaine = $request->request->get('semaine1');
+        $mois = $request->request->get('mois1');
+
         if ($request->request->has('pdf')) {
             $typeFichier = 'pdf';
         } else {
             $typeFichier = 'excel';
         }
 
-        $commandes = $this->getDoctrine()->getRepository(Commande::class)->findCommandesSelonSemaineEtAnnee($annee, $semaine);
+        $commandes = $this->getDoctrine()->getRepository(Commande::class)->findCommandesSelonSemaineEtAnnee($annee, $mois, $semaine);
 
         $spreadsheet = new Spreadsheet();
 
 // donner des valeurs a la page et au titre
         $sheet = $spreadsheet->getActiveSheet()->setShowGridlines(false);
-        $title = 'commande_' . $annee . '_' . $semaine;
-        $sheet->setTitle($title);
-
-        $sheet->getStyle('A:F')->getAlignment()->setHorizontal('center');
 
 // Titre en haut des colonnes
-        if ($semaine == 0) {
+        if ($semaine == 0 and $mois == 0) {
+            $title = 'commande_' . $annee;
             $texte = "Commandes de l'année " . $annee;
+        } else if ($semaine == 0 and $mois != 0) {
+            $title = 'commande_' . $annee . '_' . self::mois[$mois];
+            $texte = 'Commandes du mois de ' . self::mois[$mois] . ' de ' . $annee;
         } else {
+            $title = 'commande_' . $annee . '_' . $semaine;
             $texte = 'Commandes de la semaine ' . $semaine . ' de ' . $annee;
         }
+
+        $sheet->setTitle($title);
+        $sheet->getStyle('A:F')->getAlignment()->setHorizontal('center');
+
         $sheet->getStyle('A1')->getAlignment()->setVertical('top');
         $sheet->mergeCells('A1:F2');
         $richText = new RichText();
@@ -253,16 +278,23 @@ class StatistiqueController extends AbstractController
     {
         $annee = $request->request->get('annee2');
         $semaine = $request->request->get('semaine2');
+        $mois = $request->request->get('mois2');
         $idDepot = $request->request->get('depot2');
 
         $depot = $this->getDoctrine()->getRepository(Depot::class)->find($idDepot);
 
-        $commandes = $this->getDoctrine()->getRepository(Commande::class)->findCommandesSelonDepot($annee, $semaine, $depot);
+        $commandes = $this->getDoctrine()->getRepository(Commande::class)->findCommandesSelonDepot($annee, $mois, $semaine, $depot);
         $spreadsheet = new Spreadsheet();
 
 // donner des valeurs a la page et au titre
         $sheet = $spreadsheet->getActiveSheet()->setShowGridlines(false);
-        $title = $annee . '-' . $semaine . '-' . strtok($depot->getNom(), ' ');
+        if ($semaine != 0) {
+            $title = $annee . '-' . $semaine . '-' . strtok($depot->getNom(), ' ');
+            $subtitre = 'Commandes de la semaine ' . $semaine . ' de ' . $annee;
+        } else {
+            $title = $annee . '-' . self::mois[$mois] . '-' . strtok($depot->getNom(), ' ');
+            $subtitre = 'Commandes du mois de ' . self::mois[$mois] . ' de ' . $annee;
+        }
         $sheet->setTitle($title);
         $sheet->getStyle('A:E')->getAlignment()->setHorizontal('center');
 
@@ -274,7 +306,6 @@ class StatistiqueController extends AbstractController
             . $depot->getTelephone() . " "
             . $depot->getEmail();
 
-
         $sheet->mergeCells('A1:E4');
         $richText = new RichText();
         $richText->createTextRun($texte)->getFont()->setBold(true);
@@ -282,7 +313,6 @@ class StatistiqueController extends AbstractController
 
 // Sous titre
         $sheet->mergeCells('A5:E5');
-        $subtitre = 'Commandes de la semaine ' . $semaine . ' de ' . $annee;
         $sheet->setCellValue('A5', $subtitre);
 
 // nom des colonnes
@@ -294,17 +324,14 @@ class StatistiqueController extends AbstractController
         $sheet->setCellValue('D6', 'Prix');
         $sheet->setCellValue('E6', 'Total');
 
-
         $sheet->getStyle('A6:' . $sheet->getHighestColumn() . '6')->getFill()
             ->setFillType(Fill::FILL_SOLID)
             ->getStartColor()->setARGB('ff6347');
 
         $sheet->getStyle('A1:E6')->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THICK);
 
-
 // remplissage de la feuille
         $this->remplirFeuilleCommandeParDepot($commandes, $sheet);
-
 
 // Envoi de la feuille a l'utilisateur
         return $this->sendFile($request, $spreadsheet, $title, $this);

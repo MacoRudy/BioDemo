@@ -93,7 +93,21 @@ class CommandeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findCommandesSelonSemaineEtAnnee($annee, $semaine)
+    public function findMoisDesCommandesSelonAnnee($annee)
+    {
+//        ->select('DATE_FORMAT(MONTH(c.dateCreation,%M))')
+        return $this->createQueryBuilder('c')
+            ->select('MONTH(c.dateCreation)')
+            ->distinct()
+            ->andWhere('c.annee = :annee')
+            ->setParameter('annee', $annee)
+            ->orderBy('MONTH(c.dateCreation)', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function findCommandesSelonSemaineEtAnnee($annee, $mois, $semaine)
     {
         $qb = $this->createQueryBuilder('c')
             ->join('c.user', 'user')
@@ -109,6 +123,10 @@ class CommandeRepository extends ServiceEntityRepository
             $qb->andWhere('c.semaine = :semaine')
                 ->setParameter('semaine', $semaine);
         }
+        if ($mois != 0) {
+            $qb->andWhere('MONTH(c.dateCreation) = :mois')
+                ->setParameter('mois', $mois);
+        }
         $qb->orderBy('depot.nom', 'ASC')
             ->addOrderBy('producteur.nom');
 
@@ -116,7 +134,7 @@ class CommandeRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findCommandesSelonDepot($annee, $semaine, $depot)
+    public function findCommandesSelonDepot($annee, $mois, $semaine, $depot)
     {
         $qb = $this->createQueryBuilder('c')
             ->join('c.user', 'user')
@@ -134,25 +152,34 @@ class CommandeRepository extends ServiceEntityRepository
             $qb->andWhere('c.semaine = :semaine')
                 ->setParameter('semaine', $semaine);
         }
+        if ($mois != 0) {
+            $qb->andWhere('MONTH(c.dateCreation) = :mois')
+                ->setParameter('mois', $mois);
+        }
         $qb->orderBy('producteur.nom', 'ASC');
 
 
         return $qb->getQuery()->getResult();
     }
 
-    public function findDepotSelonSemaineEtAnnee($annee, $semaine)
+    public function findDepotSelonAnneeEtMoisOuSemaine($annee, $mois, $semaine)
     {
-        return $this->createQueryBuilder('c')
+        $qb = $this->createQueryBuilder('c')
             ->join('c.depot', 'd')
             ->select('d.nom, d.id')
             ->distinct()
             ->andWhere('c.annee = :annee')
-            ->setParameter('annee', $annee)
-            ->andWhere('c.semaine = :semaine')
-            ->setParameter('semaine', $semaine)
-            ->orderBy('d.nom', 'ASC')
-            ->getQuery()
-            ->getResult();
+            ->setParameter('annee', $annee);
+        if ($semaine != 0) {
+            $qb->andWhere('c.semaine = :semaine')
+                ->setParameter('semaine', $semaine);
+        }
+        if ($mois != 0) {
+            $qb->andWhere('MONTH(c.dateCreation) = :mois')
+                ->setParameter('mois', $mois);
+        }
+        $qb->orderBy('d.nom', 'ASC');
+        return $qb->getQuery()->getResult();
 
     }
 
@@ -173,8 +200,6 @@ class CommandeRepository extends ServiceEntityRepository
             ->getResult();
 
     }
-
-
 
 
 }
