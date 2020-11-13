@@ -34,6 +34,7 @@ final class Versions
      */
     const VERSIONS          = array (
   'beberlei/doctrineextensions' => 'v1.2.9@53a71be2d3a153704d53b68bda24b3207f6a00aa',
+  'cmen/google-charts-bundle' => '3.2.1@da6baee249d841407bdfecee69a94402ae50afd2',
   'composer/package-versions-deprecated' => '1.11.99@c8c9aa8a14cc3d3bec86d0a8c3fa52ea79936855',
   'doctrine/annotations' => '1.10.4@bfe91e31984e2ba76df1c1339681770401ec262f',
   'doctrine/cache' => '1.10.2@13e3381b25847283a91948d04640543941309727',
@@ -155,14 +156,14 @@ final class Versions
   'symfony/maker-bundle' => 'v1.21.1@da629093c7bf9abd9a6a0f232a43bbb1b88de68d',
   'symfony/phpunit-bridge' => 'v5.1.7@150aeb91dd9dafe13ec8416abd62e435330ca12d',
   'symfony/web-profiler-bundle' => 'v5.1.7@4b02edb4c4c2d57b94e62904e45f3484b29d36eb',
-  'paragonie/random_compat' => '2.*@32c526f5c903581710e891f25d3690c1d25bc57c',
-  'symfony/polyfill-ctype' => '*@32c526f5c903581710e891f25d3690c1d25bc57c',
-  'symfony/polyfill-iconv' => '*@32c526f5c903581710e891f25d3690c1d25bc57c',
-  'symfony/polyfill-php72' => '*@32c526f5c903581710e891f25d3690c1d25bc57c',
-  'symfony/polyfill-php71' => '*@32c526f5c903581710e891f25d3690c1d25bc57c',
-  'symfony/polyfill-php70' => '*@32c526f5c903581710e891f25d3690c1d25bc57c',
-  'symfony/polyfill-php56' => '*@32c526f5c903581710e891f25d3690c1d25bc57c',
-  '__root__' => 'dev-main@32c526f5c903581710e891f25d3690c1d25bc57c',
+  'paragonie/random_compat' => '2.*@709c43d5bd84d2fdb548a6dced23adb8cbefc8ff',
+  'symfony/polyfill-ctype' => '*@709c43d5bd84d2fdb548a6dced23adb8cbefc8ff',
+  'symfony/polyfill-iconv' => '*@709c43d5bd84d2fdb548a6dced23adb8cbefc8ff',
+  'symfony/polyfill-php72' => '*@709c43d5bd84d2fdb548a6dced23adb8cbefc8ff',
+  'symfony/polyfill-php71' => '*@709c43d5bd84d2fdb548a6dced23adb8cbefc8ff',
+  'symfony/polyfill-php70' => '*@709c43d5bd84d2fdb548a6dced23adb8cbefc8ff',
+  'symfony/polyfill-php56' => '*@709c43d5bd84d2fdb548a6dced23adb8cbefc8ff',
+  '__root__' => 'dev-main@709c43d5bd84d2fdb548a6dced23adb8cbefc8ff',
 );
 
     private function __construct()

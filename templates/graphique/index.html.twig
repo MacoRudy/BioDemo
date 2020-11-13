@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Graphs {% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row text-center">
+        <div class="col">
+            <h1>Choix du graphique</h1>
+            {# Commandes par date en barres #}
+            <div class="border border-success my-3">
+                <h5 class="bg-success text-white py-1">Commandes Par Date - Diagramme en Colonnes</h5>
+
+                <form method="post" action="{{ path('commandes_par_date_barre_graphique') }}">
+                    <div class="row my-3">
+                        <div class="col-4">
+                            <label for="annee">Année : </label>
+                            <select name="annee" id="annee" class="annee" required>
+                                <option value="">Votre Choix</option>
+                                {% for annee in annees %}
+                                    <option value="{{ annee.annee }}">
+                                        {{ annee.annee }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-graph" name="mois" value="mois"
+                                    id="mois">
+                                Commandes par mois
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-graph" name="semaine" value="semaine"
+                                    id="semaine">
+                                Commandes par semaines
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            {# Commandes par date en camembert #}
+            <div class="border border-success my-3">
+                <h5 class="bg-success text-white py-1">Commandes Par Date - Diagramme en Camembert</h5>
+
+                <form method="post" action="{{ path('commandes_par_date_camembert_graphique') }}">
+                    <div class="row my-3">
+                        <div class="col-4">
+                            <label for="annee">Année : </label>
+                            <select name="annee" id="annee" class="annee" required>
+                                <option value="">Votre Choix</option>
+                                {% for annee in annees %}
+                                    <option value="{{ annee.annee }}">
+                                        {{ annee.annee }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-graph" name="mois" value="mois"
+                                    id="mois">
+                                Commandes par mois
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}
+    {% block javascripts %}
+
+{% endblock %}

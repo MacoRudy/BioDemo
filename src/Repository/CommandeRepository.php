@@ -95,7 +95,6 @@ class CommandeRepository extends ServiceEntityRepository
 
     public function findMoisDesCommandesSelonAnnee($annee)
     {
-//        ->select('DATE_FORMAT(MONTH(c.dateCreation,%M))')
         return $this->createQueryBuilder('c')
             ->select('MONTH(c.dateCreation)')
             ->distinct()
@@ -107,7 +106,7 @@ class CommandeRepository extends ServiceEntityRepository
     }
 
 
-    public function findCommandesSelonSemaineEtAnnee($annee, $mois, $semaine)
+    public function findCommandesSelonAnneeEtMoisOuSemaine($annee, $mois, $semaine)
     {
         $qb = $this->createQueryBuilder('c')
             ->join('c.user', 'user')
@@ -204,6 +203,30 @@ class CommandeRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
 
+    }
+
+    public function findNombreCommandesParMoisEtAnnee($annee) {
+
+        return $this->createQueryBuilder('c')
+            ->select('count(c) AS nbreCommande,MONTH(c.dateCreation) AS mois')
+            ->andWhere('c.annee = :annee')
+            ->setParameter('annee', $annee)
+            ->groupBy('mois')
+            ->orderBy('mois')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findNombreCommandesParSemaineEtAnnee($annee) {
+
+        return $this->createQueryBuilder('c')
+            ->select('count(c) AS nbreCommande,c.semaine AS semaine')
+            ->andWhere('c.annee = :annee')
+            ->setParameter('annee', $annee)
+            ->groupBy('semaine')
+            ->orderBy('semaine')
+            ->getQuery()
+            ->getResult();
     }
 
 

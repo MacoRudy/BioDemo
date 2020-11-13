@@ -160,7 +160,7 @@ class StatistiqueController extends AbstractController
             $typeFichier = 'excel';
         }
 
-        $commandes = $this->getDoctrine()->getRepository(Commande::class)->findCommandesSelonSemaineEtAnnee($annee, $mois, $semaine);
+        $commandes = $this->getDoctrine()->getRepository(Commande::class)->findCommandesSelonAnneeEtMoisOuSemaine($annee, $mois, $semaine);
 
         $spreadsheet = new Spreadsheet();
 

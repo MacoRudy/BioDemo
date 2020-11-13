@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Graphs {% endblock %}
+
+{% block Css %}
+    <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div id="div_graph"></div>
+        <a class="btn btn-primary btn-block" role="button" href="{{ path('graphique') }}">Retour</a>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        {{ gc_draw(chart, 'div_graph') }}
+    </script>
+{% endblock %}

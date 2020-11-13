@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '32c526f5c903581710e891f25d3690c1d25bc57c',
+    'reference' => '709c43d5bd84d2fdb548a6dced23adb8cbefc8ff',
     'name' => '__root__',
   ),
   'versions' => 
@@ -31,7 +31,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '32c526f5c903581710e891f25d3690c1d25bc57c',
+      'reference' => '709c43d5bd84d2fdb548a6dced23adb8cbefc8ff',
     ),
     'beberlei/doctrineextensions' => 
     array (
@@ -41,6 +41,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '53a71be2d3a153704d53b68bda24b3207f6a00aa',
+    ),
+    'cmen/google-charts-bundle' => 
+    array (
+      'pretty_version' => '3.2.1',
+      'version' => '3.2.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'da6baee249d841407bdfecee69a94402ae50afd2',
     ),
     'composer/package-versions-deprecated' => 
     array (
