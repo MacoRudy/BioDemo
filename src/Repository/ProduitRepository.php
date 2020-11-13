@@ -28,7 +28,7 @@ class ProduitRepository extends ServiceEntityRepository
             ->where('c.catParent is not null')
             ->addOrderBy('p.producteur', 'ASC')
             ->addOrderBy('c.catParent', 'ASC')
-            ->addOrderBy('c.id','ASC')
+            ->addOrderBy('c.id', 'ASC')
             ->getQuery()
             ->getResult();
     }
@@ -41,7 +41,7 @@ class ProduitRepository extends ServiceEntityRepository
             ->join('p.categorie', 'c')
             ->where('c.catParent is not null')
             ->addOrderBy('c.catParent', 'ASC')
-            ->addOrderBy('c.id','ASC')
+            ->addOrderBy('c.id', 'ASC')
             ->addOrderBy('p.producteur', 'ASC')
             ->getQuery()
             ->getResult();
@@ -55,5 +55,30 @@ class ProduitRepository extends ServiceEntityRepository
             ->setParameter('id', $id)
             ->getQuery()
             ->getResult();
+    }
+
+
+    public function findProduitSelonCategorie($annee, $mois, $semaine)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->join('p.details', 'details')
+            ->join('p.categorie', 'categorie')
+            ->join('categorie.catParent', 'catParent')
+            ->join('details.commande', 'commande')
+            ->select('p, details, categorie, catParent')
+            ->andWhere('commande.annee = :annee')
+            ->setParameter('annee', $annee);
+        if ($semaine != 0) {
+            $qb->andWhere('commande.semaine = :semaine')
+                ->setParameter('semaine', $semaine);
+        }
+        if ($mois != 0) {
+            $qb->andWhere('MONTH(commande.dateCreation) = :mois')
+                ->setParameter('mois', $mois);
+        }
+        $qb->addOrderBy('catParent.id', 'ASC')
+            ->addOrderBy('categorie.id', 'ASC')
+            ->addOrderBy('p.nom', 'ASC');
+        return $qb->getQuery()->getResult();
     }
 }

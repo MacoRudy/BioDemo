@@ -69,4 +69,5 @@ class DetailRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
 }

@@ -223,7 +223,58 @@
                     </form>
                 </div>
 
+                {# Vente par Catégorie #}
+
+                <div class="border border-success my-3">
+                    <h5 class="bg-success text-white py-1">Ventes par Catégorie</h5>
+
+                    <form method="post" action="{{ path('vente_par_categorie_statistique') }}">
+
+                        <div class="row my-3">
+                            {# Select Annee #}
+                            <div class="col-2">
+                                <label for="annee5">Année : </label>
+                                <select name="annee5" id="annee5" class="annee">
+                                    <option value="0">Votre Choix</option>
+                                    {% for annee in annees %}
+                                        <option value="{{ annee.annee }}">
+                                            {{ annee.annee }}
+                                        </option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+                            {# Select Mois #}
+                            <div class="col-2 select-mois">
+                                <label for="mois5">Mois : </label>
+                                <select name="mois5" id="mois5" class="mois">
+                                </select>
+                            </div>
+                            {# Select Semaine #}
+                            <div class="col-2 select-semaine">
+                                <label for="semaine5">Semaine : </label>
+                                <select name="semaine5" id="semaine5" class="semaine">
+                                </select>
+                            </div>
+                            {# Bouton PDF #}
+                            <div class="col-1 offset-4 pdf">
+                                <button type="submit" class="btn btn-danger" name="pdf" value="pdf" id="pdf5">
+                                    PDF
+                                </button>
+                            </div>
+                            {# Bouton Excel #}
+                            <div class="col-1 excel">
+                                <button type="submit" class="btn btn-success" name="excel" value="excel"
+                                        id="excel5">
+                                    Excel
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
                 {# Liste des Clients #}
+
                 <div class="border border-success my-3">
                     <h5 class="bg-success text-white py-1">Liste des Clients</h5>
                     <form method="post" action="{{ path('clients_statistique') }}">

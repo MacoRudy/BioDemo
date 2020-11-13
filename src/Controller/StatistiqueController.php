@@ -6,6 +6,7 @@ use App\Entity\Commande;
 use App\Entity\Depot;
 use App\Entity\Detail;
 use App\Entity\Producteur;
+use App\Entity\Produit;
 use App\Entity\User;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -431,6 +432,64 @@ class StatistiqueController extends AbstractController
     }
 
     /**
+     * @Route("/statistique/commande/categorie", name="vente_par_categorie_statistique", methods={"POST"})
+     * @param Request $request
+     * @return BinaryFileResponse
+     * @throws Exception
+     */
+    public function commandeParCategorie(Request $request)
+    {
+        $annee = $request->request->get('annee5');
+        $semaine = $request->request->get('semaine5');
+        $mois = $request->request->get('mois5');
+
+        $produits = $this->getDoctrine()->getRepository(Produit::class)->findProduitSelonCategorie($annee, $mois, $semaine);
+//        dd($produits);
+        $spreadsheet = new Spreadsheet();
+
+// donner des valeurs a la page et au titre
+        $sheet = $spreadsheet->getActiveSheet()->setShowGridlines(false);
+
+// Titre en haut des colonnes
+        if ($semaine == 0 and $mois == 0) {
+            $title = 'Vente_' . $annee;
+            $texte = "Ventes par catégories de l'année " . $annee;
+        } else if ($semaine == 0 and $mois != 0) {
+            $title = 'Vente_' . $annee . '_' . self::mois[$mois];
+            $texte = 'Ventes par catégories du mois de ' . self::mois[$mois] . ' de ' . $annee;
+        } else {
+            $title = 'Vente_' . $annee . '_' . $semaine;
+            $texte = 'Ventes par catégories de la semaine ' . $semaine . ' de ' . $annee;
+        }
+
+        $sheet->setTitle($title);
+        $sheet->getStyle('A:F')->getAlignment()->setHorizontal('center');
+
+        $sheet->getStyle('A1')->getAlignment()->setVertical('top');
+        $sheet->mergeCells('A1:F1');
+        $richText = new RichText();
+        $richText->createTextRun($texte)->getFont()->setBold(true);
+        $sheet->setCellValue('A1', $richText);
+        $sheet->getStyle('A1:F1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('90ee90');
+
+
+        $sheet->setCellValue('A2', 'Produit');
+        $sheet->setCellValue('B2', 'Sous-Catégorie');
+        $sheet->setCellValue('C2', 'Description');
+        $sheet->setCellValue('D2', 'Prix');
+        $sheet->setCellValue('E2', 'Quantité');
+        $sheet->setCellValue('F2', 'Total');
+
+        $sheet->getStyle('A2:F2')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('ff6347');
+
+// remplissage de la feuille
+        $this->remplirFeuilleVenteParCategorie($produits, $sheet);
+
+// Envoi de la feuille a l'utilisateur
+        return $this->sendFile($request, $spreadsheet, $title, $this);
+    }
+
+    /**
      * @Route("/statistique/clients", name="clients_statistique", methods={"POST"})
      * @param Request $request
      * @return BinaryFileResponse
@@ -460,9 +519,6 @@ class StatistiqueController extends AbstractController
         $sheet->setCellValue('A1', $richText);
         $sheet->getStyle('A1:F1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('90ee90');
 
-        // nom des colonnes
-        $sheet->getStyle('A1:F1')->getAlignment()->setWrapText(true);
-
         $sheet->setCellValue('A2', 'Nom');
         $sheet->setCellValue('B2', 'Prénom');
         $sheet->setCellValue('C2', 'Email');
@@ -479,12 +535,10 @@ class StatistiqueController extends AbstractController
 
         $this->remplirFeuilleListeClients($clients, $sheet, $typeFichier);
 
-
-
         return $this->sendFile($request, $spreadsheet, $title, $this);
     }
 
-    private function remplirFeuilleCommandeParDate($commandes, $sheet, $typeFichier)
+    private function remplirFeuilleCommandeParDate($commandes, Worksheet $sheet, $typeFichier)
     {
 
         $j = $sheet->getHighestDataRow() + 1;
@@ -517,7 +571,7 @@ class StatistiqueController extends AbstractController
         return $sheet;
     }
 
-    private function remplirFeuilleCommandeParDepot($commandes, $sheet)
+    private function remplirFeuilleCommandeParDepot($commandes, Worksheet $sheet)
     {
         $j = $sheet->getHighestDataRow() + 1;
         foreach ($commandes as $com) {
@@ -560,7 +614,7 @@ class StatistiqueController extends AbstractController
 
     }
 
-    private function remplirFeuilleCommandeParProducteur($detail, $sheet)
+    private function remplirFeuilleCommandeParProducteur($detail, Worksheet $sheet)
     {
 
         $j = $sheet->getHighestDataRow() + 1;
@@ -588,7 +642,7 @@ class StatistiqueController extends AbstractController
         return $sheet;
     }
 
-    private function remplirFeuilleVenteParProducteur($detail, $sheet)
+    private function remplirFeuilleVenteParProducteur($detail, Worksheet $sheet)
     {
         $row = 0;
         $total = 0;
@@ -701,7 +755,65 @@ class StatistiqueController extends AbstractController
 
     }
 
-    private function remplirFeuilleListeClients($clients, $sheet, $typeFichier)
+    private function remplirFeuilleVenteParCategorie($produits, Worksheet $sheet)
+    {
+        $montant = 0;
+        $idCatParent = 0;
+        foreach ($produits as $produit) {
+            $j = $sheet->getHighestDataRow() + 1;
+            // si produit pas de la meme categorie que le precedent
+            if ($produit->getCategorie()->getCatParent()->getId() != $idCatParent) {
+
+                if ($idCatParent != 0) {
+                    $sheet->mergeCells('A' . $j . ':D' . $j);
+                    $sheet->setCellValue('A' . $j, 'Montant Total : ');
+                    $sheet->setCellValue('F' . $j, $montant.' €');
+                    $sheet->getStyle('A' . $j . ':E' . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('033379');
+                    $sheet->getStyle('A' . $j . ':F' . $j)->getFont()->setColor(new Color(Color::COLOR_WHITE))->setBold(true);
+                    $sheet->getStyle('F' . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('ff0000');
+                    $j++;
+                }
+
+                $idCatParent = $produit->getCategorie()->getCatParent()->getId();
+                // Creation de l'intitulé de la categorie
+                $sheet->mergeCells('A' . $j . ':F' . $j);
+                $sheet->setCellValue('A' . $j, 'Catégorie :' . $produit->getCategorie()->getCatParent()->getNom());
+                $sheet->getStyle('A' . $j . ':F' . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('add8e6');
+                $j++;
+
+            }
+            $sheet->setCellValue('A' . $j, $produit->getNom());
+            $sheet->setCellValue('B' . $j, $produit->getCategorie()->getNom());
+            $sheet->setCellValue('C' . $j, $produit->getDescription());
+            $sheet->setCellValue('D' . $j, $produit->getPrix());
+            $details = $produit->getDetails()->toArray();
+            $quantite = 0;
+            foreach ($details as $detail) {
+                $quantite = $quantite + $detail->getQuantite();
+            }
+            $sheet->setCellValue('E' . $j, $quantite);
+            $total = $quantite * $produit->getPrix();
+            $sheet->setCellValue('F' . $j, $total);
+            $montant = $montant + $total;
+
+            if ($j % 2 == 1) {
+                $sheet->getStyle('A' . $j . ':' . $sheet->getHighestDataColumn() . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('e5e5e5');
+            }
+        }
+
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getVertical()->setBorderStyle(Border::BORDER_THICK);
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getOutline()->setBorderStyle(Border::BORDER_THICK);
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN);
+
+        for ($i = 'A'; $i !=  $sheet->getHighestColumn(); $i++) {
+            $sheet->getColumnDimension($i)->setAutoSize(TRUE);
+        }
+
+            return $sheet;
+
+    }
+
+    private function remplirFeuilleListeClients($clients, Worksheet $sheet, $typeFichier)
     {
 
         setlocale(LC_ALL, 'fr_FR');

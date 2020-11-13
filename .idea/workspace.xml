@@ -16,10 +16,11 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="Finition de l'ajout des mois pour le reste des Etats">
+    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="mise des pdf en landscape">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/CSS/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/CSS/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/StatistiqueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/StatistiqueController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/DetailRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/DetailRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProduitRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/statistique/etats.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/statistique/etats.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -236,7 +237,7 @@
       <workItem from="1604941509991" duration="7000" />
       <workItem from="1604995700533" duration="31092000" />
       <workItem from="1605169181659" duration="37513000" />
-      <workItem from="1605255864711" duration="5635000" />
+      <workItem from="1605255864711" duration="16616000" />
     </task>
     <task id="LOCAL-00001" summary="Modification création Producteur + fixtures + base twig">
       <created>1603821345000</created>
@@ -357,7 +358,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605259727595</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="mise des pdf en landscape">
+      <created>1605261624468</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1605261624468</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -405,7 +413,8 @@
     <MESSAGE value="Ajout de la creation de fichier excel et PDF pour la liste des clients" />
     <MESSAGE value="Ajout des mois en + pour les Etats" />
     <MESSAGE value="Finition de l'ajout des mois pour le reste des Etats" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finition de l'ajout des mois pour le reste des Etats" />
+    <MESSAGE value="mise des pdf en landscape" />
+    <option name="LAST_COMMIT_MESSAGE" value="mise des pdf en landscape" />
   </component>
   <component name="WindowStateProjectService">
     <state x="906" y="378" key="#Inspections" timestamp="1603981892518">
@@ -466,11 +475,11 @@
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603379425513" />
     <state x="615" y="222" key="SettingsEditor/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603803155430" />
     <state x="615" y="222" key="SettingsEditor/2560.350.1920.1040/-1920.350.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1603702391421" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1605259736415">
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1605261630083">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603379831362" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1605259736415" />
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1605261630083" />
     <state x="1089" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604939062177">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
