@@ -130,7 +130,6 @@ class CommandeRepository extends ServiceEntityRepository
         $qb->orderBy('depot.nom', 'ASC')
             ->addOrderBy('producteur.nom');
 
-
         return $qb->getQuery()->getResult();
     }
 
@@ -184,20 +183,26 @@ class CommandeRepository extends ServiceEntityRepository
     }
 
 
-    public function findProducteurSelonSemaineEtAnnee($annee, $semaine)
+    public function findProducteurSelonAnneeEtSemaineOuMois($annee, $mois, $semaine)
     {
-        return $this->createQueryBuilder('c')
+        $qb = $this->createQueryBuilder('c')
             ->join('c.details', 'd')
             ->join('d.producteur', 'p')
             ->select('p.nom, p.id')
             ->distinct()
             ->andWhere('c.annee = :annee')
-            ->setParameter('annee', $annee)
-            ->andWhere('c.semaine = :semaine')
-            ->setParameter('semaine', $semaine)
-            ->orderBy('p.nom', 'ASC')
-            ->getQuery()
-            ->getResult();
+            ->setParameter('annee', $annee);
+        if ($semaine != 0) {
+            $qb->andWhere('c.semaine = :semaine')
+                ->setParameter('semaine', $semaine);
+        }
+        if ($mois != 0) {
+            $qb->andWhere('MONTH(c.dateCreation) = :mois')
+                ->setParameter('mois', $mois);
+        }
+        $qb->orderBy('p.nom', 'ASC');
+
+        return $qb->getQuery()->getResult();
 
     }
 

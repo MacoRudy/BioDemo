@@ -84,7 +84,7 @@ class StatistiqueController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      */
-    public function semainesSelonAnnee(Request $request)
+    public function moisEtSemainesSelonAnnee(Request $request)
     {
         setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
         $annee = $request->get('annee');
@@ -132,9 +132,9 @@ class StatistiqueController extends AbstractController
     {
         $annee = $request->get('annee');
         $semaine = $request->get('semaine');
+        $mois = $request->get('mois');
 
-        $producteur = $this->getDoctrine()->getRepository(Commande::class)->findProducteurSelonSemaineEtAnnee($annee, $semaine);
-
+        $producteur = $this->getDoctrine()->getRepository(Commande::class)->findProducteurSelonAnneeEtSemaineOuMois($annee, $mois, $semaine);
         return new JsonResponse($producteur);
     }
 
@@ -146,7 +146,7 @@ class StatistiqueController extends AbstractController
      * @return BinaryFileResponse
      * @throws Exception
      */
-    public function commandeParSemaine(Request $request)
+    public function commandeParSemaineOuMois(Request $request)
     {
         $annee = $request->request->get('annee1');
         $semaine = $request->request->get('semaine1');
@@ -221,50 +221,6 @@ class StatistiqueController extends AbstractController
 
 
 // Envoi de la feuille a l'utilisateur
-        return $this->sendFile($request, $spreadsheet, $title, $this);
-    }
-
-    /**
-     * @Route("/statistique/clients", name="clients_statistique", methods={"POST"})
-     * @param Request $request
-     * @return BinaryFileResponse
-     * @throws Exception
-     */
-    public function listeClients(Request $request)
-    {
-        if ($request->request->has('pdf')) {
-            $typeFichier = 'pdf';
-        } else {
-            $typeFichier = 'excel';
-        }
-        $clients = $this->getDoctrine()->getRepository(User::class)->findClientsStatistiques();
-
-        $spreadsheet = new Spreadsheet();
-
-        $sheet = $spreadsheet->getActiveSheet()->setShowGridlines(false);
-        $title = 'Liste des Clients';
-        $sheet->setTitle($title);
-        $sheet->getStyle('A:F')->getAlignment()->setHorizontal('center');
-
-        // nom des colonnes
-        $sheet->getStyle('A1:F2')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('A2', 'Nom');
-        $sheet->setCellValue('B2', 'Prénom');
-        $sheet->setCellValue('C2', 'Email');
-
-        $sheet->setCellValue('D2', 'Première commande');
-        $sheet->setCellValue('E2', 'Dernière commande');
-        $sheet->setCellValue('F2', 'Commandes');
-
-        $sheet->getStyle('A2:' . $sheet->getHighestColumn() . '2')->getFill()
-            ->setFillType(Fill::FILL_SOLID)
-            ->getStartColor()->setARGB('ff6347');
-
-        $sheet->getStyle('A1:F2')->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THICK);
-
-        $this->remplirFeuilleListeClients($clients, $sheet, $typeFichier);
-
         return $this->sendFile($request, $spreadsheet, $title, $this);
     }
 
@@ -346,17 +302,26 @@ class StatistiqueController extends AbstractController
     public function commandeParProducteur(Request $request)
     {
         $annee = $request->request->get('annee3');
+        $mois = $request->request->get('mois3');
         $semaine = $request->request->get('semaine3');
         $idProducteur = $request->request->get('producteur3');
         $producteur = $this->getDoctrine()->getRepository(Producteur::class)->find($idProducteur);
 
-        $detail = $this->getDoctrine()->getRepository(Detail::class)->findDetailSelonProducteur($annee, $semaine, $producteur);
+        $detail = $this->getDoctrine()->getRepository(Detail::class)->findDetailSelonProducteur($annee, $mois, $semaine, $producteur);
 
         $spreadsheet = new Spreadsheet();
 
 // donner des valeurs a la page et au titre
         $sheet = $spreadsheet->getActiveSheet()->setShowGridlines(false);
-        $title = 'Commande' . $annee . '-' . $semaine . '-' . strtok($producteur->getNom(), ' ');
+
+        if ($semaine != 0) {
+            $title = $annee . '-' . $semaine . '-' . strtok($producteur->getNom(), ' ');
+            $subtitre = 'Produits de la semaine ' . $semaine . ' de ' . $annee;
+        } else {
+            $title = $annee . '-' . self::mois[$mois] . '-' . strtok($producteur->getNom(), ' ');
+            $subtitre = 'Produits du mois de ' . self::mois[$mois] . ' de ' . $annee;
+        }
+
         $sheet->setTitle($title);
         $sheet->getStyle('A:E')->getAlignment()->setHorizontal('center');
 
@@ -375,7 +340,7 @@ class StatistiqueController extends AbstractController
         $sheet->getStyle('A1:E4')->getAlignment()->setWrapText(true);
 
         $sheet->mergeCells('A5:E5');
-        $subtitre = 'Produits de la semaine ' . $semaine . ' de ' . $annee;
+
         $sheet->setCellValue('A5', $subtitre);
         $sheet->getStyle('A5:E5')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('90ee90');
 
@@ -405,17 +370,26 @@ class StatistiqueController extends AbstractController
     public function venteParProducteur(Request $request)
     {
         $annee = $request->request->get('annee4');
+        $mois = $request->request->get('mois4');
         $semaine = $request->request->get('semaine4');
         $idProducteur = $request->request->get('producteur4');
         $producteur = $this->getDoctrine()->getRepository(Producteur::class)->find($idProducteur);
 
-        $detail = $this->getDoctrine()->getRepository(Detail::class)->findProduitSelonProducteur($annee, $semaine, $producteur);
+        $detail = $this->getDoctrine()->getRepository(Detail::class)->findProduitSelonProducteur($annee, $mois, $semaine, $producteur);
 //dd($detail);
         $spreadsheet = new Spreadsheet();
 
 // donner des valeurs a la page et au titre
         $sheet = $spreadsheet->getActiveSheet()->setShowGridlines(false);
-        $title = 'Vente' . $annee . '-' . $semaine . '-' . strtok($producteur->getNom(), ' ');
+
+        if ($semaine != 0) {
+            $title = $annee . '-' . $semaine . '-' . strtok($producteur->getNom(), ' ');
+            $subtitre = 'Vente de la semaine ' . $semaine . ' de ' . $annee;
+        } else {
+            $title = $annee . '-' . self::mois[$mois] . '-' . strtok($producteur->getNom(), ' ');
+            $subtitre = 'Vente du mois de ' . self::mois[$mois] . ' de ' . $annee;
+
+        }
         $sheet->setTitle($title);
         $sheet->getStyle('A:E')->getAlignment()->setHorizontal('center');
 
@@ -434,7 +408,7 @@ class StatistiqueController extends AbstractController
         $sheet->getStyle('A1:E4')->getAlignment()->setWrapText(true);
 
         $sheet->mergeCells('A5:E5');
-        $subtitre = 'Vente de la semaine ' . $semaine . ' de ' . $annee;
+
         $sheet->setCellValue('A5', $subtitre);
         $sheet->getStyle('A5:E5')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('90ee90');
 
@@ -451,6 +425,50 @@ class StatistiqueController extends AbstractController
         $sheet->getStyle('A1:E6')->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THICK);
 
         $this->remplirFeuilleVenteParProducteur($detail, $sheet);
+
+        return $this->sendFile($request, $spreadsheet, $title, $this);
+    }
+
+    /**
+     * @Route("/statistique/clients", name="clients_statistique", methods={"POST"})
+     * @param Request $request
+     * @return BinaryFileResponse
+     * @throws Exception
+     */
+    public function listeClients(Request $request)
+    {
+        if ($request->request->has('pdf')) {
+            $typeFichier = 'pdf';
+        } else {
+            $typeFichier = 'excel';
+        }
+        $clients = $this->getDoctrine()->getRepository(User::class)->findClientsStatistiques();
+
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet()->setShowGridlines(false);
+        $title = 'Liste des Clients';
+        $sheet->setTitle($title);
+        $sheet->getStyle('A:F')->getAlignment()->setHorizontal('center');
+
+        // nom des colonnes
+        $sheet->getStyle('A1:F2')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('A2', 'Nom');
+        $sheet->setCellValue('B2', 'Prénom');
+        $sheet->setCellValue('C2', 'Email');
+
+        $sheet->setCellValue('D2', 'Première commande');
+        $sheet->setCellValue('E2', 'Dernière commande');
+        $sheet->setCellValue('F2', 'Commandes');
+
+        $sheet->getStyle('A2:' . $sheet->getHighestColumn() . '2')->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('ff6347');
+
+        $sheet->getStyle('A1:F2')->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THICK);
+
+        $this->remplirFeuilleListeClients($clients, $sheet, $typeFichier);
 
         return $this->sendFile($request, $spreadsheet, $title, $this);
     }
@@ -612,7 +630,7 @@ class StatistiqueController extends AbstractController
         return $sheet;
     }
 
-    public function remplirDetailsCommande(Worksheet $sheet, $commande, $sheetTitle)
+    private function remplirDetailsCommande(Worksheet $sheet, $commande, $sheetTitle)
     {
         $sheet->setShowGridlines(false);
 

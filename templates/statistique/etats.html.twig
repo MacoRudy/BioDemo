@@ -176,7 +176,7 @@
 
                         <div class="row my-3">
                             {# Select Annee #}
-                            <div class="col">
+                            <div class="col-2">
                                 <label for="annee4">Année : </label>
                                 <select name="annee4" id="annee4" class="annee">
                                     <option value="0">Votre Choix</option>
@@ -195,25 +195,25 @@
                                 </select>
                             </div>
                             {# Select Semaine #}
-                            <div class="col select-semaine">
+                            <div class="col-2 select-semaine">
                                 <label for="semaine4">Semaine : </label>
                                 <select name="semaine4" id="semaine4" class="semaine">
                                 </select>
                             </div>
                             {# Select Producteur #}
-                            <div class="col select-producteur">
+                            <div class="col-2 select-producteur">
                                 <label for="producteur4">Producteur : </label>
                                 <select name="producteur4" id="producteur4" class="producteur" required>
                                 </select>
                             </div>
                             {# Bouton PDF #}
-                            <div class="col pdf">
+                            <div class="col-1 offset-2 pdf">
                                 <button type="submit" class="btn-outline-danger" name="pdf" value="pdf" id="pdf4">
                                     PDF
                                 </button>
                             </div>
                             {# Bouton Excel #}
-                            <div class="col excel">
+                            <div class="col-1 excel">
                                 <button type="submit" class="btn-outline-success" name="excel" value="excel"
                                         id="excel4">
                                     Excel
@@ -265,74 +265,78 @@
             $(".excel").css("visibility", "hidden");
 
             $('.annee').on('change', function () {
-
                 let baliseAnneeChoisie = $(this);
                 let annee = $(this).find('option:selected').val();
-                $(this).parent().parent().find('.select-mois').find('.mois').val(0);
-
-
-                $.ajax({
-                    url: '{{ path('semaines_statistique') }}',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: 'annee=' + annee,
-                    async: true,
-                    error: function (xhr, textStatus, errorThrown) {
-                        alert('Ajax request failed.');
-                    }
-                })
-                    .done(function (response) {
-                        let baliseMois = baliseAnneeChoisie.parent().parent().find('.select-mois')
-                        baliseMois.css("visibility", "visible");
-                        remplirSelectMois(response, baliseMois);
-                        let baliseSemaine = baliseAnneeChoisie.parent().parent().find('.select-semaine')
-                        baliseSemaine.css("visibility", "visible");
-                        remplirSelectSemaine(response, baliseSemaine);
-                        if (baliseAnneeChoisie.parent().parent().find('.select-depot').length > 0) {
-                            getDepotParSemaine(baliseSemaine, baliseMois, annee);
-                        } else if (baliseAnneeChoisie.parent().parent().find('.select-producteur').length > 0) {
-                            getProducteurParSemaine(baliseSemaine, annee)
-                        } else {
-                            baliseAnneeChoisie.parent().parent().find('.pdf').css("visibility", "visible");
-                            baliseAnneeChoisie.parent().parent().find('.excel').css("visibility", "visible");
-
+                if (annee == 0) {
+                    $(this).parent().parent().find('.select-mois').css("visibility", "hidden");
+                    $(this).parent().parent().find('.select-semaine').css("visibility", "hidden");
+                    $(this).parent().parent().find('.select-depot').css("visibility", "hidden");
+                    $(this).parent().parent().find('.select-producteur').css("visibility", "hidden");
+                    $(this).parent().parent().find('.pdf').css("visibility", "hidden");
+                    $(this).parent().parent().find('.excel').css("visibility", "hidden");
+                } else {
+                    $.ajax({
+                        url: '{{ path('semaines_statistique') }}',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: 'annee=' + annee,
+                        async: true,
+                        error: function (xhr, textStatus, errorThrown) {
+                            alert('Ajax request failed.');
                         }
                     })
+                        .done(function (response) {
+                            let baliseMois = baliseAnneeChoisie.parent().parent().find('.select-mois')
+                            baliseMois.css("visibility", "visible");
+                            remplirSelectMois(response, baliseMois);
+                            let baliseSemaine = baliseAnneeChoisie.parent().parent().find('.select-semaine')
+                            baliseSemaine.css("visibility", "visible");
+                            remplirSelectSemaine(response, baliseSemaine);
+                            if (baliseAnneeChoisie.parent().parent().find('.select-depot').length > 0) {
+                                getDepotParSemaine(baliseSemaine, baliseMois, annee);
+                            } else if (baliseAnneeChoisie.parent().parent().find('.select-producteur').length > 0) {
+                                getProducteurParSemaine(baliseSemaine, baliseMois, annee)
+                            } else {
+                                baliseAnneeChoisie.parent().parent().find('.pdf').css("visibility", "visible");
+                                baliseAnneeChoisie.parent().parent().find('.excel').css("visibility", "visible");
+                            }
+                        })
+                }
             })
-        })
 
-        $('.semaine').on('change', function () {
-            if ($(this).val() != 0) {
-                $(this).parent().parent().find('.select-mois').find('.mois').val(0);
-                $(this).parent().parent().find('.pdf').css("visibility", "visible");
-                $(this).parent().parent().find('.excel').css("visibility", "visible");
-                $(this).parent().parent().find('.select-depot').css("visibility", "visible");
-                $(this).parent().parent().find('.select-producteur').css("visibility", "visible");
-            } else {
-                $(this).parent().parent().find('.select-depot').css("visibility", "hidden");
-                $(this).parent().parent().find('.select-producteur').css("visibility", "hidden");
-                if ($(this).attr('id') != 'semaine1') {
-                    $(this).parent().parent().find('.pdf').css("visibility", "hidden");
-                    $(this).parent().parent().find('.excel').css("visibility", "hidden");
+            $('.semaine').on('change', function () {
+                if ($(this).val() != 0) {
+                    $(this).parent().parent().find('.select-mois').find('.mois').val(0);
+                    $(this).parent().parent().find('.pdf').css("visibility", "visible");
+                    $(this).parent().parent().find('.excel').css("visibility", "visible");
+                    $(this).parent().parent().find('.select-depot').css("visibility", "visible");
+                    $(this).parent().parent().find('.select-producteur').css("visibility", "visible");
+                } else {
+                    $(this).parent().parent().find('.select-depot').css("visibility", "hidden");
+                    $(this).parent().parent().find('.select-producteur').css("visibility", "hidden");
+                    if ($(this).attr('id') != 'semaine1') {
+                        $(this).parent().parent().find('.pdf').css("visibility", "hidden");
+                        $(this).parent().parent().find('.excel').css("visibility", "hidden");
+                    }
                 }
-            }
-        })
+            })
 
-        $('.mois').on('change', function () {
-            if ($(this).val() != 0) {
-                $(this).parent().parent().find('.select-semaine').find('.semaine').val(0);
-                $(this).parent().parent().find('.pdf').css("visibility", "visible");
-                $(this).parent().parent().find('.excel').css("visibility", "visible");
-                $(this).parent().parent().find('.select-depot').css("visibility", "visible");
-                $(this).parent().parent().find('.select-producteur').css("visibility", "visible");
-            } else {
-                $(this).parent().parent().find('.select-depot').css("visibility", "hidden");
-                $(this).parent().parent().find('.select-producteur').css("visibility", "hidden");
-                if ($(this).attr('id') != 'mois1') {
-                    $(this).parent().parent().find('.pdf').css("visibility", "hidden");
-                    $(this).parent().parent().find('.excel').css("visibility", "hidden");
+            $('.mois').on('change', function () {
+                if ($(this).val() != 0) {
+                    $(this).parent().parent().find('.select-semaine').find('.semaine').val(0);
+                    $(this).parent().parent().find('.pdf').css("visibility", "visible");
+                    $(this).parent().parent().find('.excel').css("visibility", "visible");
+                    $(this).parent().parent().find('.select-depot').css("visibility", "visible");
+                    $(this).parent().parent().find('.select-producteur').css("visibility", "visible");
+                } else {
+                    $(this).parent().parent().find('.select-depot').css("visibility", "hidden");
+                    $(this).parent().parent().find('.select-producteur').css("visibility", "hidden");
+                    if ($(this).attr('id') != 'mois1') {
+                        $(this).parent().parent().find('.pdf').css("visibility", "hidden");
+                        $(this).parent().parent().find('.excel').css("visibility", "hidden");
+                    }
                 }
-            }
+            })
         })
 
         function getDepotParSemaine(baliseSemaine, baliseMois, annee) {
@@ -359,16 +363,17 @@
         }
 
 
-        function getProducteurParSemaine(baliseSemaine, annee) {
+        function getProducteurParSemaine(baliseSemaine, baliseMois, annee) {
 
-            $(baliseSemaine).on('change', function () {
+            $(baliseSemaine).add(baliseMois).on('change', function () {
 
-                let semaine = $(this).find('option:selected').val();
+                let mois = baliseMois.find('option:selected').val();
+                let semaine = baliseSemaine.find('option:selected').val();
                 $.ajax({
                     url: '{{ path('producteurs_statistique') }}',
                     type: 'POST',
                     dataType: 'JSON',
-                    data: {annee: annee, semaine: semaine},
+                    data: {annee: annee, semaine: semaine, mois: mois},
                     async: true,
                     error: function (xhr, textStatus, errorThrown) {
                         alert('Ajax request failed.');
@@ -399,7 +404,7 @@
             let selMois = baliseMois.children().next();
             selMois.find('option').remove();
             selMois.append('<option value="0">Votre Choix</option>');
-            for(let mois in response['mois']) {
+            for (let mois in response['mois']) {
                 let opt = document.createElement('option');
                 opt.value = mois;
                 let name = document.createTextNode(response['mois'][mois]);
