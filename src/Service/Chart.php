@@ -66,7 +66,6 @@ class Chart
         $chart->getOptions()->getVAxis()->setTitle('Montant (€)');
         $chart->getOptions()->getVAxis()->setMinValue(0);
         $chart->getOptions()->getHAxis()->setTitle('Producteurs');
-        $chart->getOptions()->setHeight(700);
 
         return $chart;
     }
@@ -91,7 +90,7 @@ class Chart
         $chart->getOptions()->getVAxis()->setTitle('Montant (€)');
         $chart->getOptions()->getVAxis()->setMinValue(0);
         $chart->getOptions()->getHAxis()->setTitle('Dépôts');
-        $chart->getOptions()->setHeight(700);
+//        $chart->getOptions()->setHeight(700);
 
         return $chart;
     }
@@ -115,7 +114,6 @@ class Chart
         $chart->getOptions()->getVAxis()->setTitle('Montant (€)');
         $chart->getOptions()->getVAxis()->setMinValue(0);
         $chart->getOptions()->getHAxis()->setTitle('Catégories');
-        $chart->getOptions()->setHeight(700);
 
         return $chart;
     }

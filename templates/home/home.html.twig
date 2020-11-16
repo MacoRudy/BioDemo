@@ -4,17 +4,78 @@
 {% endblock %}
 {% block title %}{{ parent() }} Home{% endblock %}
 
+
+
+
 {% block body %}
     {% for label, messages in app.flashes(['success', 'warning', 'danger']) %}
         {% for message in messages %}
             <p class="alert-{{ label }}">{{ message }}</p>
         {% endfor %}
     {% endfor %}
-<body class="bg">
 
+    <div class="bg d-flex justify-content-center">
+        <div class="bg-container text-center w-50">
+            <h1 class="bg-success text-white py-1">Accueil</h1>
+            <h3>Ventes de la semaine {{ semaine }}</h3>
+            <div>
+                <h5 class="bg-info text-white py-1">Par Dépôts</h5>
+                <div id="piechart"></div>
+            </div>
+            <div>
+                <h5 class="bg-info text-white py-1">Par Producteurs</h5>
+                <div id="prod_barre"></div>
+            </div>
+            <div>
+                <h5 class="bg-info text-white py-1">Par Catégorie</h5>
+                <div id="depot_barre"></div>
+            </div>
 
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        $(document).ready(function () {
 
-</body>
+            let pieChart = document.getElementById('piechart');
+            let type = "{{ type }}";
+            let annee = {{ annee }};
+            let semaine = {{ semaine }};
+            $.ajax({
+                url: '{{ path('commandes_3d_graphique') }}',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {annee: annee, semaine: semaine, type: type},
+                async: true,
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('Ajax request failed.');
+                }
+            })
+                .done(function (response) {
 
+                    google.charts.load("current", {packages: ["corechart"]});
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart() {
+                        let data = google.visualization.arrayToDataTable(response);
+                        let options = {
+                            title: '',
+                            is3D: true,
+                        };
+                        let chart = new google.visualization.PieChart(pieChart);
+                        chart.draw(data, options);
+                    }
+                })
+
+        })
+    </script>
+    <script>
+        {{ gc_draw(chartProd, 'prod_barre') }}
+    </script>
+    <script>
+        {{ gc_draw(chartCat, 'depot_barre') }}
+    </script>
 
 {% endblock %}
