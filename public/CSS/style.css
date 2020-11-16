@@ -1,14 +1,16 @@
 @media (min-width: 900px) {
-    .bg {
+    body {
         background-image: url("../images/bg-site.jpg");
         background-attachment: fixed;
-        height: 100% !important;
+        background-repeat: no-repeat;
+
     }
 }
 
 .bg-container {
     background-color: white;
-    height: 100vh;
+    /*min-height: 100vh;*/
+    height: fit-content;
     width: 75%;
     padding: 0;
 }
@@ -18,4 +20,16 @@
 
 .btn-graph {
  width: 70%;
+}
+
+.navbar {
+background-color: #D6F5C6;
+}
+
+.gras {
+    font-weight: 900;
+}
+
+li>a:hover {
+    background-color: #20c997;
 }

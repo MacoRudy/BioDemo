@@ -1,4 +1,13 @@
 .bg-container {
 
-    width: 50%;
+    width: 60%;
+}
+
+h5 {
+    margin: 0;
+}
+
+.graph {
+    height: 400px;
+    width: 95%;
 }

@@ -18,17 +18,16 @@
             <h3>Ventes de la semaine {{ semaine }}</h3>
             <div>
                 <h5 class="bg-info text-white py-1">Par Dépôts</h5>
-                <div id="piechart"></div>
+                <div class="graph" id="piechart"></div>
             </div>
             <div>
                 <h5 class="bg-info text-white py-1">Par Producteurs</h5>
-                <div id="prod_barre"></div>
+                <div class="graph" id="prod_barre"></div>
             </div>
             <div>
                 <h5 class="bg-info text-white py-1">Par Catégorie</h5>
-                <div id="depot_barre"></div>
+                <div class="graph" id="depot_barre"></div>
             </div>
-
 
 {% endblock %}
 {% block javascripts %}
@@ -74,5 +73,6 @@
     <script>
         {{ gc_draw(chartCat, 'depot_barre') }}
     </script>
+
 
 {% endblock %}

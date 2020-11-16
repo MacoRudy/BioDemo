@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('CSS/bootstrap.css') }}">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
-    <!-- Css -->
 
     {% block Css %}{% endblock %}
 
@@ -16,7 +14,7 @@
 <body>
 
 <div id="page-content-wrapper">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="{{ path('home') }}">
             <img src="{{ asset('images/bio.jpg') }}" width="50" height="50" alt="">
         </a>
@@ -25,7 +23,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav justify-content-around w-100">
+            <ul class="navbar-nav justify-content-around w-100 gras">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('producteur') }}">Producteurs</a>
                 </li>
@@ -44,10 +42,10 @@
                         Produit
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ path('categorie') }}">Categorie</a>
-                        <a class="dropdown-item" href="{{ path('produit') }}">Produit</a>
+                        <a class="dropdown-item gras" href="{{ path('categorie') }}">Categorie</a>
+                        <a class="dropdown-item gras" href="{{ path('produit') }}">Produit</a>
                         {% if(app.user and app.user.roles == ["ROLE_PRODUCTEUR"]) %}
-                            <a class="dropdown-item" href="{{ path('vos_produits') }}">Vos Produits</a>
+                            <a class="dropdown-item gras" href="{{ path('vos_produits') }}">Vos Produits</a>
                         {% endif %}
                     </div>
                 </li>
@@ -57,9 +55,9 @@
                         Statistiques
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ path('statistique') }}">Stats</a>
-                        <a class="dropdown-item" href="{{ path('etat') }}">Etats</a>
-                        <a class="dropdown-item" href="{{ path('graphique') }}">Graphiques</a>
+                        <a class="dropdown-item gras" href="{{ path('statistique') }}">Stats</a>
+                        <a class="dropdown-item gras" href="{{ path('etat') }}">Etats</a>
+                        <a class="dropdown-item gras" href="{{ path('graphique') }}">Graphiques</a>
                     </div>
                 </li>
                 {% if app.user %}
@@ -85,10 +83,11 @@
         {% endfor %}
     {% endfor %}
 </div>
-<div class="bg d-flex justify-content-center">
+<div class="d-flex justify-content-center">
     <div class="bg-container text-center">
         <div class="container-fluid p-0">
     {% block body %}{% endblock %}
+
         </div>
     </div>
 </div>
