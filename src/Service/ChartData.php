@@ -78,7 +78,30 @@ class ChartData
         return $arrayToDataTable;
     }
 
+    public function DataVentesParDepot($annee, $semaine)
+    {
+        $details = $this->em->getRepository(Detail::class)->findVenteDepot($annee, $semaine);
+        $arrayToDataTable[] = ['Dépôt', 'Montant (€)'];
+        $idDepot = 0;
+        $total = 0;
+        $x=0;
+        $nomDepot = '';
+        // si on change de depot sauf la premiere boucle
+        foreach ($details as $detail) {
+            if ($detail->getCommande()->getDepot()->getId() != $idDepot and $idDepot != 0) {
+                $arrayToDataTable[] = [$nomDepot, $total];
+                // on remet le total a 0;
+                $total = 0;
+            }
 
+            $idDepot = $detail->getCommande()->getDepot()->getId();
+            $nomDepot = $detail->getCommande()->getDepot()->getNom();
+            $total = $total + ($detail->getQuantite() * $detail->getPrix());
+        }
+        $arrayToDataTable[] = [$nomDepot, $total];
+        return $arrayToDataTable;
+
+    }
 
 
 }

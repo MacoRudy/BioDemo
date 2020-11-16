@@ -66,7 +66,6 @@ class Chart
         $chart->getOptions()->getVAxis()->setTitle('Montant (€)');
         $chart->getOptions()->getVAxis()->setMinValue(0);
         $chart->getOptions()->getHAxis()->setTitle('Producteurs');
-//        $chart->getOptions()->setWidth(900);
         $chart->getOptions()->setHeight(700);
 
         return $chart;
@@ -76,6 +75,30 @@ class Chart
     public function ventesProducteurCamembert($annee, $semaine)
     {
         return $this->chartData->DataVentesParProducteur($annee, $semaine);
+    }
+
+    public function ventesParDepot($annee, $semaine)
+    {
+        $arrayToDataTable = $this->chartData->DataVentesParDepot($annee, $semaine);
+
+        $chart = new ColumnChart();
+        $chart->getData()->setArrayToDataTable($arrayToDataTable);
+        if ($semaine != 0) {
+            $chart->getOptions()->setTitle('Ventes par Dépôt pour la semaine ' . $semaine . ' de ' . $annee);
+        } else {
+            $chart->getOptions()->setTitle('Ventes par Dépôt pour ' . $annee);
+        }
+        $chart->getOptions()->getVAxis()->setTitle('Montant (€)');
+        $chart->getOptions()->getVAxis()->setMinValue(0);
+        $chart->getOptions()->getHAxis()->setTitle('Dépôts');
+        $chart->getOptions()->setHeight(700);
+
+        return $chart;
+    }
+
+    public function ventesDepotCamembert($annee,  $semaine)
+    {
+        return $this->chartData->DataVentesParDepot($annee, $semaine);
     }
 
 

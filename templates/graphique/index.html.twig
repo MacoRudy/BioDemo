@@ -31,14 +31,14 @@
                                 </select>
                             </div>
                             <div class="col-3">
-                                <button type="submit" class="btn btn-primary btn-graph" name="mois" value="mois"
-                                        id="mois">
+                                <button type="submit" class="btn btn-primary btn-graph" name="mois-barre" value="mois-barre"
+                                        id="mois-barre">
                                     Commandes par mois / Barres
                                 </button>
                             </div>
                             <div class="col-3">
-                                <button type="submit" class="btn btn-primary btn-graph" name="semaine" value="semaine"
-                                        id="semaine">
+                                <button type="submit" class="btn btn-primary btn-graph" name="semaine-barre" value="semaine-barre"
+                                        id="semaine-barre">
                                     Commandes par semaines / Barres
                                 </button>
                             </div>
@@ -52,15 +52,15 @@
                     </form>
                 </div>
 
-                {# Commandes par Producteur #}
+                {# Ventes par Producteur #}
                 <div class="border border-success my-3">
                     <h5 class="bg-success text-white py-1">Ventes Par Producteur</h5>
 
                     <form method="post" action="{{ path('ventes_par_producteur_graphique') }}">
                         <div class="row my-3">
                             <div class="col-3">
-                                <label for="annee">Année : </label>
-                                <select name="annee" id="annee" class="annee" required>
+                                <label for="annee1">Année : </label>
+                                <select name="annee1" id="annee1" class="annee" required>
                                     <option value="">Votre Choix</option>
                                     {% for annee in annees %}
                                         <option value="{{ annee.annee }}">
@@ -70,8 +70,8 @@
                                 </select>
                             </div>
                             <div class="col-3 select-semaine">
-                                <label for="semaine">Semaine : </label>
-                                <select name="semaine" id="semaine" class="semaine">
+                                <label for="semaine1">Semaine : </label>
+                                <select name="semaine1" id="semaine1" class="semaine">
                                 </select>
                             </div>
                             <div class="col-3">
@@ -84,6 +84,45 @@
                             <div class="col-3">
                                 <button type="submit" class="btn btn-primary btn-graph" name="producteur-camembert"
                                         value="producteur-camembert" id="producteur-camembert">
+                                    Graphique en camembert
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                {# Ventes par Depot #}
+                <div class="border border-success my-3">
+                    <h5 class="bg-success text-white py-1">Ventes Par Dépôt</h5>
+
+                    <form method="post" action="{{ path('ventes_par_depot_graphique') }}">
+                        <div class="row my-3">
+                            <div class="col-3">
+                                <label for="annee2">Année : </label>
+                                <select name="annee2" id="annee2" class="annee" required>
+                                    <option value="">Votre Choix</option>
+                                    {% for annee in annees %}
+                                        <option value="{{ annee.annee }}">
+                                            {{ annee.annee }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-3 select-semaine">
+                                <label for="semaine2">Semaine : </label>
+                                <select name="semaine2" id="semaine2" class="semaine">
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary btn-graph" name="depot-barre"
+                                        value="depot-barre" id="depot-barre">
+                                    Graphique en barres
+                                </button>
+                            </div>
+
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary btn-graph" name="depot-camembert"
+                                        value="depot-camembert" id="depot-camembert">
                                     Graphique en camembert
                                 </button>
                             </div>

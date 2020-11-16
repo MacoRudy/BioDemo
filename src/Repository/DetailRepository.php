@@ -87,5 +87,21 @@ class DetailRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findVenteDepot($annee, $semaine)
+    {
+        $qb = $this->createQueryBuilder('d')
+            ->join('d.commande', 'commande')
+            ->join('commande.depot', 'depot')
+            ->select('d , commande, depot')
+            ->andWhere('commande.annee = :annee')
+            ->setParameter('annee', $annee);
+        if ($semaine != 0) {
+            $qb->andWhere('commande.semaine = :semaine')
+                ->setParameter('semaine', $semaine);
+        }
+        $qb->orderBy('depot.nom');
+
+        return $qb->getQuery()->getResult();
+    }
 
 }

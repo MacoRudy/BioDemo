@@ -33,14 +33,15 @@ class GraphiqueController extends AbstractController
     public function commandesParDate(Chart $chart, Request $request)
     {
         $annee = $request->request->get('annee');
-        if ($request->request->has('mois')) {
+        $type = 'date';
+        if ($request->request->has('mois-barre')) {
             $chart = $chart->commandesParMoisBarre($annee);
             return $this->render('graphique/barGraph.html.twig', ['chart' => $chart]);
-        } else if ($request->request->has('semaine')) {
+        } else if ($request->request->has('semaine-barre')) {
             $chart = $chart->commandesParSemaineBarre($annee);
             return $this->render('graphique/barGraph.html.twig', ['chart' => $chart]);
         } else {
-            return $this->render('graphique/3dPieChart.html.twig', ['annee' => $annee]);
+            return $this->render('graphique/3dPieChart.html.twig', ['annee' => $annee, 'type' => $type]);
         }
     }
 
@@ -53,12 +54,16 @@ class GraphiqueController extends AbstractController
      */
     public function Ajax3DPieChartDate(Request $request, Chart $chart)
     {
-        $annee = $request->get('annee');
-        $semaine = $request->get('semaine');
-        if ($semaine != -1) {
+        $annee = $request->request->get('annee');
+        $semaine = $request->request->get('semaine');
+        $type = $request->request->get('type');
+
+        if ($type == 'producteurs') {
             $arrayToDataTable = $chart->ventesProducteurCamembert($annee, $semaine);
-        }else {
+        } elseif ($type == 'date'){
             $arrayToDataTable = $chart->commandesParMoisCamembert($annee);
+        } elseif ($type == 'dépôts') {
+            $arrayToDataTable = $chart->ventesDepotCamembert($annee, $semaine);
         }
         return new JsonResponse($arrayToDataTable);
     }
@@ -72,17 +77,35 @@ class GraphiqueController extends AbstractController
      */
     public function VentesParProducteur(Chart $chart, Request $request)
     {
-        $annee = $request->request->get('annee');
-        $semaine = $request->request->get('semaine');
+        $annee = $request->request->get('annee1');
+        $semaine = $request->request->get('semaine1');
+        $type = 'producteurs';
         if ($request->request->has('producteur-barre')) {
             $chart = $chart->ventesParProducteur($annee, $semaine);
             return $this->render('graphique/barGraph.html.twig', ['chart' => $chart]);
         } else {
-            return $this->render('graphique/3dPieChart.html.twig', ['annee' => $annee, 'semaine'=>$semaine]);
+            return $this->render('graphique/3dPieChart.html.twig', ['annee' => $annee, 'semaine' => $semaine, 'type' => $type]);
         }
     }
 
 
-
+    /**
+     * @Route("/graphique/ventes/depot", name="ventes_par_depot_graphique", methods={"POST"})
+     * @param Chart $chart
+     * @param Request $request
+     * @return Response
+     */
+    public function VentesParDepot(Chart $chart, Request $request)
+    {
+        $annee = $request->request->get('annee2');
+        $semaine = $request->request->get('semaine2');
+        $type = 'dépôts';
+        if ($request->request->has('depot-barre')) {
+            $chart = $chart->ventesParDepot($annee, $semaine);
+            return $this->render('graphique/barGraph.html.twig', ['chart' => $chart]);
+        } else {
+            return $this->render('graphique/3dPieChart.html.twig', ['annee' => $annee, 'semaine' => $semaine, 'type' => $type]);
+        }
+    }
 
 }
