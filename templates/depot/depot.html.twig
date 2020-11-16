@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
+
         {% if(app.user.roles == ["ROLE_ADMIN"]) %}
             <a href="{{ path('creation_depot') }}" class="btn btn-success btn-lg btn-block" role="button"
                aria-pressed="true">Ajouter un dépôt</a>
@@ -73,5 +73,5 @@
                 </table>
             </div>
         </div>
-    </div>
+
 {% endblock %}

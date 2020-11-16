@@ -5,7 +5,6 @@
 {% block title %}{{ parent() }} Modification du Producteur{% endblock %}
 
 {% block body %}
-    <div class="container">
 
         <h1 class="text-center my-4">Modification d'un Producteur</h1>
 
@@ -79,8 +78,6 @@
                 {{ form_widget(producteurForm.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
             </div>
         </div>
-
-    </div>
 
 
     <div class="text-center mt-4 px-5">

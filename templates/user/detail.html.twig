@@ -8,8 +8,6 @@
 
 {% block body %}
 
-    <div class="container">
-
         <h1 class="text-center my-4">Client : {{ detail.nom }} {{ detail.prenom }}</h1>
 
         <div class="d-flex justify-content-around row">
@@ -70,8 +68,5 @@
             {%  endif %}
             <a class="btn btn-primary btn-block" role="button" href="{{ path('user') }}">Retour</a>
         </div>
-
-
-    </div>
 
 {% endblock %}

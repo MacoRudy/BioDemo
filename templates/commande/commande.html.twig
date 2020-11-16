@@ -9,7 +9,7 @@
 {% block body %}
 
 
-    <div class="container-fluid">
+
         {% if(app.user.roles == ["ROLE_ADMIN"]) %}
             <a href="{{ path('creation_commande') }}" class="btn btn-success btn-lg btn-block" role="button"
                aria-pressed="true">Ajouter une Commande</a>
@@ -119,7 +119,7 @@
                 </table>
             </div>
         </div>
-    </div>
+
 {% endblock %}
 {% block javascripts %}
     <script>

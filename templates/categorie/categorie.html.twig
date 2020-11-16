@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
+
         {% if(app.user.roles == ["ROLE_ADMIN"]) %}
             <a href="{{ path('add_categorie') }}" class="btn btn-success btn-lg btn-block" role="button"
                aria-pressed="true">Ajouter une Catégorie</a>
@@ -110,5 +110,5 @@
                 </table>
             </div>
         </div>
-    </div>
+
 {% endblock %}

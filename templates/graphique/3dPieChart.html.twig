@@ -16,7 +16,7 @@
             let semaine ={{ semaine }}
         </script>
     {% endif %}
-    <div class="container-fluid">
+
         <div class="row text-center">
             <div class="col">
                 {% if semaine is not defined %}
@@ -33,7 +33,7 @@
                 <a class="btn btn-primary btn-block" role="button" href="{{ path('graphique') }}">Retour</a>
             </div>
         </div>
-    </div>
+
 
 {% endblock %}
 {% block javascripts %}

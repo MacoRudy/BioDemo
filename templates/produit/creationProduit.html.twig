@@ -5,7 +5,6 @@
 {% block title %}{{ parent() }} Ajout d'un produit{% endblock %}
 
 {% block body %}
-    <div class="container">
 
         <h1 class="text-center my-4">Ajout d'un Produit</h1>
 
@@ -37,7 +36,7 @@
             {{ form_label(produitForm.description) }}
             {{ form_widget(produitForm.description, { 'attr': {'class': 'form-control'} }) }}
         </div>
-    </div>
+
 
 
     <div class="text-center mt-4 px-5">
