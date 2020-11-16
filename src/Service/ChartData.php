@@ -5,6 +5,7 @@ namespace App\Service;
 
 
 use App\Entity\Commande;
+use App\Entity\Detail;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ChartData
@@ -53,5 +54,31 @@ class ChartData
         return $arrayToDataTable;
 
     }
+
+    public function DataVentesParProducteur($annee, $semaine)
+    {
+
+        $details = $this->em->getRepository(Detail::class)->findVenteProducteur($annee, $semaine);
+        $arrayToDataTable[] = ['Producteur', 'Montant (€)'];
+        $idProd = 0;
+        $total = 0;
+        $nomProd = '';
+        // si on change de producteur sauf la premiere boucle
+        foreach ($details as $detail) {
+            if ($detail->getProducteur()->getId() != $idProd and $idProd != 0) {
+                $arrayToDataTable[] = [$nomProd, $total];
+                // on remet le total a 0;
+                $total = 0;
+            }
+            $idProd = $detail->getProducteur()->getId();
+            $nomProd = $detail->getProducteur()->getNom();
+            $total = $total + ($detail->getQuantite() * $detail->getPrix());
+        }
+        $arrayToDataTable[] = [$nomProd, $total];
+        return $arrayToDataTable;
+    }
+
+
+
 
 }

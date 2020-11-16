@@ -16,33 +16,15 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="Ajout de l'etat pour les ventes par categories">
-      <change afterPath="$PROJECT_DIR$/src/Controller/GraphiqueController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Chart.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/ChartData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/graphique/3dPieChart.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/graphique/barGraph.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/graphique/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/BioDemo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BioDemo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="Création de l'onglet graphiques et ajout des graphiques de commandes par date">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/CSS/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/CSS/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/StatistiqueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/StatistiqueController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CommandeRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/statistique/etats.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/statistique/etats.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/InstalledVersions.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/InstalledVersions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/package-versions-deprecated/src/PackageVersions/Versions.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/package-versions-deprecated/src/PackageVersions/Versions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/GraphiqueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/GraphiqueController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/DetailRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/DetailRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Chart.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Chart.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/ChartData.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ChartData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/graphique/3dPieChart.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/graphique/3dPieChart.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/graphique/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/graphique/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -260,7 +242,8 @@
       <workItem from="1604941509991" duration="7000" />
       <workItem from="1604995700533" duration="31092000" />
       <workItem from="1605169181659" duration="37513000" />
-      <workItem from="1605255864711" duration="48593000" />
+      <workItem from="1605255864711" duration="48735000" />
+      <workItem from="1605514744554" duration="18060000" />
     </task>
     <task id="LOCAL-00001" summary="Modification création Producteur + fixtures + base twig">
       <created>1603821345000</created>
@@ -395,7 +378,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605273640358</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Création de l'onglet graphiques et ajout des graphiques de commandes par date">
+      <created>1605307772153</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1605307772153</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -445,7 +435,8 @@
     <MESSAGE value="Finition de l'ajout des mois pour le reste des Etats" />
     <MESSAGE value="mise des pdf en landscape" />
     <MESSAGE value="Ajout de l'etat pour les ventes par categories" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout de l'etat pour les ventes par categories" />
+    <MESSAGE value="Création de l'onglet graphiques et ajout des graphiques de commandes par date" />
+    <option name="LAST_COMMIT_MESSAGE" value="Création de l'onglet graphiques et ajout des graphiques de commandes par date" />
   </component>
   <component name="WindowStateProjectService">
     <state x="906" y="378" key="#Inspections" timestamp="1603981892518">
@@ -478,12 +469,12 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="445" y="75" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602688950072" />
-    <state x="920" y="370" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605303180926">
+    <state x="920" y="370" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605520485957">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603377262917" />
     <state x="920" y="370" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603812110333" />
-    <state x="920" y="370" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1605303180926" />
+    <state x="920" y="370" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1605520485957" />
     <state x="987" y="370" key="FileChooserDialogImpl" timestamp="1603723022013">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -511,20 +502,20 @@
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603379425513" />
     <state x="615" y="222" key="SettingsEditor/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603803155430" />
     <state x="615" y="222" key="SettingsEditor/2560.350.1920.1040/-1920.350.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1603702391421" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1605273644863">
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1605307782942">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603379831362" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1605273644863" />
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1605307782942" />
     <state x="1089" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604939062177">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1089" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1604939062177" />
-    <state x="2560" y="342" width="1936" height="1127" key="dock-window-1" timestamp="1605292132571">
+    <state x="2581" y="328" width="1745" height="1127" maximized="true" key="dock-window-1" timestamp="1605523310640">
       <screen x="2560" y="342" width="1920" height="1040" />
     </state>
     <state x="2560" y="0" width="1936" height="1127" key="dock-window-1/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603810551169" />
-    <state x="2560" y="342" width="1936" height="1127" key="dock-window-1/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1605292132571" />
+    <state x="2581" y="328" width="1745" height="1127" maximized="true" key="dock-window-1/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1605523310640" />
     <state x="2560" y="342" width="1752" height="1127" key="dock-window-2" timestamp="1605304994380">
       <screen x="2560" y="342" width="1920" height="1040" />
     </state>

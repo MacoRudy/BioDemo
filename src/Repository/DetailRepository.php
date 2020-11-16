@@ -70,4 +70,22 @@ class DetailRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findVenteProducteur($annee, $semaine)
+    {
+        $qb = $this->createQueryBuilder('d')
+            ->join('d.commande', 'commande')
+            ->join('d.producteur', 'producteur')
+            ->select('d , commande, producteur')
+            ->andWhere('commande.annee = :annee')
+            ->setParameter('annee', $annee);
+        if ($semaine != 0) {
+            $qb->andWhere('commande.semaine = :semaine')
+                ->setParameter('semaine', $semaine);
+        }
+        $qb->orderBy('producteur.nom');
+
+        return $qb->getQuery()->getResult();
+    }
+
+
 }

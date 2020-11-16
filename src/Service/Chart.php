@@ -52,5 +52,31 @@ class Chart
         return $this->chartData->DataCommandesParMoisCamembert($annee);
     }
 
+    public function ventesParProducteur($annee, $semaine)
+    {
+        $arrayToDataTable = $this->chartData->DataVentesParProducteur($annee, $semaine);
+
+        $chart = new ColumnChart();
+        $chart->getData()->setArrayToDataTable($arrayToDataTable);
+        if ($semaine != 0) {
+            $chart->getOptions()->setTitle('Ventes par Producteur pour la semaine ' . $semaine . ' de ' . $annee);
+        } else {
+            $chart->getOptions()->setTitle('Ventes par Producteur pour ' . $annee);
+        }
+        $chart->getOptions()->getVAxis()->setTitle('Montant (€)');
+        $chart->getOptions()->getVAxis()->setMinValue(0);
+        $chart->getOptions()->getHAxis()->setTitle('Producteurs');
+//        $chart->getOptions()->setWidth(900);
+        $chart->getOptions()->setHeight(700);
+
+        return $chart;
+    }
+
+
+    public function ventesProducteurCamembert($annee, $semaine)
+    {
+        return $this->chartData->DataVentesParProducteur($annee, $semaine);
+    }
+
 
 }

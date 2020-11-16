@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Entity\Detail;
 use App\Service\Chart;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,49 +25,64 @@ class GraphiqueController extends AbstractController
 
 
     /**
-     * @Route("/graphique/commandes/date/barres", name="commandes_par_date_barre_graphique", methods={"POST"})
+     * @Route("/graphique/commandes/date", name="commandes_par_date_graphique", methods={"POST"})
      * @param Chart $chart
      * @param Request $request
      * @return Response
      */
-    public function commandesParDateBarre(Chart $chart, Request $request)
+    public function commandesParDate(Chart $chart, Request $request)
     {
         $annee = $request->request->get('annee');
         if ($request->request->has('mois')) {
             $chart = $chart->commandesParMoisBarre($annee);
-        } else {
+            return $this->render('graphique/barGraph.html.twig', ['chart' => $chart]);
+        } else if ($request->request->has('semaine')) {
             $chart = $chart->commandesParSemaineBarre($annee);
+            return $this->render('graphique/barGraph.html.twig', ['chart' => $chart]);
+        } else {
+            return $this->render('graphique/3dPieChart.html.twig', ['annee' => $annee]);
         }
-        return $this->render('graphique/barGraph.html.twig', ['chart' => $chart]);
     }
-
-
-    /**
-     * @Route("/graphique/commandes/date/camembert", name="commandes_par_date_camembert_graphique", methods={"POST"})
-     * @param Chart $chart
-     * @param Request $request
-     * @return Response
-     */
-    public function commandesParDateCamembert(Request $request)
-    {
-        $annee = $request->request->get('annee');
-
-        return $this->render('graphique/3dPieChart.html.twig', ['annee'=> $annee]);
-    }
-
 
 
     /**
      * @Route("/graphique/commandes/date/3d", name="commandes_3d_graphique", methods={"POST"})
+     * @param Request $request
      * @param Chart $chart
      * @return Response
      */
-    public function Ajax3DPieChart(Request $request, Chart $chart)
+    public function Ajax3DPieChartDate(Request $request, Chart $chart)
     {
         $annee = $request->get('annee');
-        $arrayToDataTable = $chart->commandesParMoisCamembert($annee);
+        $semaine = $request->get('semaine');
+        if ($semaine != -1) {
+            $arrayToDataTable = $chart->ventesProducteurCamembert($annee, $semaine);
+        }else {
+            $arrayToDataTable = $chart->commandesParMoisCamembert($annee);
+        }
         return new JsonResponse($arrayToDataTable);
     }
+
+
+    /**
+     * @Route("/graphique/ventes/producteur", name="ventes_par_producteur_graphique", methods={"POST"})
+     * @param Chart $chart
+     * @param Request $request
+     * @return Response
+     */
+    public function VentesParProducteur(Chart $chart, Request $request)
+    {
+        $annee = $request->request->get('annee');
+        $semaine = $request->request->get('semaine');
+        if ($request->request->has('producteur-barre')) {
+            $chart = $chart->ventesParProducteur($annee, $semaine);
+            return $this->render('graphique/barGraph.html.twig', ['chart' => $chart]);
+        } else {
+            return $this->render('graphique/3dPieChart.html.twig', ['annee' => $annee, 'semaine'=>$semaine]);
+        }
+    }
+
+
 
 
 }

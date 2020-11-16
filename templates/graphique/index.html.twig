@@ -7,77 +7,136 @@
 {% endblock %}
 
 {% block body %}
-<div class="container-fluid">
+    <div class="container-fluid">
 
-    <div class="row text-center">
-        <div class="col">
-            <h1>Choix du graphique</h1>
-            {# Commandes par date en barres #}
-            <div class="border border-success my-3">
-                <h5 class="bg-success text-white py-1">Commandes Par Date - Diagramme en Colonnes</h5>
+        <div class="row text-center">
+            <div class="col">
+                <h1>Choix du graphique</h1>
 
-                <form method="post" action="{{ path('commandes_par_date_barre_graphique') }}">
-                    <div class="row my-3">
-                        <div class="col-4">
-                            <label for="annee">Année : </label>
-                            <select name="annee" id="annee" class="annee" required>
-                                <option value="">Votre Choix</option>
-                                {% for annee in annees %}
-                                    <option value="{{ annee.annee }}">
-                                        {{ annee.annee }}
-                                    </option>
-                                {% endfor %}
-                            </select>
+                {# Commandes par date #}
+                <div class="border border-success my-3">
+                    <h5 class="bg-success text-white py-1">Commandes Par Date</h5>
+
+                    <form method="post" action="{{ path('commandes_par_date_graphique') }}">
+                        <div class="row my-3">
+                            <div class="col-3">
+                                <label for="annee">Année : </label>
+                                <select name="annee" id="annee" class="annee" required>
+                                    <option value="">Votre Choix</option>
+                                    {% for annee in annees %}
+                                        <option value="{{ annee.annee }}">
+                                            {{ annee.annee }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary btn-graph" name="mois" value="mois"
+                                        id="mois">
+                                    Commandes par mois / Barres
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary btn-graph" name="semaine" value="semaine"
+                                        id="semaine">
+                                    Commandes par semaines / Barres
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary btn-graph" name="mois-camembert"
+                                        value="mois-camembert" id="mois-camembert">
+                                    Commandes par mois / Camembert
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-graph" name="mois" value="mois"
-                                    id="mois">
-                                Commandes par mois
-                            </button>
-                        </div>
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-graph" name="semaine" value="semaine"
-                                    id="semaine">
-                                Commandes par semaines
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
 
-            </div>
+                {# Commandes par Producteur #}
+                <div class="border border-success my-3">
+                    <h5 class="bg-success text-white py-1">Ventes Par Producteur</h5>
 
-            {# Commandes par date en camembert #}
-            <div class="border border-success my-3">
-                <h5 class="bg-success text-white py-1">Commandes Par Date - Diagramme en Camembert</h5>
+                    <form method="post" action="{{ path('ventes_par_producteur_graphique') }}">
+                        <div class="row my-3">
+                            <div class="col-3">
+                                <label for="annee">Année : </label>
+                                <select name="annee" id="annee" class="annee" required>
+                                    <option value="">Votre Choix</option>
+                                    {% for annee in annees %}
+                                        <option value="{{ annee.annee }}">
+                                            {{ annee.annee }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-3 select-semaine">
+                                <label for="semaine">Semaine : </label>
+                                <select name="semaine" id="semaine" class="semaine">
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary btn-graph" name="producteur-barre"
+                                        value="producteur-barre" id="producteur-barre">
+                                    Graphique en barres
+                                </button>
+                            </div>
 
-                <form method="post" action="{{ path('commandes_par_date_camembert_graphique') }}">
-                    <div class="row my-3">
-                        <div class="col-4">
-                            <label for="annee">Année : </label>
-                            <select name="annee" id="annee" class="annee" required>
-                                <option value="">Votre Choix</option>
-                                {% for annee in annees %}
-                                    <option value="{{ annee.annee }}">
-                                        {{ annee.annee }}
-                                    </option>
-                                {% endfor %}
-                            </select>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary btn-graph" name="producteur-camembert"
+                                        value="producteur-camembert" id="producteur-camembert">
+                                    Graphique en camembert
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-graph" name="mois" value="mois"
-                                    id="mois">
-                                Commandes par mois
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-
-
-    {% endblock %}
-    {% block javascripts %}
-
 {% endblock %}
+    {% block javascripts %}
+        <script>
+            $(document).ready(function () {
+
+                $('.select-semaine').css("visibility", "hidden");
+
+                $('.annee').on('change', function () {
+
+                    let baliseAnnee = $(this);
+                    let annee = $(this).find('option:selected').val();
+                    if (annee == 0) {
+                        $(this).parent().parent().find('.select-semaine').css("visibility", "hidden");
+                    } else {
+                        $.ajax({
+                            url: '{{ path('semaines_statistique') }}',
+                            type: 'POST',
+                            dataType: 'JSON',
+                            data: 'annee=' + annee,
+                            async: true,
+                            error: function (xhr, textStatus, errorThrown) {
+                                alert('Ajax request failed.');
+                            }
+                        })
+                            .done(function (response) {
+                                let baliseSemaine = baliseAnnee.parent().parent().find('.select-semaine')
+                                baliseSemaine.css("visibility", "visible");
+                                remplirSelectSemaine(response, baliseSemaine);
+                            })
+                    }
+                })
+            })
+
+            function remplirSelectSemaine(response, baliseSemaine) {
+                let selSemaine = baliseSemaine.children().next();
+                selSemaine.find('option').remove();
+                selSemaine.append('<option value="0">Votre Choix</option>');
+                for (let i = 0; i < response['semaines'].length; i++) {
+                    let opt = document.createElement('option');
+                    opt.value = response['semaines'][i]['semaine'];
+                    let name = document.createTextNode(response['semaines'][i]['semaine']);
+                    opt.appendChild(name);
+                    selSemaine.append(opt);
+                }
+            }
+        </script>
+    {% endblock %}
