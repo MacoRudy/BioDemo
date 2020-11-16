@@ -67,7 +67,6 @@ class ChartData
         foreach ($details as $detail) {
             if ($detail->getProducteur()->getId() != $idProd and $idProd != 0) {
                 $arrayToDataTable[] = [$nomProd, $total];
-                // on remet le total a 0;
                 $total = 0;
             }
             $idProd = $detail->getProducteur()->getId();
@@ -84,13 +83,11 @@ class ChartData
         $arrayToDataTable[] = ['Dépôt', 'Montant (€)'];
         $idDepot = 0;
         $total = 0;
-        $x=0;
         $nomDepot = '';
         // si on change de depot sauf la premiere boucle
         foreach ($details as $detail) {
             if ($detail->getCommande()->getDepot()->getId() != $idDepot and $idDepot != 0) {
                 $arrayToDataTable[] = [$nomDepot, $total];
-                // on remet le total a 0;
                 $total = 0;
             }
 
@@ -101,6 +98,29 @@ class ChartData
         $arrayToDataTable[] = [$nomDepot, $total];
         return $arrayToDataTable;
 
+    }
+
+    public function DataVentesParCategorie($annee, $semaine)
+    {
+        $details = $this->em->getRepository(Detail::class)->findVenteCategorie($annee, $semaine);
+
+        $arrayToDataTable[] = ['Catégories', 'Montant (€)'];
+        $idCat = 0;
+        $total = 0;
+        $nomCat = '';
+        // si on change de depot sauf la premiere boucle
+        foreach ($details as $detail) {
+            if ($detail->getProduit()->getCategorie()->getCatParent()->getId() != $idCat and $idCat != 0) {
+                $arrayToDataTable[] = [$nomCat, $total];
+                $total = 0;
+            }
+
+            $idCat = $detail->getProduit()->getCategorie()->getCatParent()->getId();
+            $nomCat = $detail->getProduit()->getCategorie()->getCatParent()->getNom();
+            $total = $total + ($detail->getQuantite() * $detail->getPrix());
+        }
+        $arrayToDataTable[] = [$nomCat, $total];
+        return $arrayToDataTable;
     }
 
 

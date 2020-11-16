@@ -129,6 +129,44 @@
                         </div>
                     </form>
                 </div>
+
+                <div class="border border-success my-3">
+                    <h5 class="bg-success text-white py-1">Ventes Par Catégorie</h5>
+
+                    <form method="post" action="{{ path('ventes_par_categorie_graphique') }}">
+                        <div class="row my-3">
+                            <div class="col-3">
+                                <label for="annee3">Année : </label>
+                                <select name="annee3" id="annee3" class="annee" required>
+                                    <option value="">Votre Choix</option>
+                                    {% for annee in annees %}
+                                        <option value="{{ annee.annee }}">
+                                            {{ annee.annee }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-3 select-semaine">
+                                <label for="semaine3">Semaine : </label>
+                                <select name="semaine3" id="semaine3" class="semaine">
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary btn-graph" name="categorie-barre"
+                                        value="categorie-barre" id="categorie-barre">
+                                    Graphique en barres
+                                </button>
+                            </div>
+
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary btn-graph" name="categorie-camembert"
+                                        value="categorie-camembert" id="categorie-camembert">
+                                    Graphique en camembert
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

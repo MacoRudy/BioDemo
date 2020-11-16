@@ -16,13 +16,12 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="Ajout des ventes par producteurs dans les graphiques">
+    <list default="true" id="5b6e466b-c112-47d5-8272-413037e3f813" name="Default Changelist" comment="Ajout des ventes par depots dans les graphiques">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/GraphiqueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/GraphiqueController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/DetailRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/DetailRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Chart.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Chart.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/ChartData.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ChartData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/graphique/3dPieChart.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/graphique/3dPieChart.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/graphique/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/graphique/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -242,7 +241,7 @@
       <workItem from="1604995700533" duration="31092000" />
       <workItem from="1605169181659" duration="37513000" />
       <workItem from="1605255864711" duration="48735000" />
-      <workItem from="1605514744554" duration="22804000" />
+      <workItem from="1605514744554" duration="26038000" />
     </task>
     <task id="LOCAL-00001" summary="Modification création Producteur + fixtures + base twig">
       <created>1603821345000</created>
@@ -391,7 +390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605533856452</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Ajout des ventes par depots dans les graphiques">
+      <created>1605538663617</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1605538663617</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -443,7 +449,8 @@
     <MESSAGE value="Ajout de l'etat pour les ventes par categories" />
     <MESSAGE value="Création de l'onglet graphiques et ajout des graphiques de commandes par date" />
     <MESSAGE value="Ajout des ventes par producteurs dans les graphiques" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout des ventes par producteurs dans les graphiques" />
+    <MESSAGE value="Ajout des ventes par depots dans les graphiques" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout des ventes par depots dans les graphiques" />
   </component>
   <component name="WindowStateProjectService">
     <state x="906" y="378" key="#Inspections" timestamp="1603981892518">
@@ -509,11 +516,11 @@
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603379425513" />
     <state x="615" y="222" key="SettingsEditor/0.0.2560.1400/-1920.350.1920.1040/2560.0.1920.1040@0.0.2560.1400" timestamp="1603803155430" />
     <state x="615" y="222" key="SettingsEditor/2560.350.1920.1040/-1920.350.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1603702391421" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1605533863292">
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2" timestamp="1605538667616">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1603379831362" />
-    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1605533863292" />
+    <state x="736" y="341" key="Vcs.Push.Dialog.v2/0.0.2560.1400/-1920.350.1920.1040/2560.342.1920.1040@0.0.2560.1400" timestamp="1605538667616" />
     <state x="1089" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604939062177">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

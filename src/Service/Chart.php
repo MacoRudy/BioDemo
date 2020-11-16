@@ -101,5 +101,30 @@ class Chart
         return $this->chartData->DataVentesParDepot($annee, $semaine);
     }
 
+    public function ventesParCategorie(?int $annee, ?int $semaine)
+    {
+        $arrayToDataTable = $this->chartData->DataVentesParCategorie($annee, $semaine);
+
+        $chart = new ColumnChart();
+        $chart->getData()->setArrayToDataTable($arrayToDataTable);
+        if ($semaine != 0) {
+            $chart->getOptions()->setTitle('Ventes par Catégories pour la semaine ' . $semaine . ' de ' . $annee);
+        } else {
+            $chart->getOptions()->setTitle('Ventes par Catégories pour ' . $annee);
+        }
+        $chart->getOptions()->getVAxis()->setTitle('Montant (€)');
+        $chart->getOptions()->getVAxis()->setMinValue(0);
+        $chart->getOptions()->getHAxis()->setTitle('Catégories');
+        $chart->getOptions()->setHeight(700);
+
+        return $chart;
+    }
+
+    public function ventesCategorieCamembert(?int $annee, ?int $semaine)
+    {
+        return $this->chartData->DataVentesParCategorie($annee, $semaine);
+
+    }
+
 
 }

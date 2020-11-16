@@ -104,4 +104,22 @@ class DetailRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findVenteCategorie($annee, $semaine)
+    {
+        $qb = $this->createQueryBuilder('d')
+            ->join('d.commande','commande')
+            ->join('d.produit', 'produit')
+            ->join('produit.categorie', 'categorie')
+            ->select('d , produit, categorie, commande')
+            ->andWhere('commande.annee = :annee')
+            ->setParameter('annee', $annee);
+        if ($semaine != 0) {
+            $qb->andWhere('commande.semaine = :semaine')
+                ->setParameter('semaine', $semaine);
+        }
+        $qb->orderBy('categorie.catParent');
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

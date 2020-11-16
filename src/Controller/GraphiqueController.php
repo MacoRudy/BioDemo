@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
-use App\Entity\Detail;
 use App\Service\Chart;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -64,7 +63,8 @@ class GraphiqueController extends AbstractController
             $arrayToDataTable = $chart->commandesParMoisCamembert($annee);
         } elseif ($type == 'dépôts') {
             $arrayToDataTable = $chart->ventesDepotCamembert($annee, $semaine);
-        }
+        } elseif ($type == 'catégories') {
+            $arrayToDataTable = $chart->ventesCategorieCamembert($annee, $semaine);        }
         return new JsonResponse($arrayToDataTable);
     }
 
@@ -102,6 +102,27 @@ class GraphiqueController extends AbstractController
         $type = 'dépôts';
         if ($request->request->has('depot-barre')) {
             $chart = $chart->ventesParDepot($annee, $semaine);
+            return $this->render('graphique/barGraph.html.twig', ['chart' => $chart]);
+        } else {
+            return $this->render('graphique/3dPieChart.html.twig', ['annee' => $annee, 'semaine' => $semaine, 'type' => $type]);
+        }
+    }
+
+
+
+    /**
+     * @Route("/graphique/ventes/categorie", name="ventes_par_categorie_graphique", methods={"POST"})
+     * @param Chart $chart
+     * @param Request $request
+     * @return Response
+     */
+    public function VentesParCategorie(Chart $chart, Request $request)
+    {
+        $annee = $request->request->get('annee3');
+        $semaine = $request->request->get('semaine3');
+        $type = 'catégories';
+        if ($request->request->has('categorie-barre')) {
+            $chart = $chart->ventesParCategorie($annee, $semaine);
             return $this->render('graphique/barGraph.html.twig', ['chart' => $chart]);
         } else {
             return $this->render('graphique/3dPieChart.html.twig', ['annee' => $annee, 'semaine' => $semaine, 'type' => $type]);
