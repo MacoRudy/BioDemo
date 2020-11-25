@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Commande;
 use App\Entity\Detail;
 use App\Entity\User;
@@ -13,7 +12,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 /**
  * @Route("/admin")
  */

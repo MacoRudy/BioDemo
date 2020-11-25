@@ -207,13 +207,13 @@ class StatistiqueController extends AbstractController
         if ($request->request->has('excel')) {
             $x = 4;
             $y = 1;
+            $sheetTitle = $sheet->getTitle();
             foreach ($commandes as $commande) {
                 $subSheet = $spreadsheet->createSheet();
-                $sheetTitle = $sheet->getTitle();
                 $this->remplirDetailsCommande($subSheet, $commande, $sheetTitle);
                 $subSheet->setTitle($y . $commande->getUser()->getNom());
-                $subTitle = $subSheet->getTitle();
 
+                $subTitle = $subSheet->getTitle();
                 $sheet->setCellValue('G' . $x, '->');
                 $sheet->getCell('G' . $x)->getHyperlink()->setUrl("sheet://" . $subTitle . "!A1");
                 $x++;
@@ -540,9 +540,9 @@ class StatistiqueController extends AbstractController
 
     private function remplirFeuilleCommandeParDate($commandes, Worksheet $sheet, $typeFichier)
     {
-
         $j = $sheet->getHighestDataRow() + 1;
         foreach ($commandes as $com) {
+            // Remplissage des en-têtes
             $sheet->setCellValue('A' . $j, $com->getId());
             $sheet->setCellValue('B' . $j, $com->getUser()->getNom());
             $sheet->setCellValue('C' . $j, $com->getDepot()->getNom());
@@ -554,19 +554,24 @@ class StatistiqueController extends AbstractController
                 $sheet->setCellValue('E' . $j, (strftime('%A %d %B %Y', $com->getDateLivraison()->getTimeStamp())));
             }
             $sheet->setCellValue('F' . $j, $com->getMontant());
+            // Coloration d'une ligne sur 2
             if ($j % 2 == 1) {
-                $sheet->getStyle('A' . $j . ':' . $sheet->getHighestDataColumn() . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('e5e5e5');
+                $sheet->getStyle('A' . $j . ':' . $sheet->getHighestDataColumn() . $j)
+                    ->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('e5e5e5');
             }
             $j++;
         }
-
-        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getVertical()->setBorderStyle(Border::BORDER_THICK);
-        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getOutline()->setBorderStyle(Border::BORDER_THICK);
-        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN);
+        // Affichage des bordures
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())
+            ->getBorders()->getVertical()->setBorderStyle(Border::BORDER_THICK);
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())
+            ->getBorders()->getOutline()->setBorderStyle(Border::BORDER_THICK);
+        $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())
+            ->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN);
 
         // met toutes les colonnes en auto width pour s'adapter au texte
-        foreach (range('A', $sheet->getHighestDataColumn()) as $column) {
-            $sheet->getColumnDimension($column)->setAutoSize(true);
+        for ($i = 'A'; $i != $sheet->getHighestColumn(); $i++) {
+            $sheet->getColumnDimension($i)->setAutoSize(TRUE);
         }
         return $sheet;
     }
@@ -608,8 +613,8 @@ class StatistiqueController extends AbstractController
 
 
         // met toutes les colonnes en auto width pour s'adapter au texte
-        foreach (range('A', $sheet->getHighestDataColumn()) as $column) {
-            $sheet->getColumnDimension($column)->setAutoSize(true);
+        for ($i = 'A'; $i != $sheet->getHighestColumn(); $i++) {
+            $sheet->getColumnDimension($i)->setAutoSize(TRUE);
         }
 
     }
@@ -636,8 +641,8 @@ class StatistiqueController extends AbstractController
         $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN);
 
         // met toutes les colonnes en auto width pour s'adapter au texte
-        foreach (range('A', $sheet->getHighestDataColumn()) as $column) {
-            $sheet->getColumnDimension($column)->setAutoSize(true);
+        for ($i = 'A'; $i != $sheet->getHighestColumn(); $i++) {
+            $sheet->getColumnDimension($i)->setAutoSize(TRUE);
         }
         return $sheet;
     }
@@ -689,8 +694,8 @@ class StatistiqueController extends AbstractController
         $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN);
 
         // met toutes les colonnes en auto width pour s'adapter au texte
-        foreach (range('A', $sheet->getHighestDataColumn()) as $column) {
-            $sheet->getColumnDimension($column)->setAutoSize(true);
+        for ($i = 'A'; $i != $sheet->getHighestColumn(); $i++) {
+            $sheet->getColumnDimension($i)->setAutoSize(TRUE);
         }
         return $sheet;
     }
@@ -748,8 +753,8 @@ class StatistiqueController extends AbstractController
         $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getOutline()->setBorderStyle(Border::BORDER_THICK);
         $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN);
 
-        foreach (range('A', $sheet->getHighestDataColumn()) as $column) {
-            $sheet->getColumnDimension($column)->setAutoSize(true);
+        for ($i = 'A'; $i != $sheet->getHighestColumn(); $i++) {
+            $sheet->getColumnDimension($i)->setAutoSize(TRUE);
         }
 
 
@@ -767,7 +772,7 @@ class StatistiqueController extends AbstractController
                 if ($idCatParent != 0) {
                     $sheet->mergeCells('A' . $j . ':D' . $j);
                     $sheet->setCellValue('A' . $j, 'Montant Total : ');
-                    $sheet->setCellValue('F' . $j, $montant.' €');
+                    $sheet->setCellValue('F' . $j, $montant . ' €');
                     $sheet->getStyle('A' . $j . ':E' . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('033379');
                     $sheet->getStyle('A' . $j . ':F' . $j)->getFont()->setColor(new Color(Color::COLOR_WHITE))->setBold(true);
                     $sheet->getStyle('F' . $j)->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('ff0000');
@@ -805,11 +810,11 @@ class StatistiqueController extends AbstractController
         $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getOutline()->setBorderStyle(Border::BORDER_THICK);
         $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN);
 
-        for ($i = 'A'; $i !=  $sheet->getHighestColumn(); $i++) {
+        for ($i = 'A'; $i != $sheet->getHighestColumn(); $i++) {
             $sheet->getColumnDimension($i)->setAutoSize(TRUE);
         }
 
-            return $sheet;
+        return $sheet;
 
     }
 
@@ -841,8 +846,8 @@ class StatistiqueController extends AbstractController
         $sheet->getStyle('A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow())->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN);
 
         // met toutes les colonnes en auto width pour s'adapter au texte
-        foreach (range('A', $sheet->getHighestDataColumn()) as $column) {
-            $sheet->getColumnDimension($column)->setAutoSize(true);
+        for ($i = 'A'; $i != $sheet->getHighestColumn(); $i++) {
+            $sheet->getColumnDimension($i)->setAutoSize(TRUE);
         }
 
         return $sheet;

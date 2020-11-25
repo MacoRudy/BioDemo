@@ -5,113 +5,56 @@
 {% block title %}{{ parent() }} Register{% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
 
-        <h1 class="text-center content-profil my-5">Enregistrement</h1>
+    <h1 class="text-center content-profil my-5">Enregistrement</h1>
+    <div class="d-flex justify-content-around row">
+        <div class="col-sm-8 col-lg-6 card border-0">
 
-        <div class="d-flex justify-content-around row">
+            {{ form_start(registrationForm) }}
 
-            <div class="col-sm-8 col-lg-6 card border-0">
+            {{ form_label(registrationForm.nom) }}
+            {{ form_widget(registrationForm.nom) }}
 
-                {{ form_start(registrationForm) }}
+            {{ form_label(registrationForm.prenom) }}
+            {{ form_widget(registrationForm.prenom) }}
 
-                <div class="form-group row">
-                    {{ form_label(registrationForm.nom) }}
-                    <div class="col-sm-12 col-lg-8">
-                        {{ form_widget(registrationForm.nom) }}
-                    </div>
-                </div>
+            {{ form_label(registrationForm.adresse) }}
+            {{ form_widget(registrationForm.adresse) }}
 
-                <div class="form-group row">
-                    {{ form_label(registrationForm.prenom) }}
-                    <div class="col-sm-12 col-lg-8">
-                        {{ form_widget(registrationForm.prenom) }}
-                    </div>
-                </div>
+            {{ form_label(registrationForm.codePostal) }}
+            {{ form_widget(registrationForm.codePostal) }}
 
-                <div class="form-group row">
-                    {{ form_label(registrationForm.adresse) }}
-                    <div class="col-sm-12 col-lg-8">
-                        {{ form_widget(registrationForm.adresse) }}
-                    </div>
-                </div>
+            {{ form_label(registrationForm.ville) }}
+            {{ form_widget(registrationForm.ville) }}
 
-                <div class="form-group row">
-                    {{ form_label(registrationForm.codePostal) }}
-                    <div class="col-sm-12 col-lg-8">
-                        {{ form_widget(registrationForm.codePostal) }}
-                    </div>
-                </div>
+            {{ form_label(registrationForm.telephone) }}
+            {{ form_widget(registrationForm.telephone) }}
 
-                <div class="form-group row">
-                    {{ form_label(registrationForm.ville) }}
-                    <div class="col-sm-12 col-lg-8">
-                        {{ form_widget(registrationForm.ville) }}
-                    </div>
-                </div>
+            {{ form_label(registrationForm.email) }}
+            {{ form_widget(registrationForm.email) }}
 
-                <div class="form-group row">
-                    {{ form_label(registrationForm.telephone) }}
-                    <div class="col-sm-12 col-lg-8">
-                        {{ form_widget(registrationForm.telephone) }}
-                    </div>
-                </div>
+            {{ form_label(registrationForm.depot) }}
+            {{ form_widget(registrationForm.depot) }}
 
-                <div class="form-group row">
-                    {{ form_label(registrationForm.email) }}
-                    <div class="col-sm-12 col-lg-8">
-                        {{ form_widget(registrationForm.email) }}
-                    </div>
-                </div>
+            {{ form_label(registrationForm.valide) }}
+            {{ form_widget(registrationForm.valide) }}
 
-                <div class="form-group row">
-                    {{ form_label(registrationForm.depot) }}
-                    <div class="col-sm-12 col-lg-8">
-                        {{ form_widget(registrationForm.depot) }}
-                    </div>
-                </div>
+            {{ form_label(registrationForm.plainPassword.first) }}
+            {{ form_widget(registrationForm.plainPassword.first) }}
 
-                <div class="form-group row">
-                    {{ form_label(registrationForm.valide) }}
-                    <div class="col-sm-12 col-lg-8">
-                        {{ form_widget(registrationForm.valide) }}
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    {{ form_label(registrationForm.plainPassword.first) }}
-                    <div class="col-sm-12 col-lg-8">
-                        {{ form_widget(registrationForm.plainPassword.first) }}
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    {{ form_label(registrationForm.plainPassword.second) }}
-                    <div class="col-sm-12 col-lg-8">
-                        {{ form_widget(registrationForm.plainPassword.second) }}
-                    </div>
-                </div>
-
-{#                <div class="form-group row">#}
-{#                    {{ form_label(registrationForm.roles) }}#}
-{#                    <div class="col-sm-12 col-lg-8">#}
-{#                        {{ form_widget(registrationForm.roles) }}#}
-{#                    </div>#}
-{#                </div>#}
-
-            </div>
+            {{ form_label(registrationForm.plainPassword.second) }}
+            {{ form_widget(registrationForm.plainPassword.second) }}
 
         </div>
 
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
-        </div>
+    </div>
 
-        {{ form_rest(registrationForm) }}
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </div>
 
-        {{ form_end(registrationForm) }}
+    {{ form_rest(registrationForm) }}
+    {{ form_end(registrationForm) }}
 
 
 {% endblock %}

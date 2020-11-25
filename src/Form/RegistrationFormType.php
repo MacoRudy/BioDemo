@@ -40,6 +40,17 @@ class RegistrationFormType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
+            ->add('depot', EntityType::class, [
+                'class' => Depot::class,
+                'label' => 'Dépot : ',
+                'choice_label' => 'nom',
+                'label_attr' => [
+                    'class' => 'col-sm-12 col-lg-4 col-form-label'
+                ],
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+            ])
             ->add('adresse', TextType::class, [
                 'label' => 'Adresse : ',
                 'label_attr' => [
@@ -91,17 +102,7 @@ class RegistrationFormType extends AbstractType
                     'class' => 'col-sm-12 col-lg-4 col-form-label'
                 ],
             ])
-            ->add('depot', EntityType::class, [
-                'class' => Depot::class,
-                'label' => 'Dépot : ',
-                'choice_label' => 'nom',
-                'label_attr' => [
-                    'class' => 'col-sm-12 col-lg-4 col-form-label'
-                ],
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-            ])
+
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 // instead of being set onto the object directly,

@@ -25,7 +25,6 @@ class HomeController extends AbstractController
            $semaine--;
        }
 
-
         $type = 'dépôts';
         $chartProd = $chart->ventesParProducteur($annee, $semaine);
         $chartCat = $chart->ventesParCategorie($annee,$semaine);
