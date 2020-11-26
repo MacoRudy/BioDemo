@@ -19,6 +19,7 @@
     "jzonta/faker-restaurant": "^1.1",
     "phpdocumentor/reflection-docblock": "^5.2",
     "phpoffice/phpspreadsheet": "^1.15",
+    "phpunit/phpunit": "^9.4",
     "sensio/framework-extra-bundle": "^5.6",
     "symfony/apache-pack": "^1.0",
     "symfony/asset": "5.1.*",
